@@ -10,7 +10,7 @@ import { test, expect } from '../fixtures';
  * - SCREENSHOT_NAME: The name of the screenshot file (default: 'screenshot.png')
  *
  * Example usage:
- * SCREENSHOT_URL=/about SCREENSHOT_SELECTOR=.site-header SCREENSHOT_NAME=header.png npm run test:screenshot
+ * SCREENSHOT_URL=/about SCREENSHOT_SELECTOR=.site-header SCREENSHOT_NAME=header.png npm run test:e2e:screenshot
  */
 test( 'capture screenshot', async ( { page } ) => {
 	const url = process.env.SCREENSHOT_URL || '/';

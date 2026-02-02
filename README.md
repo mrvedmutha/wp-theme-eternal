@@ -330,6 +330,10 @@ WP Rig comes loaded with Node/Bun, Composer, and WP CLI scripts to dramatically 
 - `block:remove`: Remove a block with confirmation
 - `block:promote-plugin`: Export block as plugin
 - `create-rig-component`: Scaffold new theme component
+- `test:e2e`: Run all End-to-End tests with Playwright
+- `test:e2e:screenshot`: Take screenshots of specific pages or elements for regression testing
+
+For more detailed testing instructions, see [docs/testing.md](docs/testing.md).
 
 #### Composer Scripts
 
