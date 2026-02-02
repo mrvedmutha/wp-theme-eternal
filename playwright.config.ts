@@ -50,6 +50,9 @@ export default defineConfig( {
 
 		/* Capture screenshot after each test failure. */
 		screenshot: 'only-on-failure',
+
+		/* Ignore HTTPS errors for local development. */
+		ignoreHTTPSErrors: true,
 	},
 
 	/* Configure projects for major browsers */
