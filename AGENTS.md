@@ -18,6 +18,7 @@ For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory p
 
 ### Customization & Extension
 - [**PHP Filters & Hooks**](.ai/skills/php-filters/SKILL.md): Complete guide to extending assets and behavior via hooks.
+- [**Theme Settings (Options Framework)**](.ai/skills/theme-settings/SKILL.md): Adding settings via React-based Options framework.
 - [**WP-CLI Commands**](.ai/skills/wp-cli/SKILL.md): Custom commands for environment setup and management.
 
 ### Quality Assurance
