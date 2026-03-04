@@ -63,6 +63,14 @@ $wrapper_attributes = wp_rig()->block_wrapper_attributes( [ 'my-custom-class' ],
 </div>
 ```
 
+## Verification & Iteration (Ralph Loop)
+
+To ensure your block works as expected, leverage E2E testing:
+
+1.  **Frontend Rendering**: Create a test in `tests/e2e/specs/` to verify the block renders on a page.
+2.  **Visual Regression**: Use `npm run test:e2e:screenshot --SCREENSHOT_SELECTOR=".wp-block-wp-rig-my-block"` to verify the block's appearance.
+3.  **Editor Integration**: Verify the block can be added in the editor and its attributes can be modified.
+
 ## Best Practices for Agents
 
 1. **Always use the CLI**: Use `npm run block:new` instead of creating block files manually.

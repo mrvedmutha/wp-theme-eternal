@@ -87,6 +87,14 @@ switch ( $sanitized_key ) {
 }
 ```
 
+## Verification & Iteration (Ralph Loop)
+
+To ensure your theme settings are working correctly:
+
+1.  **Automation**: Create a Playwright test to navigate to the Theme Settings admin page, toggle a setting, and verify the frontend change.
+2.  **Visual Proof**: Use `npm run test:e2e:screenshot` to capture the setting being toggled in the admin and the resulting change on the site.
+3.  **Sanity Check**: Use `npx playwright test` to run existing smoke tests to ensure no regressions were introduced.
+
 ## Best Practices for Agents
 
 1.  **Always prefer Plan A**: If a setting can be represented by a standard field type, use `settingsFields.json`.

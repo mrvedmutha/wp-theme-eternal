@@ -50,6 +50,15 @@ Source files are in `assets/css/src/` and processed by `build-css.js`.
 2. Import it in the relevant css file (ex. `assets/css/src/global.css`) with `@import "_yourfile.css";`
 3. Run `npm run dev` to rebuild if dev server is not already running
 
+## Visual Verification (Ralph Loop)
+
+For visual changes, use Playwright to ensure regressions are avoided:
+
+1.  **Baseline**: Run `npm run test:e2e:screenshot -- SCREENSHOT_NAME="before-change.png"` before editing styles.
+2.  **Edit**: Apply your CSS changes.
+3.  **Verify**: Run `npm run test:e2e:screenshot -- SCREENSHOT_NAME="after-change.png"` and compare the results in `tests/e2e/specs/screenshot.spec.ts-snapshots/`.
+4.  **Component Focus**: Use `SCREENSHOT_SELECTOR` to capture only the element you're styling (e.g., `.site-header`).
+
 ## Conventions
 
 - **CSS partials**: Source files in `assets/css/src/` should be prefixed with an underscore (e.g., `_header.css`) unless they are intended to be enqueued as standalone files (like `content.css`).

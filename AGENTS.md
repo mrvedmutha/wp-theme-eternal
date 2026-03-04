@@ -27,7 +27,7 @@ For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory p
 - [**WP-CLI Commands**](.ai/skills/wp-cli/SKILL.md): Custom commands for environment setup and management.
 
 ### Quality Assurance
-- [**Testing (E2E)**](.ai/skills/testing/SKILL.md): Running Playwright tests and regression screenshots.
+- [**E2E Testing (Playwright)**](.ai/skills/e2e-testing/SKILL.md): Running Playwright tests, accessibility audits, and regression screenshots.
 - [**Code Quality Standards**](.ai/skills/code-quality-standards/SKILL.md): Adhering to PHPStan, PHPCS, Rector, and Prettier.
 - [**PHPUnit Testing**](.ai/skills/phpunit-testing/SKILL.md): Writing unit and integration tests for PHP components.
 

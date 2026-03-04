@@ -61,6 +61,14 @@ Use the standard WordPress `get_theme_mod()` function to retrieve Customizer set
 $my_setting_value = get_theme_mod( 'my_setting', 'Default Value' );
 ```
 
+## Verification & Iteration (Ralph Loop)
+
+Use Playwright to verify your Customizer settings:
+
+1.  **Setting Persistence**: Automate navigating to the Customizer and setting a value to ensure it saves and renders correctly.
+2.  **Visual Verification**: Use `npm run test:e2e:screenshot` to verify that the frontend reflects the changes made via Customizer.
+3.  **Live Preview**: Verify that `postMessage` refreshes are working for settings with `refresh: false`.
+
 ## Best Practices for Agents
 
 1. **Declarative First**: Always prefer adding settings via `themeCustomizeSettings.json` before writing manual PHP Customizer code.
