@@ -75,3 +75,6 @@ blob-report/
 
 # Lighthouse CI
 .lighthouseci/
+
+# Agents
+!.ai/
