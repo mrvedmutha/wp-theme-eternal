@@ -1,17 +1,19 @@
 # WP Rig AI Agents Guide
 
-WP Rig is a modern, component-based WordPress theme development framework, starter theme, and build toolkit. This file serves as the entry point for AI agents to understand the theme's structure and conventions through specialized skills.
+WP Rig is a modern, component-based WordPress theme development framework, starter theme, and build toolkit. WP Rig is very opinionated and provides tooling necssary to follow modern theme development best practices and coding standards. This file serves as the entry point for AI agents to understand the theme's structure and conventions through specialized skills.
 
 ## AI Agent Skills
 
 For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory provide step-by-step recipes and architectural guidance. Use these skills to ensure your changes follow WP Rig's opinionated standards.
 
 ### Core Architecture & Conventions
+- [**Feature Planning (Contract-First)**](.ai/skills/feature-planning/SKILL.md): Strategy for planning and specifying new features before implementation.
 - [**Architecture & Conventions**](.ai/skills/architecture/SKILL.md): Theme structure, file mappings, and coding standards.
 - [**Create a New Component**](.ai/skills/create-component/SKILL.md): Recipe for scaffolding and registering new theme features.
 
 ### Development & Build System
 - [**npm Scripts**](.ai/skills/npm-scripts/SKILL.md): Using the build system for JS, CSS, and theme bundling.
+- [**Theme Bundling & Root Folders**](.ai/skills/theme-bundling/SKILL.md): Managing root-level folders (like WooCommerce template overrides) for the production bundle.
 - [**Styles & CSS**](.ai/skills/styles/SKILL.md): Managing CSS partials, variables, and the style build process.
 
 ### Customization & Extension
