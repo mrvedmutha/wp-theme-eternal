@@ -12,23 +12,10 @@ import {
 	rootPath,
 	nameFieldDefaults,
 } from '../lib/constants.js';
-import { getThemeConfig } from '../lib/utils.js';
+import { getThemeConfig, getReplacements } from '../lib/utils.js';
 import removeWpCliBlock from './removeWpCliBlock.js';
 import removeDevOnlyBlocks from './removeDevOnlyBlocks.js';
 
-/**
- * Build replacement table equivalent to getStringReplacementTasks() but without streams.
- */
-function buildReplacements() {
-	const themeConfig = getThemeConfig();
-	return Object.keys( nameFieldDefaults ).map( ( nameField ) => ( {
-		searchValue: new RegExp(
-			String( nameFieldDefaults[ nameField ] ).replace( /\\/g, '\\\\' ),
-			'g'
-		),
-		replaceValue: themeConfig.theme[ nameField ],
-	} ) );
-}
 
 function applyReplacements( content, replacements ) {
 	let out = content;
@@ -84,7 +71,7 @@ export default function php( runPhpcs, done ) {
 			return;
 		}
 
-		const replacements = buildReplacements();
+		const replacements = getReplacements();
 		const patterns = paths.php.src; // includes negative patterns
 		const files = await globFiles( patterns );
 

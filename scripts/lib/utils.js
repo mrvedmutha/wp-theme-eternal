@@ -121,22 +121,40 @@ function createReplaceStream( searchValue, replaceValue ) {
 }
 
 /**
+ * Escapes special characters in a string for use in a regular expression.
+ *
+ * @param {string} string - The string to be escaped.
+ * @return {string} The escaped string.
+ */
+export function escapeRegExp( string ) {
+	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
+}
+
+/**
+ * Builds an array of replacement objects based on the theme configuration and default name fields.
+ * Each object contains a 'searchValue' as a regular expression and a corresponding 'replaceValue'.
+ *
+ * @param {boolean} [isProdFlag] - Optional flag to indicate if production configuration should be used.
+ * @return {Array<Object>} An array of objects with 'searchValue' (RegExp) and 'replaceValue' (string).
+ */
+export function getReplacements( isProdFlag ) {
+	const themeConfig = getThemeConfig( isProdFlag );
+	return Object.keys( nameFieldDefaults ).map( ( nameField ) => ( {
+		searchValue: new RegExp(
+			escapeRegExp( String( nameFieldDefaults[ nameField ] ) ),
+			'g'
+		),
+		replaceValue: themeConfig.theme[ nameField ],
+	} ) );
+}
+
+/**
  * Creates a stream transformation for replacing strings based on the theme config.
  * @param {boolean} isProdFlag - Flag indicating whether it's in production mode.
  * @return {import('stream').Transform} - A stream transformation for string replacements.
  */
 export function getStringReplacementTasks( isProdFlag ) {
-	const themeConfig = getThemeConfig( isProdFlag ); // keep call signature intact
-
-	const replacements = Object.keys( nameFieldDefaults ).map(
-		( nameField ) => ( {
-			searchValue: new RegExp(
-				nameFieldDefaults[ nameField ].replace( /\\/g, '\\\\' ),
-				'g'
-			),
-			replaceValue: themeConfig.theme[ nameField ],
-		} )
-	);
+	const replacements = getReplacements( isProdFlag );
 
 	return new Transform({
 		objectMode: true,
@@ -287,7 +305,7 @@ export function replaceInlineCSS( code ) {
 	if ( ! isProd ) {
 		return code;
 	}
-	const searchValue = nameFieldDefaults.slug;
+	const searchValue = escapeRegExp( nameFieldDefaults.slug );
 	const replaceValue = config.theme.slug;
 	return code.replace( new RegExp( searchValue, 'g' ), replaceValue );
 }
@@ -325,14 +343,15 @@ export function replaceInlineJS( code ) {
 		},
 	];
 
+	const searchPattern = replacements
+		.map( ( r ) => escapeRegExp( r.searchValue ) )
+		.join( '|' );
+
 	return code.replace(
-		new RegExp(
-			replacements.map( ( r ) => r.searchValue ).join( '|' ),
-			'g'
-		),
+		new RegExp( searchPattern, 'g' ),
 		( match ) => {
 			const replacement = replacements.find( ( r ) =>
-				new RegExp( r.searchValue ).test( match )
+				new RegExp( escapeRegExp( r.searchValue ) ).test( match )
 			);
 			return replacement ? replacement.replaceValue : match;
 		}
