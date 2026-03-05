@@ -14,7 +14,6 @@ import {
 import { getThemeConfig, getReplacements } from '../lib/utils.js';
 import { globFiles, writeFileEnsured } from '../lib/filepipe.js';
 
-
 function applyReplacements( content, replacements ) {
 	let out = content;
 	replacements.forEach( ( { searchValue, replaceValue } ) => {
@@ -36,13 +35,16 @@ export default async function prodStringReplace( done ) {
 		const replacements = getReplacements( true );
 
 		// 1. Process files already in production (built assets, copied files)
-		const prodFiles = await globFiles( [
-			`${ prodThemePath }/**/*.js`,
-			`${ prodThemePath }/**/*.css`,
-			`${ prodThemePath }/**/*.php`,
-		], {
-			ignore: [ '**/*.svg' ],
-		} );
+		const prodFiles = await globFiles(
+			[
+				`${ prodThemePath }/**/*.js`,
+				`${ prodThemePath }/**/*.css`,
+				`${ prodThemePath }/**/*.php`,
+			],
+			{
+				ignore: [ '**/*.svg' ],
+			}
+		);
 
 		await Promise.all(
 			prodFiles.map( async ( srcFile ) => {

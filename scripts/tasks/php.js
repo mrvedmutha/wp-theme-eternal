@@ -6,16 +6,10 @@ import { exec } from 'node:child_process';
 import fse from 'fs-extra';
 
 import { globFiles, destPathFor, writeFileEnsured } from '../lib/filepipe.js';
-import {
-	paths,
-	isProd,
-	rootPath,
-	nameFieldDefaults,
-} from '../lib/constants.js';
-import { getThemeConfig, getReplacements } from '../lib/utils.js';
+import { paths, isProd, rootPath } from '../lib/constants.js';
+import { getReplacements } from '../lib/utils.js';
 import removeWpCliBlock from './removeWpCliBlock.js';
 import removeDevOnlyBlocks from './removeDevOnlyBlocks.js';
-
 
 function applyReplacements( content, replacements ) {
 	let out = content;

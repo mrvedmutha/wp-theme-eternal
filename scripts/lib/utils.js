@@ -83,27 +83,30 @@ function processBuffer( content, replacements ) {
  * This is a simpler alternative to the 'replacestream' package.
  *
  * @param {string|RegExp} searchValue  - The value to search for in the stream chunks.
- * @param {string} replaceValue - The value to replace the found occurrences with.
+ * @param {string}        replaceValue - The value to replace the found occurrences with.
  * @return {Transform} A transform stream that performs the replacements.
  */
 function createReplaceStream( searchValue, replaceValue ) {
 	let buffer = '';
 
-	return new Transform({
+	return new Transform( {
 		transform( chunk, encoding, callback ) {
 			const str = buffer + chunk.toString();
 			const replaced = str.replace( searchValue, replaceValue );
 
 			// Keep a small buffer in case the search pattern spans chunk boundaries
-			const maxPatternLength = searchValue instanceof RegExp ?
-				100 : // Reasonable buffer size for regex
-				searchValue.length;
+			const maxPatternLength =
+				searchValue instanceof RegExp
+					? 100 // Reasonable buffer size for regex
+					: searchValue.length;
 
-			if (str.length > maxPatternLength) {
+			if ( str.length > maxPatternLength ) {
 				// Push most of the processed content, but keep a small buffer
 				// in case the pattern spans across chunks
-				buffer = str.slice(str.length - maxPatternLength);
-				this.push(replaced.slice(0, replaced.length - maxPatternLength));
+				buffer = str.slice( str.length - maxPatternLength );
+				this.push(
+					replaced.slice( 0, replaced.length - maxPatternLength )
+				);
 			} else {
 				buffer = str;
 			}
@@ -112,12 +115,12 @@ function createReplaceStream( searchValue, replaceValue ) {
 		},
 		flush( callback ) {
 			// Process any remaining buffered content
-			if (buffer.length > 0) {
-				this.push(buffer.replace(searchValue, replaceValue));
+			if ( buffer.length > 0 ) {
+				this.push( buffer.replace( searchValue, replaceValue ) );
 			}
 			callback();
-		}
-	});
+		},
+	} );
 }
 
 /**
@@ -156,9 +159,9 @@ export function getReplacements( isProdFlag ) {
 export function getStringReplacementTasks( isProdFlag ) {
 	const replacements = getReplacements( isProdFlag );
 
-	return new Transform({
+	return new Transform( {
 		objectMode: true,
-		transform(file, encoding, callback) {
+		transform( file, encoding, callback ) {
 			if ( file.isBuffer() ) {
 				file.contents = processBuffer( file.contents, replacements );
 				callback( null, file );
@@ -176,8 +179,8 @@ export function getStringReplacementTasks( isProdFlag ) {
 			} else {
 				callback( null, file );
 			}
-		}
-	});
+		},
+	} );
 }
 
 /**
@@ -347,13 +350,10 @@ export function replaceInlineJS( code ) {
 		.map( ( r ) => escapeRegExp( r.searchValue ) )
 		.join( '|' );
 
-	return code.replace(
-		new RegExp( searchPattern, 'g' ),
-		( match ) => {
-			const replacement = replacements.find( ( r ) =>
-				new RegExp( escapeRegExp( r.searchValue ) ).test( match )
-			);
-			return replacement ? replacement.replaceValue : match;
-		}
-	);
+	return code.replace( new RegExp( searchPattern, 'g' ), ( match ) => {
+		const replacement = replacements.find( ( r ) =>
+			new RegExp( escapeRegExp( r.searchValue ) ).test( match )
+		);
+		return replacement ? replacement.replaceValue : match;
+	} );
 }
