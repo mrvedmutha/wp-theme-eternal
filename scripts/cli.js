@@ -24,6 +24,7 @@ import prodCompress from './tasks/prodCompress.js';
 import { serve, server } from './tasks/browserSync.js';
 import { paths } from './lib/constants.js';
 import generateCert from './tasks/generateCert.js';
+import config from '../config/themeConfig.js';
 
 const exec = promisify( execCb );
 const program = new Command();
@@ -445,6 +446,18 @@ program
 			console.log( 'Cert Generated' );
 		} catch ( e ) {
 			console.error( e?.message || e );
+			process.exitCode = 1;
+		}
+	} );
+
+program
+	.command( 'get-dev-url' )
+	.description( 'Get the local development URL from config' )
+	.action( () => {
+		try {
+			console.log( config.dev.browserSync.proxyURL );
+		} catch ( e ) {
+			console.error( 'Could not find proxyURL in config' );
 			process.exitCode = 1;
 		}
 	} );
