@@ -120,6 +120,7 @@
     "test:perf": "lhci autorun",
     "test:perf:collect": "lhci collect",
     "test:perf:report": "lhci open",
+    "ai:check": "npm run test:e2e && npm run  test:e2e:screenshot && npm run lint:css && npm run lint:js",
     "block:new": "node scripts/blocks.js block:new",
     "block:new:dynamic": "node scripts/blocks.js block:new --dynamic",
     "block:list": "node scripts/blocks.js block:list",
