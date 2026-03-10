@@ -7,7 +7,7 @@ import fse from 'fs-extra';
 
 import { globFiles, destPathFor, writeFileEnsured } from '../lib/filepipe.js';
 import { paths, isProd, rootPath } from '../lib/constants.js';
-import { getReplacements } from '../lib/utils.js';
+import { getReplacements, getThemeConfig } from '../lib/utils.js';
 import removeWpCliBlock from './removeWpCliBlock.js';
 import removeDevOnlyBlocks from './removeDevOnlyBlocks.js';
 
@@ -66,6 +66,8 @@ export default function php( runPhpcs, done ) {
 		}
 
 		const replacements = getReplacements();
+		const config = getThemeConfig();
+		const includeWpCli = config.export && config.export.includeWpCli;
 		const patterns = paths.php.src; // includes negative patterns
 		const files = await globFiles( patterns );
 
@@ -75,20 +77,47 @@ export default function php( runPhpcs, done ) {
 					let content = await fse.readFile( srcFile, 'utf8' );
 					content = applyReplacements( content, replacements );
 
-					// Remove WP-CLI block only for root functions.php
+					// Handle WP-CLI block for root functions.php
 					const relToRoot = path.relative( rootPath, srcFile );
 					if ( relToRoot === 'functions.php' ) {
-						content = removeWpCliBlock( content );
+						if ( ! includeWpCli ) {
+							content = removeWpCliBlock( content );
+						} else {
+							// Just remove markers if block is kept
+							content = content.replace(
+								/\/\/\s*@wp-cli:(start|end)\s*/g,
+								''
+							);
+						}
 					}
 
 					// Remove any dev-only blocks from all PHP files
 					content = removeDevOnlyBlocks( content );
 
-					const outPath = destPathFor(
+					let outPath = destPathFor(
 						srcFile,
 						rootPath,
 						paths.php.dest
 					);
+
+					// Rename file if it's in wp-cli and contains 'wp-rig'
+					if (
+						relToRoot.startsWith( 'wp-cli' ) &&
+						relToRoot.includes( 'wp-rig' )
+					) {
+						// Look for the slug replacement
+						const slugRepl = replacements.find(
+							( r ) =>
+								r.searchValue &&
+								r.searchValue.source === 'wp-rig'
+						);
+						if ( slugRepl ) {
+							outPath = outPath.replace(
+								'wp-rig',
+								slugRepl.replaceValue
+							);
+						}
+					}
 					await writeFileEnsured( outPath, content, 'utf8' );
 				} catch ( err ) {
 					console.error(

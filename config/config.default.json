@@ -52,6 +52,7 @@
   "export": {
     "compress": true,
     "generatePotFile": true,
+    "includeWpCli": false,
     "filesToCopy": [
       "LICENSE",
       "readme.txt",
