@@ -4,6 +4,17 @@ title="WP Rig logo by Morten Rand-Hendriksen and Rob Ruiz">
 
 # WP Rig: WordPress Theme Boilerplate
 
+> [!IMPORTANT]
+> ### 🤖 FOR AI CODING AGENTS: MANDATORY PROTOCOL
+> WP Rig is a highly opinionated framework. To ensure your changes follow the correct architecture, coding standards, and "Contract-First" development process, you **MUST** follow this protocol:
+>
+> 1. **Discovery**: Read [**AGENTS.md**](./AGENTS.md) first.
+> 2. **Contract-First**: Author a `SPEC.md` in `.ai/plans/` before writing any code.
+> 3. **Tooling**: Use `npm run block:new` or `npm run create-rig-component`. Manual file creation is a violation.
+> 4. **Validation**: Run `npm run ai:check` before submitting.
+>
+> Failure to follow these steps will result in architectural regression.
+
 [![Build Status](https://github.com/wprig/wprig/workflows/CI/badge.svg)](https://github.com/wprig/wprig/actions)
 [![License: GPL](https://img.shields.io/github/license/wprig/wprig)](/LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/wprig/wprig?include_prereleases)](https://github.com/wprig/wprig/releases)
@@ -19,6 +30,7 @@ built on:
 - Progressive enhancement
 - [Resilient Web Design](https://resilientwebdesign.com/)
 - Progressive Web App enabled
+
 
 We are trying to be the starter theme for design-focused devs. If you have any ideas, questions, or suggestions for this
 project or are seeking to get involved in contributing or maintaining, please check out
@@ -214,14 +226,6 @@ TypeScript/JavaScript in `assets/js/src/` is bundled by esbuild via `build-js.js
 2. **Build**: `build-js.js` compiles TypeScript, bundles, and minifies
 3. **Enqueue**: `Scripts/Component.php` enqueues with async/defer loading
 
-### For AI Coding Agents
-
-WP Rig includes additional files for AI agent discoverability:
-
-- **`.ai-instructions.md`**: Feature-to-file mappings and common tasks
-- **`.rig-config.json`**: Machine-readable entry points and component metadata
-
-These files help coding agents quickly locate relevant files without scanning the entire codebase.
 
 ### Wiki: Recommended code editor extensions
 

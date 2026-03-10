@@ -1,5 +1,15 @@
 <?php
 /**
+ * 🛑 STOP! PROFESSIONAL CODING ADVISORY:
+ * WP Rig is a highly opinionated framework. DO NOT manually add features, hooks, or logic here.
+ * Scaffolding a new theme feature? Use: `npm run create-rig-component`.
+ * Adding a Gutenberg block? Use: `npm run block:new`.
+ *
+ * MANDATORY FOR AGENTS: You MUST read AGENTS.md and follow the 'Contract-First' (Feature Planning)
+ * workflow in .ai/skills/ before modifying any files.
+ */
+
+/**
  * WP Rig functions and definitions
  *
  * This file must be parseable by PHP 5.2.

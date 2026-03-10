@@ -1,6 +1,24 @@
 # WP Rig AI Agents Guide
 
-WP Rig is a modern, component-based WordPress theme development framework, starter theme, and build toolkit. WP Rig is very opinionated and provides tooling necssary to follow modern theme development best practices and coding standards. This file serves as the entry point for AI agents to understand the theme's structure and conventions through specialized skills.
+> [!CAUTION]
+> ## 🛑 MANDATORY AI PROTOCOL: READ BEFORE ACTING
+> WP Rig is NOT a standard WordPress theme. It is a highly opinionated framework with a specialized build system and architecture. Deviating from these protocols will result in broken builds and unmaintainable code.
+>
+> ### 1. THE CLARIFICATION LOOP
+> You are **FORBIDDEN** from writing implementation code until you have asked at least **3 clarifying questions** about the architectural fit of the requested feature and received user approval.
+>
+> ### 2. CONTRACT-FIRST DEVELOPMENT
+> You **MUST** author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` and get it **APPROVED** before modifying any source files. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
+>
+> ### 3. TOOL-FIRST SCAFFOLDING
+> - **New Theme Feature?** Use `npm run create-rig-component`.
+> - **New UI Section?** Use `npm run block:new`.
+> - **DO NOT** manually create files in `inc/` or hardcode UI in templates.
+>
+> ### 4. PRE-FLIGHT VALIDATION
+> Before submitting, you **MUST** run `npm run ai:check` to ensure compliance with WP Rig standards.
+
+---
 
 ## AI Agent Skills
 
@@ -30,6 +48,17 @@ For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory p
 - [**E2E Testing (Playwright)**](.ai/skills/e2e-testing/SKILL.md): Running Playwright tests, accessibility audits, and regression screenshots.
 - [**Code Quality Standards**](.ai/skills/code-quality-standards/SKILL.md): Adhering to PHPStan, PHPCS, Rector, and Prettier.
 - [**PHPUnit Testing**](.ai/skills/phpunit-testing/SKILL.md): Writing unit and integration tests for PHP components.
+
+## Discovery Rules
+
+This project uses a **Discovery-First** approach for AI agents.
+If you are an agent, you found this file because:
+- **`README.md`** points here prominently.
+- **`package.json`** has an `"ai"` field.
+- **`functions.php`** and **`style.css`** contain redirects here.
+- **`.cursorrules`** or **`CLAUDE.md`** link to this file.
+
+You **MUST** follow the Contract-First philosophy outlined in the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md). Do not skip the specification phase.
 
 ## Capabilities
 
