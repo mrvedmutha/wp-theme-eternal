@@ -1,0 +1,30 @@
+# Dependency folders
+node_modules/
+vendor/
+
+# Build artifacts
+dist/
+build/
+bundle/
+artifacts/
+playwright-report/
+test-results/
+
+# Temporary files
+*.log
+tmp/
+.DS_Store
+*.zip
+*.tar.gz
+
+# Assets
+assets/images/
+assets/fonts/
+screenshot.png
+
+# WP Rig / WordPress Specific
+config/local.json
+wp-cli/config.yml
+wp-content/uploads/
+wp-content/cache/
+languages/

@@ -132,7 +132,8 @@
     "block-based": "node scripts/convert-to-block-theme.js",
     "create-rig-component": "node node/create-component-wrapper.js",
     "mcp": "node bin/mcp-server/index.js",
-    "get-dev-url": "node scripts/cli.js get-dev-url"
+    "get-dev-url": "node scripts/cli.js get-dev-url",
+    "ai:setup": "node scripts/ai-setup.js"
   },
   "dependencies": {
     "glob": "^11.0.3"
