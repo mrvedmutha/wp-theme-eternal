@@ -11,37 +11,13 @@ This guide describes how to work with CSS in WP Rig.
 
 Before writing or modifying CSS, you **MUST** reference the `config/config.json`.
 
-*   **PostCSS Features:** Check `dev.styles.features` to see which modern CSS features are enabled. If a feature is disabled, use standard CSS syntax.
 *   **CSS Preloading:** Check `dev.styles.preload` for files automatically injected into every compiled CSS file (e.g., `_custom-media.css`). Avoid redundant `@import` statements for these files.
 
 ## CSS Structure
 
 Source files are in `assets/css/src/` and processed by `build-css.js`.
+All CSS files are built into `assets/css/` if they are not prefixed with a `_`.
 
-| File | Purpose |
-|------|---------|
-| `global.css` | Main entry point - imports all partials |
-| `_custom-properties.css` | CSS custom properties (variables) |
-| `_custom-media.css` | Custom media query breakpoints |
-| `_reset.css` | CSS reset/normalize |
-| `_typography.css` | Font styles, headings, text |
-| `_elements.css` | Base HTML element styles |
-| `_links.css` | Link styles and states |
-| `_header.css` | Site header styles |
-| `_navigation.css` | Navigation menu styles |
-| `_footer.css` | Site footer styles |
-| `_forms.css` | Form element styles |
-| `_media.css` | Images, video, embeds |
-| `_blocks.css` | WordPress block styles |
-| `_accessibility.css` | Screen reader and a11y styles |
-| `_utility.css` | Utility/helper classes |
-| `content.css` | Post/page content styles (conditional) |
-| `sidebar.css` | Sidebar styles (conditional) |
-| `widgets.css` | Widget styles |
-| `comments.css` | Comment section styles (conditional) |
-| `front-page.css` | Front page specific styles |
-| `editor/editor-styles.css` | Block editor styles |
-| `admin/theme-settings.css` | Admin settings page styles |
 
 ## Common Style Tasks
 
@@ -69,11 +45,11 @@ For visual changes, use Playwright to ensure regressions are avoided:
 ## Conventions
 
 - **CSS partials**: Source files in `assets/css/src/` should be prefixed with an underscore (e.g., `_header.css`) unless they are intended to be enqueued as standalone files (like `content.css`).
-- **Conditional styles**: Use `inc/Styles/Component.php` and the `wp_rig_css_files` filter to load styles only on pages that need them.
-- **CSS variables**: Use CSS variables for theme colors, spacing, and other design tokens. Define them in `assets/css/src/_custom-properties.css` and use them throughout the theme.
+- **Conditional styles**: Use `inc/Styles/Component.php` and the `wp_rig_css_files` filter to load styles only on pages that need them. For blocks, leverage enqueue_block_style() to load styles for specific blocks.
+- **CSS variables**: Use CSS variables for theme colors, spacing, and other design tokens. Define them in `assets/css/src/_custom-properties.css` and use them throughout the theme. For block-based or universal themes, these should be defined in theme.json.
 - **Media queries**: Use custom media queries to manage our responsive breakpoints and always reference these instead of statically writing media query values. Define them in `assets/css/src/_custom-media.css`. Our CSS build process adds these media queries to all CSS files.
 - **CSS nesting**: Use CSS nesting to organize styles and avoid deep selectors. Nesting should be used sparingly and only when necessary. Avoid nesting more than 3 levels deep.
-- **CSS specificity**: Avoid using high specificity selectors. Use BEM (Block Element Modifier) naming convention to keep selectors short and readable. Use utility classes sparingly and only when necessary.
+- **CSS specificity**: Avoid using high specificity selectors. Use BEM (Block Element Modifier) naming convention to keep selectors short and readable. Use utility classes sparingly and only when necessary. NEVER use !important and instead leverage specificity to override styles.
 - **CSS comments**: Use comments to explain complex styles or decisions. Keep comments concise and relevant. Avoid commenting on obvious code.
 - **CSS formatting**: Use consistent indentation and spacing. Follow the CSS style guide provided by the project. Avoid unnecessary whitespace and trailing commas.
 - **CSS linting**: Use a CSS linter to catch common mistakes and enforce best practices. Configure the linter to match the project's style guide and run it as part of the build process. WP Rig comes with stylelint configured.
