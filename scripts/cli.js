@@ -548,6 +548,26 @@ program
 						message: 'Enable live reload (BrowserSync live)?',
 						default: defaults?.dev?.browserSync?.live !== false,
 					},
+					{
+						type: 'list',
+						name: 'themeType',
+						message: 'What type of theme are you building?',
+						choices: [
+							{
+								name: 'Classic (Standard WP Rig)',
+								value: 'classic',
+							},
+							{
+								name: 'Universal (Hybrid theme with theme.json)',
+								value: 'universal',
+							},
+							{
+								name: 'Block-based (Full Site Editing)',
+								value: 'block-based',
+							},
+						],
+						default: defaults?.theme?.themeType || 'classic',
+					},
 				] );
 			} else {
 				answers = {
@@ -559,10 +579,15 @@ program
 					),
 					live: defaults?.dev?.browserSync?.live !== false,
 					https: !! defaults?.dev?.browserSync?.https,
+					themeType: defaults?.theme?.themeType || 'classic',
 				};
 			}
 
 			// Merge into userConfig without clobbering other keys
+			userConfig.theme = {
+				...( userConfig.theme || {} ),
+				themeType: answers.themeType,
+			};
 			userConfig.dev = userConfig.dev || {};
 			userConfig.dev.browserSync = {
 				...( userConfig.dev.browserSync || {} ),

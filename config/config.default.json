@@ -8,6 +8,7 @@
     "author_uri": "https://wprig.io/",
     "description": "A progressive theme development rig for WordPress.",
     "version": "1.0.0",
+    "themeType": "classic",
     "enableBlocks": false
   },
   "dev": {

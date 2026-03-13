@@ -38,6 +38,7 @@ For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory p
 - [**Gutenberg Blocks**](.ai/skills/gutenberg-blocks/SKILL.md): Scaffolding and managing theme-scoped blocks.
 
 ### Customization & Extension
+- [**Web Designer (Style Guides)**](.ai/skills/web-designer/SKILL.md): Creating accessible style guides and styling Gutenberg blocks.
 - [**PHP Filters & Hooks**](.ai/skills/php-filters/SKILL.md): Complete guide to extending assets and behavior via hooks.
 - [**Theme Settings (Options Framework)**](.ai/skills/theme-settings/SKILL.md): Adding settings via React-based Options framework.
 - [**EZ Customizer**](.ai/skills/ez-customizer/SKILL.md): Adding Customizer settings via JSON configuration.

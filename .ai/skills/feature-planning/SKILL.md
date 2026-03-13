@@ -9,9 +9,14 @@ This skill guides the agent through a "Contract-First" feature planning process 
 
 ## The Core Philosophy
 
-1.  **Contract Establishment:** Do not create or modify theme files until a specification (`SPEC.md`) is finalized and approved by the user.
-2.  **Challenge the Request:** As a WP Rig expert, you must ensure any feature plan follows WP Rig's opinionated architecture. If a user's request violates these standards (e.g., direct script enqueuing instead of asset filters), you must challenge it and propose the WP Rig way.
-3.  **Context Engineering:** Use existing skills (`architecture`, `php-filters`, `create-component`, etc.) to inform the plan.
+1.  **Contract Establishment:** Do not create or modify theme files until a specification (`SPEC.md`) is finalized and approved by the user. All design-related specs must align with or update the `.ai/STYLE-GUIDE.md`.
+2.  **Challenge the Request:** As a WP Rig expert, you must ensure any feature plan follows WP Rig's opinionated architecture and design standards. If a user's request violates these (e.g., inconsistent typography or non-standard markup), you must challenge it.
+3.  **Design-Planning Reciprocity:** Designs in the `.ai/STYLE-GUIDE.md` must inform feature planning, and new feature plans that introduce novel design patterns must be used to update the style guide.
+4.  **Strategic Trio Alignment:** Every feature must be evaluated through three lenses:
+    - **Architecture:** How does it fit into the PHP/JS structure? (Refer to [Architecture skill](../architecture/SKILL.md))
+    - **Web Design:** What are the aesthetic, interactive, and accessibility requirements? Does it adhere to the `.ai/STYLE-GUIDE.md`? (Refer to [Web Designer skill](../web-designer/SKILL.md))
+    - **Feature Planning:** How do we define and verify the "Contract"? (Current skill)
+4.  **Context Engineering:** Use existing skills (`architecture`, `web-designer`, `php-filters`, `create-component`, etc.) to inform the plan.
 
 ## The Process
 
@@ -38,8 +43,8 @@ Once the 95% threshold is reached:
 - **WP Rig Integration:**
     - Does this require a new component? (Refer to [Create Component skill](../create-component/SKILL.md))
     - Will it use existing asset filters? (Refer to [PHP Filters skill](../php-filters/SKILL.md))
-    - Does it need new styles or JS? (Refer to [Styles skill](../styles/SKILL.md) and [npm Scripts skill](../npm-scripts/SKILL.md))
-- **Constraints:** Are there specific accessibility or performance requirements?
+    - Does it need new styles, JS, or a design system update? (Refer to [Web Designer skill](../web-designer/SKILL.md), [Styles skill](../styles/SKILL.md), and [npm Scripts skill](../npm-scripts/SKILL.md))
+- **Constraints:** Are there specific accessibility or performance requirements? (Refer to [Web Designer skill](../web-designer/SKILL.md))
 
 ### Step 2: Draft the Specification
 
@@ -48,12 +53,15 @@ Create a new directory: `.ai/plans/{YYYY-MM-DD}-{feature-slug}/` and create a `S
 The `SPEC.md` must include:
 
 1.  **Mission Statement:** A concise goal for the feature.
-2.  **Architectural Fit:**
-    - Identify the WP Rig components involved.
+2.  **Design Compliance:**
+    - Reference relevant sections of `.ai/STYLE-GUIDE.md`.
+    - Note if this feature will require updates to the style guide.
+3.  **Architectural Fit:**
+    - Identify the WP Rig components involved. (Refer to [Architecture skill](../architecture/SKILL.md))
     - List the hooks/filters to be used (e.g., `wp_rig_css_files`).
-3.  **User Stories:** Simple "As a user, I want..." statements.
-4.  **Success Metrics:** How will we verify this? (e.g., "Passes Lighthouse accessibility scan", "No visual regressions in E2E tests").
-5.  **Technical Plan (The "Contract"):**
+4.  **User Stories:** Simple "As a user, I want..." statements.
+5.  **Success Metrics:** How will we verify this? (e.g., "Passes Lighthouse accessibility scan", "No visual regressions in E2E tests").
+6.  **Technical Plan (The "Contract"):**
     - **Scaffolding:** Commands like `npm run create-rig-component`.
     - **Implementation Steps:** Logical order of file creation/modification.
     - **Verification:** Tools and commands to test the result (Refer to [Testing skill](../testing/SKILL.md)).

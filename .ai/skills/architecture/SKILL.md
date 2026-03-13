@@ -106,3 +106,10 @@ Source files are in `assets/js/src/` and processed by `build-js.js`.
 - **Text domain**: Matches theme slug in config.
 - **Component Registration**: Components are registered in `inc/Theme.php` in the `get_default_components()` method.
 - **Custom Hooks**: Prefer custom hooks over core edits. Use filters like `wp_rig_css_files` and `wp_rig_js_files` to add assets.
+
+## Skill Relationships
+
+The Architecture skill is the bedrock of WP Rig, but it interacts directly with:
+
+- **Feature Planning:** Any structural change to the architecture (new components, changes to `Theme.php`, or new global templates) must first be defined via the [Feature Planning skill](../feature-planning/SKILL.md).
+- **Web Designer:** Architectural choices for CSS/JS enqueuing and template structure are driven by the design system and interactive requirements defined in the [Web Designer skill](../web-designer/SKILL.md).
