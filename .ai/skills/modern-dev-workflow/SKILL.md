@@ -13,7 +13,7 @@ WP Rig offers a high-performance development experience via its "modern" dev ser
 ```bash
 npm run dev:modern
 ```
-This launches an esbuidl proxy server that handles CSS, JS, and PHP updates with minimal latency.
+This launches an esbuild proxy server that handles CSS, JS, and PHP updates with minimal latency.
 
 ### Legacy (BrowserSync)
 ```bash
