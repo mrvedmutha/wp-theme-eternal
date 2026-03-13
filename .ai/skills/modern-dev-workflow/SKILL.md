@@ -5,7 +5,7 @@ globs: config/config.json, config/config.default.json, dev-server.js
 
 # Modern Dev Workflow in WP Rig
 
-WP Rig offers a high-performance development experience via its "modern" dev server, powered by Vite. This provides lightning-fast HMR (Hot Module Replacement) and optimized asset serving.
+WP Rig offers a high-performance development experience via its "modern" dev server, powered by esbuild, browsersync, and Bun. This provides lightning-fast HMR (Hot Module Replacement) and optimized asset serving.
 
 ## Dev Server Commands
 
@@ -13,7 +13,7 @@ WP Rig offers a high-performance development experience via its "modern" dev ser
 ```bash
 npm run dev:modern
 ```
-This launches a Vite-powered proxy server that handles CSS, JS, and PHP updates with minimal latency.
+This launches an esbuidl proxy server that handles CSS, JS, and PHP updates with minimal latency.
 
 ### Legacy (BrowserSync)
 ```bash
