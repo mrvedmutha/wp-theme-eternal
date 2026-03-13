@@ -8,17 +8,20 @@
 > You **MUST** reference `config/config.json` before making any architectural or build-related changes. This ensures consistency with theme identity, block support, and environment-specific settings.
 >
 > ### 2. THE CLARIFICATION LOOP
-> You are **FORBIDDEN** from writing implementation code until you have asked at least **3 clarifying questions** about the architectural fit of the requested feature and received user approval.
+> You are **FORBIDDEN** from writing implementation code until a SPEC.md file exists and a critical assessment of its context completeness score and implementation confidence score is above 95%. If there is room for improvement, you **MUST** seek clarification from the author and document said clarification before proceeding.
 >
 > ### 3. CONTRACT-FIRST DEVELOPMENT
-> You **MUST** author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` and get it **APPROVED** before modifying any source files. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
+> You **MUST** author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` and get it **APPROVED** before modifying any source files. At least **3-10 clarifying questions** about the architecture, aesthetics, navigation style, and other common theme-level considerations must be asked and documented for user approval. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
 >
 > ### 4. TOOL-FIRST SCAFFOLDING
 > - **New Theme Feature?** Use `npm run create-rig-component`.
-> - **New UI Section?** Use `npm run block:new`.
+> - **New type of content input?** Use `npm run block:new` (if theme config.theme.enableBlocks is set to true).
 > - **DO NOT** manually create files in `inc/` or hardcode UI in templates.
 >
-> ### 5. PRE-FLIGHT VALIDATION
+> ### 5. PAGE CONTENT PRIORITY
+> ALWAYS prioritize page/post content authored in the WordPress editor over custom markup in PHP templates unless explicitly stated otherwise.
+>
+> ### 6. PRE-FLIGHT VALIDATION
 > Before submitting, you **MUST** run `npm run ai:check` to ensure compliance with WP Rig standards.
 
 ---
