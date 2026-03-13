@@ -7,6 +7,14 @@ globs: inc/**/*.php, template-parts/**/*.php, *.php
 
 WP Rig uses a "No Globals" approach for template functions. Instead of defining global PHP functions, template tags are registered as methods within theme components and accessed via the `wp_rig()` singleton.
 
+## Theme Type Awareness
+
+When creating templates or template tags, you **MUST** reference the `config/config.json`.
+
+*   **Theme Type:** Check `theme.themeType` in the configuration.
+    *   **`classic`**: Focus on PHP-based components and templates in `template-parts/`.
+    *   **`block-based`**: Focus on `theme.json`, block patterns, and HTML templates in `templates/`.
+
 ## How it Works
 
 1. **Component Interface**: A component must implement `Templating_Component_Interface` to register template tags.

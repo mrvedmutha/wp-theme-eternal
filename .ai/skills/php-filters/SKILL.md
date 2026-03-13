@@ -7,6 +7,13 @@ globs: inc/**/*.php, functions.php
 
 WP Rig provides several custom hooks to extend its core functionality without modifying core component files directly. These filters should be used to add or modify theme assets and behavior.
 
+## Theme Identity & Namespace
+
+When using filters or creating new PHP components, you **MUST** reference the `config/config.json`.
+
+*   **Namespace:** Use `theme.PHPNamespace` instead of assuming `WP_Rig`.
+*   **Slug:** Use `theme.slug` for text domains and unique identifiers.
+
 ## CSS and JS Assets
 
 ### `wp_rig_css_files`

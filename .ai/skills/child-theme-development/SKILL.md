@@ -7,6 +7,13 @@ globs: childify.js, package.json
 
 WP Rig includes a specialized tool for creating child themes that inherit the core functionality of the parent theme while allowing for customizations.
 
+## Configuration & Child Context
+
+Before developing or modifying a child theme, you **MUST** reference the `config/config.json`.
+
+*   **Check Context:** Determine if you are operating within a child theme by checking `child.enabled`.
+*   **Parent Reference:** Use `child.parentSlug` to correctly reference the parent theme in logic and overrides.
+
 ## Creating a Child Theme
 
 Use the `childify` script to scaffold a new child theme.

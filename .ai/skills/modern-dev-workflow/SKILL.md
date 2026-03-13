@@ -21,6 +21,13 @@ npm run dev
 ```
 Use this if the modern server is not compatible with your environment or specific requirements.
 
+## Configuration & Local Access
+
+Before configuring or starting the development environment, you **MUST** reference the `config/config.json`.
+
+*   **Proxy URL:** Use `dev.browserSync.proxyURL` (or `dev.devURL` for modern) for local URL references.
+*   **Admin Access:** Use `dev.admin` credentials if automated testing or environment setup requires administrative access.
+
 ## Configuration (`config/config.json`)
 
 All dev server settings are managed in `config/config.json`. Ensure your local URL is correctly set.

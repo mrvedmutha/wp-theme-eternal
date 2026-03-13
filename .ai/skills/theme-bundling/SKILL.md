@@ -7,6 +7,12 @@ globs: config/config.json, config/config.default.json, woocommerce/**/*, tribe-e
 
 This skill ensures that any new root-level folders added to the WP Rig theme are properly included in the production bundle.
 
+## Configuration & Export
+
+Before modifying the theme structure or preparing a bundle, you **MUST** reference the `config/config.json`.
+
+*   **Export Rules:** If you add a new root-level directory for assets or plugin overrides (e.g., `woocommerce/`), you **MUST** add it to `export.filesToCopy` to ensure it is included in the production bundle.
+
 ## Reasoning
 
 WP Rig's build system uses a combination of specialized tasks (`phpTask`, `images`, `fonts`, `buildJS`, `buildCSS`) and a manual file-copying task (`prodPrep`).

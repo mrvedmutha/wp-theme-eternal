@@ -7,6 +7,13 @@ globs: assets/blocks/**/*, inc/Blocks/Component.php, build-js.js, build-css.js
 
 WP Rig features a built-in system for creating and managing theme-scoped Gutenberg blocks, powered by `@wordpress/create-block` and fully integrated with the theme's build system.
 
+## Configuration & Support
+
+Before scaffolding or modifying blocks, you **MUST** reference the `config/config.json`.
+
+*   **Check Support:** Verify that `theme.enableBlocks` is set to `true`.
+*   **Action Required:** If `enableBlocks` is `false`, you cannot scaffold blocks. Instruct the user to run `npm run theme:enable-blocks` before proceeding.
+
 ## Scaffolding a New Block
 
 Use the `block:new` script to create a new block. By default, blocks are created in `assets/blocks/<slug>/`.

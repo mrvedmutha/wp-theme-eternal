@@ -4,18 +4,21 @@
 > ## 🛑 MANDATORY AI PROTOCOL: READ BEFORE ACTING
 > WP Rig is NOT a standard WordPress theme. It is a highly opinionated framework with a specialized build system and architecture. Deviating from these protocols will result in broken builds and unmaintainable code.
 >
-> ### 1. THE CLARIFICATION LOOP
+> ### 1. THE CONFIGURATION FIRST PROTOCOL
+> You **MUST** reference `config/config.json` before making any architectural or build-related changes. This ensures consistency with theme identity, block support, and environment-specific settings.
+>
+> ### 2. THE CLARIFICATION LOOP
 > You are **FORBIDDEN** from writing implementation code until you have asked at least **3 clarifying questions** about the architectural fit of the requested feature and received user approval.
 >
-> ### 2. CONTRACT-FIRST DEVELOPMENT
+> ### 3. CONTRACT-FIRST DEVELOPMENT
 > You **MUST** author a `SPEC.md` in `.ai/plans/<date>-<feature-name>/` and get it **APPROVED** before modifying any source files. Use the [**Feature Planning skill**](.ai/skills/feature-planning/SKILL.md).
 >
-> ### 3. TOOL-FIRST SCAFFOLDING
+> ### 4. TOOL-FIRST SCAFFOLDING
 > - **New Theme Feature?** Use `npm run create-rig-component`.
 > - **New UI Section?** Use `npm run block:new`.
 > - **DO NOT** manually create files in `inc/` or hardcode UI in templates.
 >
-> ### 4. PRE-FLIGHT VALIDATION
+> ### 5. PRE-FLIGHT VALIDATION
 > Before submitting, you **MUST** run `npm run ai:check` to ensure compliance with WP Rig standards.
 
 ---

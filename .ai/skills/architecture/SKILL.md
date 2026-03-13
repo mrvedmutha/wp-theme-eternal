@@ -24,6 +24,14 @@ This guide describes the core structure and conventions used in WP Rig.
 | Fonts | `inc/Fonts/Component.php` |
 | Build configuration | `config/config.default.json`, `config/config.json` |
 
+## Configuration & Identity
+
+Before making architectural changes, you **MUST** reference the `config/config.json`.
+
+*   **Theme Identity:** Use `theme.PHPNamespace` and `theme.slug` for components and translations.
+*   **Theme Type:** Check `theme.themeType` (classic vs block-based) to determine template strategy.
+*   **Export Rules:** Update `export.filesToCopy` if adding new root-level folders.
+
 ## PHP Components
 
 Located in `inc/` - each feature is a Component class implementing `Component_Interface`.

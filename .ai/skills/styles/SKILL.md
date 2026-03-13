@@ -7,6 +7,13 @@ globs: assets/css/src/**/*.css, build-css.js
 
 This guide describes how to work with CSS in WP Rig.
 
+## Configuration & Features
+
+Before writing or modifying CSS, you **MUST** reference the `config/config.json`.
+
+*   **PostCSS Features:** Check `dev.styles.features` to see which modern CSS features are enabled. If a feature is disabled, use standard CSS syntax.
+*   **CSS Preloading:** Check `dev.styles.preload` for files automatically injected into every compiled CSS file (e.g., `_custom-media.css`). Avoid redundant `@import` statements for these files.
+
 ## CSS Structure
 
 Source files are in `assets/css/src/` and processed by `build-css.js`.

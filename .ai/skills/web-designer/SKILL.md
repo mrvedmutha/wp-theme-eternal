@@ -23,7 +23,10 @@ This skill guides the agent in acting as an expert Web Designer within the WP Ri
 
 Before styling, you must understand the theme's type and what needs to be styled:
 
-- **Theme Assessment:** Check `config/config.json` for the `themeType` property (`classic`, `universal`, or `block-based`). Also check for the existence of `theme.json` in the root.
+- **Theme Assessment:** Reference the `config/config.json`.
+    - **Theme Type:** Check the `theme.themeType` property (`classic`, `universal`, or `block-based`).
+    - **PostCSS Features:** Verify enabled modern CSS features in `dev.styles.features` before implementation.
+    - **Theme.json:** Check for the existence of `theme.json` in the root.
     - **Classic:** Focus on CSS partials in `assets/css/src/`.
     - **Universal/Block-based:** Leverage `theme.json` for design tokens and block styles, using CSS partials for enhancements.
 - **Theme Blocks:** Run `npm run block:list` to see all theme-scoped Gutenberg blocks.
