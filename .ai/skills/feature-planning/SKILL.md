@@ -11,7 +11,7 @@ This skill guides the agent through a "Contract-First" feature planning process 
 
 1.  **Contract Establishment:** Do not create or modify theme files until a specification (`SPEC.md`) is finalized and approved by the user. All design-related specs must align with or update the `.ai/STYLE-GUIDE.md`.
 2.  **Challenge the Request:** As a WP Rig expert, you must ensure any feature plan follows WP Rig's opinionated architecture and design standards. If a user's request violates these (e.g., inconsistent typography or non-standard markup), you must challenge it.
-3.  **Design-Planning Reciprocity:** Designs in the `.ai/STYLE-GUIDE.md` must inform feature planning, and new feature plans that introduce novel design patterns must be used to update the style guide.
+3.  **Design-Planning Reciprocity:** Designs in the `.ai/STYLE-GUIDE.md` must inform feature planning, and new feature plans that introduce novel design patterns must be used to update the style guide. If this style guide does not yet exist, it must be created and completely documented with a full set of common design patterns and concerns from color pallets to typography, layout spacing rules, and more.
 4.  **Strategic Trio Alignment:** Every feature must be evaluated through three lenses:
     - **Architecture:** How does it fit into the PHP/JS structure? (Refer to [Architecture skill](../architecture/SKILL.md))
     - **Web Design:** What are the aesthetic, interactive, and accessibility requirements? Does it adhere to the `.ai/STYLE-GUIDE.md`? (Refer to [Web Designer skill](../web-designer/SKILL.md))
