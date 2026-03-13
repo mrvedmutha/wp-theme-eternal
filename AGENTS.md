@@ -2,7 +2,7 @@
 
 > [!CAUTION]
 > ## 🛑 MANDATORY AI PROTOCOL: READ BEFORE ACTING
-> WP Rig is NOT a standard WordPress theme. It is a highly opinionated framework with a specialized build system and architecture. Deviating from these protocols will result in broken builds and unmaintainable code.
+> WP Rig is NOT a standard WordPress theme. It is a highly opinionated and extremely modern theme development framework and starter theme with a specialized build system and architecture. Deviating from these protocols will result in broken builds and unmaintainable code.
 >
 > ### 1. THE CONFIGURATION FIRST PROTOCOL
 > You **MUST** reference `config/config.json` before making any architectural or build-related changes. This ensures consistency with theme identity, block support, and environment-specific settings.
