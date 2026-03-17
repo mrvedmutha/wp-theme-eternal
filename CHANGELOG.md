@@ -3,6 +3,7 @@
 ## 3.3.0
 - added skills Props @robruiz
 - added MCP for documentation access Props @robruiz
+- added ai agent script that sets up WP Rig for specific agents Props @robruiz
 - leverage screenshot capabilties for self-assessment Props @robruiz
 - minor updates to composer and node deps Props @robruiz
 - updates to config to explicitly declare theme type (agents reference this) Props @robruiz
