@@ -4,6 +4,18 @@ title="WP Rig logo by Morten Rand-Hendriksen and Rob Ruiz">
 
 # WP Rig: WordPress Theme Boilerplate
 
+> [!IMPORTANT]
+> ### 🤖 FOR AI CODING AGENTS: MANDATORY PROTOCOL
+> WP Rig is a highly opinionated framework. To ensure your changes follow the correct architecture, coding standards, and "Contract-First" development process, you **MUST** follow this protocol:
+>
+> 1. **Discovery**: Read [**AGENTS.md**](./AGENTS.md) first.
+> 2. **AI Setup**: Run `npm run ai:setup` to configure WP Rig for your AI agent (e.g., Claude Code, Cursor, Windsurf).
+> 3. **Contract-First**: Author a `SPEC.md` in `.ai/plans/` before writing any code.
+> 4. **Tooling**: Use `npm run block:new` or `npm run create-rig-component`. Manual file creation is a violation.
+> 5. **Validation**: Run `npm run ai:check` before submitting.
+>
+> Failure to follow these steps will result in architectural regression.
+
 [![Build Status](https://github.com/wprig/wprig/workflows/CI/badge.svg)](https://github.com/wprig/wprig/actions)
 [![License: GPL](https://img.shields.io/github/license/wprig/wprig)](/LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/wprig/wprig?include_prereleases)](https://github.com/wprig/wprig/releases)
@@ -19,6 +31,7 @@ built on:
 - Progressive enhancement
 - [Resilient Web Design](https://resilientwebdesign.com/)
 - Progressive Web App enabled
+
 
 We are trying to be the starter theme for design-focused devs. If you have any ideas, questions, or suggestions for this
 project or are seeking to get involved in contributing or maintaining, please check out
@@ -68,6 +81,7 @@ WP Rig is built to lay a solid theme foundation, which makes it excellent for bo
 	  afterwards.
 	- `npm run childify` can be used to convert your WP Rig theme into a lightweight child theme that inherits from any parent theme.
 5. In WordPress admin, activate the WP Rig development theme.
+6. (Optional) Run `npm run ai:setup` to configure the project for your specific AI coding agent (Claude, Cursor, Windsurf, etc.).
 
 #### Recommended Git Workflow
 When working with WP Rig, it is important to understand the appropriate Git workflow depending on what you are working on.
@@ -150,6 +164,69 @@ Notes and validation
 We have a new Documentation area that can be found on the [WP Rig website](https://wprig.io/documentation/).
 If you would like to contribute to our documentation efforts, please submit a request on
 our [contribute page](https://wprig.io/contribute/) on our website.
+
+## Architecture
+
+This section explains how WP Rig is organized to help developers (and AI coding agents) understand the codebase structure.
+
+### Directory Structure
+
+```
+wprig/
+├── assets/                 # Frontend assets (CSS, JS, images, SVG)
+│   ├── css/src/           # Source CSS files (compiled by build-css.js)
+│   │   ├── global.css     # Main entry point - imports all partials
+│   │   ├── _*.css         # Partial files (variables, header, nav, etc.)
+│   │   └── editor/        # Block editor styles
+│   ├── js/src/            # Source JS/TS files (compiled by build-js.js)
+│   └── svg/               # SVG icons
+├── config/                 # Theme configuration files
+│   ├── config.default.json # Default settings (do not edit)
+│   ├── config.json        # Custom settings (version controlled)
+│   └── config.local.json  # Local-only settings (gitignored)
+├── inc/                    # PHP components and theme logic
+│   ├── Theme.php          # Main theme class - registers all components
+│   ├── {Feature}/         # Feature components (Styles, Scripts, Nav_Menus, etc.)
+│   │   └── Component.php  # Each implements Component_Interface
+│   ├── Template_Tags.php  # Template helper functions accessed via wp_rig()
+│   └── functions.php      # Helper functions
+├── template-parts/         # Reusable template partials
+├── functions.php           # Theme bootstrap - instantiates Theme class
+└── index.php, header.php, footer.php, etc.  # Main templates
+```
+
+### Component System
+
+WP Rig uses a modular component architecture where each feature is encapsulated in its own class:
+
+1. **Bootstrap**: `functions.php` creates the `Theme` instance
+2. **Registration**: `Theme::__construct()` loads default components from `inc/*/Component.php`
+3. **Initialization**: Each component's `initialize()` method hooks into WordPress
+
+```
+functions.php → Theme.php → Component::initialize() → WordPress hooks
+```
+
+Each component implements `Component_Interface` and optionally `Templating_Component_Interface` for template tags. Components are self-contained: they register their own hooks, enqueue their own assets, and provide their own template functions.
+
+### Style Workflow
+
+Source CSS files in `assets/css/src/` are processed by PostCSS via `build-css.js`:
+
+1. **Edit** source files (e.g., `_header.css` for header styles)
+2. **Import**: `global.css` imports partials via `@import`
+3. **Build**: `build-css.js` processes with PostCSS (custom properties, nesting, autoprefixer)
+4. **Enqueue**: `Styles/Component.php` enqueues compiled CSS in WordPress
+
+**Conditional loading**: Some stylesheets (comments, sidebar, front-page) are only loaded on pages that need them. See `get_css_files()` in `Styles/Component.php`.
+
+### Script Workflow
+
+TypeScript/JavaScript in `assets/js/src/` is bundled by esbuild via `build-js.js`:
+
+1. **Edit** source files (e.g., `navigation.ts` for menu behavior)
+2. **Build**: `build-js.js` compiles TypeScript, bundles, and minifies
+3. **Enqueue**: `Scripts/Component.php` enqueues with async/defer loading
 
 
 ### Wiki: Recommended code editor extensions
@@ -259,6 +336,10 @@ WP Rig comes loaded with Node/Bun, Composer, and WP CLI scripts to dramatically 
 - `block:remove`: Remove a block with confirmation
 - `block:promote-plugin`: Export block as plugin
 - `create-rig-component`: Scaffold new theme component
+- `test:e2e`: Run all End-to-End tests with Playwright
+- `test:e2e:screenshot`: Take screenshots of specific pages or elements for regression testing
+
+For more detailed testing instructions, see [docs/testing.md](docs/testing.md).
 
 #### Composer Scripts
 

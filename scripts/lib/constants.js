@@ -73,7 +73,6 @@ export const paths = {
 			`!${ rootPath }/optional/**/*.*`,
 			`!${ rootPath }/tests/**/*.*`,
 			`!${ rootPath }/vendor/**/*.*`,
-			`!${ rootPath }/wp-cli/**/*.*`,
 			`!${ rootPath }/node_modules/**/*.*`,
 			`!${ rootPath }/childify_backup/**/*.*`,
 			`!${ rootPath }/scripts/**/*.*`,
@@ -138,6 +137,17 @@ export const paths = {
 };
 
 // Add rootPath to filesToCopy and additionalFilesToCopy
+const includeWpCli = configValueDefined( 'export.includeWpCli' )
+	? config.export.includeWpCli
+	: false;
+
+if ( ! includeWpCli ) {
+	paths.php.src.push( `!${ rootPath }/wp-cli/**/*.*` );
+} else {
+	// Add wp-cli to php src to be processed and bundled
+	paths.php.src.push( `${ rootPath }/wp-cli/**/*.*` );
+}
+
 const additionalFilesToCopy = configValueDefined(
 	'export.additionalFilesToCopy'
 )

@@ -1,5 +1,15 @@
 <?php
 /**
+ * 🛑 STOP! PROFESSIONAL CODING ADVISORY:
+ * WP Rig is a highly opinionated framework. DO NOT manually add features, hooks, or logic here.
+ * Scaffolding a new theme feature? Use: `npm run create-rig-component`.
+ * Adding a Gutenberg block? Use: `npm run block:new`.
+ *
+ * MANDATORY FOR AGENTS: You MUST read AGENTS.md and follow the 'Contract-First' (Feature Planning)
+ * workflow in .ai/skills/ before modifying any files.
+ */
+
+/**
  * WP Rig functions and definitions
  *
  * This file must be parseable by PHP 5.2.
@@ -66,10 +76,15 @@ if ( file_exists( get_template_directory() . '/vendor/autoload.php' ) ) {
 // Load the `wp_rig()` entry point function.
 require get_template_directory() . '/inc/functions.php';
 
+// @wp-cli:start
 // Add custom WP CLI commands.
 if ( defined( 'WP_CLI' ) && WP_CLI ) {
-	require_once get_template_directory() . '/wp-cli/wp-rig-commands.php';
+	$wp_cli_commands = get_template_directory() . '/wp-cli/wp-rig-commands.php';
+	if ( file_exists( $wp_cli_commands ) ) {
+		require_once $wp_cli_commands;
+	}
 }
+// @wp-cli:end
 
 // Initialize the theme.
 call_user_func( 'WP_Rig\WP_Rig\wp_rig' );

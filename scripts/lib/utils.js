@@ -83,27 +83,30 @@ function processBuffer( content, replacements ) {
  * This is a simpler alternative to the 'replacestream' package.
  *
  * @param {string|RegExp} searchValue  - The value to search for in the stream chunks.
- * @param {string} replaceValue - The value to replace the found occurrences with.
+ * @param {string}        replaceValue - The value to replace the found occurrences with.
  * @return {Transform} A transform stream that performs the replacements.
  */
 function createReplaceStream( searchValue, replaceValue ) {
 	let buffer = '';
 
-	return new Transform({
+	return new Transform( {
 		transform( chunk, encoding, callback ) {
 			const str = buffer + chunk.toString();
 			const replaced = str.replace( searchValue, replaceValue );
 
 			// Keep a small buffer in case the search pattern spans chunk boundaries
-			const maxPatternLength = searchValue instanceof RegExp ?
-				100 : // Reasonable buffer size for regex
-				searchValue.length;
+			const maxPatternLength =
+				searchValue instanceof RegExp
+					? 100 // Reasonable buffer size for regex
+					: searchValue.length;
 
-			if (str.length > maxPatternLength) {
+			if ( str.length > maxPatternLength ) {
 				// Push most of the processed content, but keep a small buffer
 				// in case the pattern spans across chunks
-				buffer = str.slice(str.length - maxPatternLength);
-				this.push(replaced.slice(0, replaced.length - maxPatternLength));
+				buffer = str.slice( str.length - maxPatternLength );
+				this.push(
+					replaced.slice( 0, replaced.length - maxPatternLength )
+				);
 			} else {
 				buffer = str;
 			}
@@ -112,12 +115,40 @@ function createReplaceStream( searchValue, replaceValue ) {
 		},
 		flush( callback ) {
 			// Process any remaining buffered content
-			if (buffer.length > 0) {
-				this.push(buffer.replace(searchValue, replaceValue));
+			if ( buffer.length > 0 ) {
+				this.push( buffer.replace( searchValue, replaceValue ) );
 			}
 			callback();
-		}
-	});
+		},
+	} );
+}
+
+/**
+ * Escapes special characters in a string for use in a regular expression.
+ *
+ * @param {string} string - The string to be escaped.
+ * @return {string} The escaped string.
+ */
+export function escapeRegExp( string ) {
+	return string.replace( /[.*+?^${}()|[\]\\]/g, '\\$&' );
+}
+
+/**
+ * Builds an array of replacement objects based on the theme configuration and default name fields.
+ * Each object contains a 'searchValue' as a regular expression and a corresponding 'replaceValue'.
+ *
+ * @param {boolean} [isProdFlag] - Optional flag to indicate if production configuration should be used.
+ * @return {Array<Object>} An array of objects with 'searchValue' (RegExp) and 'replaceValue' (string).
+ */
+export function getReplacements( isProdFlag ) {
+	const themeConfig = getThemeConfig( isProdFlag );
+	return Object.keys( nameFieldDefaults ).map( ( nameField ) => ( {
+		searchValue: new RegExp(
+			escapeRegExp( String( nameFieldDefaults[ nameField ] ) ),
+			'g'
+		),
+		replaceValue: themeConfig.theme[ nameField ],
+	} ) );
 }
 
 /**
@@ -126,21 +157,11 @@ function createReplaceStream( searchValue, replaceValue ) {
  * @return {import('stream').Transform} - A stream transformation for string replacements.
  */
 export function getStringReplacementTasks( isProdFlag ) {
-	const themeConfig = getThemeConfig( isProdFlag ); // keep call signature intact
+	const replacements = getReplacements( isProdFlag );
 
-	const replacements = Object.keys( nameFieldDefaults ).map(
-		( nameField ) => ( {
-			searchValue: new RegExp(
-				nameFieldDefaults[ nameField ].replace( /\\/g, '\\\\' ),
-				'g'
-			),
-			replaceValue: themeConfig.theme[ nameField ],
-		} )
-	);
-
-	return new Transform({
+	return new Transform( {
 		objectMode: true,
-		transform(file, encoding, callback) {
+		transform( file, encoding, callback ) {
 			if ( file.isBuffer() ) {
 				file.contents = processBuffer( file.contents, replacements );
 				callback( null, file );
@@ -158,8 +179,8 @@ export function getStringReplacementTasks( isProdFlag ) {
 			} else {
 				callback( null, file );
 			}
-		}
-	});
+		},
+	} );
 }
 
 /**
@@ -287,7 +308,7 @@ export function replaceInlineCSS( code ) {
 	if ( ! isProd ) {
 		return code;
 	}
-	const searchValue = nameFieldDefaults.slug;
+	const searchValue = escapeRegExp( nameFieldDefaults.slug );
 	const replaceValue = config.theme.slug;
 	return code.replace( new RegExp( searchValue, 'g' ), replaceValue );
 }
@@ -325,16 +346,14 @@ export function replaceInlineJS( code ) {
 		},
 	];
 
-	return code.replace(
-		new RegExp(
-			replacements.map( ( r ) => r.searchValue ).join( '|' ),
-			'g'
-		),
-		( match ) => {
-			const replacement = replacements.find( ( r ) =>
-				new RegExp( r.searchValue ).test( match )
-			);
-			return replacement ? replacement.replaceValue : match;
-		}
-	);
+	const searchPattern = replacements
+		.map( ( r ) => escapeRegExp( r.searchValue ) )
+		.join( '|' );
+
+	return code.replace( new RegExp( searchPattern, 'g' ), ( match ) => {
+		const replacement = replacements.find( ( r ) =>
+			new RegExp( escapeRegExp( r.searchValue ) ).test( match )
+		);
+		return replacement ? replacement.replaceValue : match;
+	} );
 }

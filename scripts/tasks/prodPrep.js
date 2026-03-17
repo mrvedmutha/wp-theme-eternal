@@ -218,39 +218,19 @@ export default function prodPrep( done ) {
 			return; // Skip this file
 		}
 
-		// Create read and write streams
-		const readStream = fs.createReadStream( srcFilePath );
-		const writeStream = fs.createWriteStream( destFilePath );
-
-		readStream.on( 'error', ( err ) => {
-			log(
-				colors.red(
-					`prodPrep: Error reading file ${ srcFilePath }: ${ err.message }`
-				)
-			);
-			copyErrors++;
-			if ( ! writeStream.destroyed ) {
-				writeStream.end();
-			}
+		// Use copyFileSync for a more reliable, atomic copy operation
+		try {
+			fs.copyFileSync( srcFilePath, destFilePath );
 			checkCompletion();
-		} );
-
-		writeStream.on( 'error', ( err ) => {
+		} catch ( err ) {
 			log(
 				colors.red(
-					`prodPrep: Error writing file ${ destFilePath }: ${ err.message }`
+					`prodPrep: Error copying file ${ srcFilePath }: ${ err.message }`
 				)
 			);
 			copyErrors++;
 			checkCompletion();
-		} );
-
-		writeStream.on( 'finish', () => {
-			checkCompletion(); // File copied successfully
-		} );
-
-		// Start the copy process
-		readStream.pipe( writeStream );
+		}
 	} );
 
 	// Safety net

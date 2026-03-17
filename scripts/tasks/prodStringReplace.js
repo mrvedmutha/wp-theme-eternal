@@ -11,19 +11,8 @@ import {
 	paths,
 	nameFieldDefaults,
 } from '../lib/constants.js';
-import { getThemeConfig } from '../lib/utils.js';
+import { getThemeConfig, getReplacements } from '../lib/utils.js';
 import { globFiles, writeFileEnsured } from '../lib/filepipe.js';
-
-function buildReplacements() {
-	const themeConfig = getThemeConfig( true );
-	return Object.keys( nameFieldDefaults ).map( ( nameField ) => ( {
-		searchValue: new RegExp(
-			String( nameFieldDefaults[ nameField ] ).replace( /\\/g, '\\\\' ),
-			'g'
-		),
-		replaceValue: themeConfig.theme[ nameField ],
-	} ) );
-}
 
 function applyReplacements( content, replacements ) {
 	let out = content;
@@ -43,11 +32,33 @@ export default async function prodStringReplace( done ) {
 			return done();
 		}
 
-		const files = await globFiles( paths.export.stringReplaceSrc );
-		const replacements = buildReplacements();
+		const replacements = getReplacements( true );
+
+		// 1. Process files already in production (built assets, copied files)
+		const prodFiles = await globFiles(
+			[
+				`${ prodThemePath }/**/*.js`,
+				`${ prodThemePath }/**/*.css`,
+				`${ prodThemePath }/**/*.php`,
+			],
+			{
+				ignore: [ '**/*.svg' ],
+			}
+		);
 
 		await Promise.all(
-			files.map( async ( srcFile ) => {
+			prodFiles.map( async ( srcFile ) => {
+				const content = await fse.readFile( srcFile, 'utf8' );
+				const replaced = applyReplacements( content, replacements );
+				await fse.writeFile( srcFile, replaced, 'utf8' );
+			} )
+		);
+
+		// 2. Process source files that might not be in production yet (like style.css)
+		const sourceFiles = await globFiles( paths.export.stringReplaceSrc );
+
+		await Promise.all(
+			sourceFiles.map( async ( srcFile ) => {
 				const rel = path.relative( rootPath, srcFile );
 				const destFile = path.join( prodThemePath, rel );
 				const content = await fse.readFile( srcFile, 'utf8' );

@@ -18,7 +18,7 @@ WP Rig office hours are on hiatus and not actively scheduled at this time.
 10. Submit a Pull Request to the WP Rig repository explaining your changes and referencing any related issues.
 
 ## Guidelines for pull requests
-- Keep pull requests as concise as possible. If you're addressing a bug, only submit the fixes for that bug. 
+- Keep pull requests as concise as possible. If you're addressing a bug, only submit the fixes for that bug.
   - Submit unrelated cleanup, e.g. fixing spaces, tabs, or any violations caught by PHPCS, as its own pull request.
 
 ## Branch naming convention
@@ -30,3 +30,9 @@ Name your branches with prefixes and descriptions: `[type]/[change]`. Examples:
 
 ## Localizing WP Rig
 WP Rig is a boilerplate for creating WordPress themes. The likelihood of a theme developer changing the structure of PHP files is high and any translation files shipped with WP Rig would be invalidated. For this reason, translations of WP Rig will not be accepted.
+
+## AI-Assisted Development
+If you are using an AI coding agent to contribute to WP Rig, please ensure that the agent follows our opinionated standards:
+1. **Read `AGENTS.md`**: This is the entry point for all AI-specific guidance.
+2. **Follow the Skills**: Use the recipes in `.ai/skills/` for common tasks.
+3. **Contract-First**: Always plan and specify new features in `.ai/plans/` before implementation.

@@ -8,6 +8,7 @@
     "author_uri": "https://wprig.io/",
     "description": "A progressive theme development rig for WordPress.",
     "version": "1.0.0",
+    "themeType": "classic",
     "enableBlocks": false
   },
   "dev": {
@@ -33,9 +34,6 @@
         "_custom-media.css"
       ],
       "features": {
-        "custom-media-queries": true,
-        "custom-properties": true,
-        "nesting-rules": true,
         "mobile-nav-type": "modern"
       }
     },
@@ -52,6 +50,7 @@
   "export": {
     "compress": true,
     "generatePotFile": true,
+    "includeWpCli": false,
     "filesToCopy": [
       "LICENSE",
       "readme.txt",

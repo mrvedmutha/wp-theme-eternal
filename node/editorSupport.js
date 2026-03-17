@@ -164,3 +164,33 @@ function createIndexHtmlWithStarterContent( templatesFolderPath ) {
 checkAndCreateFolders( fseFolders );
 createIndexHtmlWithStarterContent( '../templates' );
 generateThemeJson(); // Call the new function to create theme.json
+updateConfigThemeType( 'universal' );
+
+function updateConfigThemeType( themeType ) {
+	const configPath = path.resolve( __dirname, '../config/config.json' );
+	if ( ! fs.existsSync( configPath ) ) {
+		return;
+	}
+
+	try {
+		const config = JSON.parse( fs.readFileSync( configPath, 'utf8' ) );
+		config.theme = config.theme || {};
+
+		// Only update if not already block-based, to preserve more specific type
+		if ( config.theme.themeType !== 'block-based' ) {
+			config.theme.themeType = themeType;
+			fs.writeFileSync(
+				configPath,
+				JSON.stringify( config, null, 2 ) + '\n',
+				'utf8'
+			);
+			console.log(
+				`✅ config/config.json: updated themeType to ${ themeType }`
+			);
+		}
+	} catch ( error ) {
+		console.error(
+			`❌ Error updating config/config.json: ${ error.message }`
+		);
+	}
+}

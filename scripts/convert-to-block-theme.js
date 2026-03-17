@@ -558,6 +558,41 @@ async function main() {
 	await processCustomizerComponent( dryRun );
 	await processEZCustomizerComponent( dryRun );
 	await processNavMenusComponent( dryRun );
+
+	// Update config.json themeType
+	await updateConfigThemeType( 'block-based', dryRun );
+}
+
+async function updateConfigThemeType( themeType, dryRun ) {
+	const configPath = path.resolve( THEME_ROOT, 'config/config.json' );
+	try {
+		await fs.access( configPath );
+	} catch {
+		return;
+	}
+
+	if ( dryRun ) {
+		console.log(
+			`config/config.json: would update themeType to ${ themeType } (dry-run)`
+		);
+		return;
+	}
+
+	try {
+		const config = JSON.parse( await fs.readFile( configPath, 'utf8' ) );
+		config.theme = config.theme || {};
+		config.theme.themeType = themeType;
+		await fs.writeFile(
+			configPath,
+			JSON.stringify( config, null, 2 ) + '\n',
+			'utf8'
+		);
+		console.log( `config/config.json: updated themeType to ${ themeType }` );
+	} catch ( error ) {
+		console.error(
+			`Error updating config/config.json: ${ error.message }`
+		);
+	}
 }
 
 function printReport( rep, dry ) {

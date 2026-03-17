@@ -24,6 +24,7 @@ import prodCompress from './tasks/prodCompress.js';
 import { serve, server } from './tasks/browserSync.js';
 import { paths } from './lib/constants.js';
 import generateCert from './tasks/generateCert.js';
+import config from '../config/themeConfig.js';
 
 const exec = promisify( execCb );
 const program = new Command();
@@ -450,6 +451,18 @@ program
 	} );
 
 program
+	.command( 'get-dev-url' )
+	.description( 'Get the local development URL from config' )
+	.action( () => {
+		try {
+			console.log( config.dev.browserSync.proxyURL );
+		} catch ( e ) {
+			console.error( 'Could not find proxyURL in config' );
+			process.exitCode = 1;
+		}
+	} );
+
+program
 	.command( 'init' )
 	.description(
 		'Post-install setup: create config.json and guide next steps'
@@ -535,6 +548,26 @@ program
 						message: 'Enable live reload (BrowserSync live)?',
 						default: defaults?.dev?.browserSync?.live !== false,
 					},
+					{
+						type: 'list',
+						name: 'themeType',
+						message: 'What type of theme are you building?',
+						choices: [
+							{
+								name: 'Classic (Standard WP Rig)',
+								value: 'classic',
+							},
+							{
+								name: 'Universal (Hybrid theme with theme.json)',
+								value: 'universal',
+							},
+							{
+								name: 'Block-based (Full Site Editing)',
+								value: 'block-based',
+							},
+						],
+						default: defaults?.theme?.themeType || 'classic',
+					},
 				] );
 			} else {
 				answers = {
@@ -546,10 +579,15 @@ program
 					),
 					live: defaults?.dev?.browserSync?.live !== false,
 					https: !! defaults?.dev?.browserSync?.https,
+					themeType: defaults?.theme?.themeType || 'classic',
 				};
 			}
 
 			// Merge into userConfig without clobbering other keys
+			userConfig.theme = {
+				...( userConfig.theme || {} ),
+				themeType: answers.themeType,
+			};
 			userConfig.dev = userConfig.dev || {};
 			userConfig.dev.browserSync = {
 				...( userConfig.dev.browserSync || {} ),
