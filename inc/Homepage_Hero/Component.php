@@ -2,18 +2,23 @@
 /**
  * WP_Rig\WP_Rig\Homepage_Hero\Component class
  *
- * Registers the homepage hero JS (GSAP animations) on the front page only.
+ * Enqueues the GSAP animation script on any page that contains
+ * the wp-rig/homepage-hero block.
  *
  * @package wp_rig
  *
- * @js-file assets/js/src/homepage-hero.js  Entrance reveal + CTA underline hover animations
+ * @js-file assets/js/src/homepage-hero.js  Entrance reveal + CTA underline hover
  */
 
 namespace WP_Rig\WP_Rig\Homepage_Hero;
 
 use WP_Rig\WP_Rig\Component_Interface;
-use function add_filter;
-use function is_front_page;
+use function WP_Rig\WP_Rig\wp_rig;
+use function add_action;
+use function has_block;
+use function wp_enqueue_script;
+use function get_theme_file_uri;
+use function get_theme_file_path;
 
 /**
  * Class for Homepage Hero component.
@@ -33,29 +38,29 @@ class Component implements Component_Interface {
 	 * Adds the action and filter hooks to integrate with WordPress.
 	 */
 	public function initialize(): void {
-		add_filter( 'wp_rig_js_files', array( $this, 'filter_register_script' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'action_enqueue_script' ) );
 	}
 
 	/**
-	 * Registers the homepage hero animation script.
-	 * Only enqueued on the front page to avoid loading GSAP animations elsewhere.
-	 *
-	 * @param array $js_files Existing JS files array.
-	 * @return array
+	 * Enqueues the homepage hero animation script only on pages
+	 * that contain the wp-rig/homepage-hero block.
 	 */
-	public function filter_register_script( array $js_files ): array {
-		if ( ! is_front_page() ) {
-			return $js_files;
+	public function action_enqueue_script(): void {
+		global $post;
+
+		if ( ! $post || ! has_block( 'wp-rig/homepage-hero', $post ) ) {
+			return;
 		}
 
-		$js_files['wp-rig-homepage-hero'] = array(
-			'file'    => 'homepage-hero.min.js',
-			'global'  => true,
-			'footer'  => true,
-			'loading' => 'defer',
-			'deps'    => array(),
-		);
+		$js_path = get_theme_file_path( '/assets/js/homepage-hero.min.js' );
+		$js_uri  = get_theme_file_uri( '/assets/js/homepage-hero.min.js' );
 
-		return $js_files;
+		wp_enqueue_script(
+			'wp-rig-homepage-hero',
+			$js_uri,
+			array(),
+			wp_rig()->get_asset_version( $js_path ),
+			true
+		);
 	}
 }

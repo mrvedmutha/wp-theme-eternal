@@ -1,8 +1,10 @@
 /**
  * Homepage Hero Animations
  *
- * Entrance: heading → subtext → CTA fade in from top on page load.
+ * Entrance:  heading → subtext → CTA fade in from top on page load.
  * CTA hover: underline draws left→right on enter, right→left on leave.
+ *
+ * Scroll stickiness is handled entirely by CSS (position: sticky).
  *
  * Requires GSAP (already installed as a project dependency).
  */
@@ -37,9 +39,7 @@ if ( hero ) {
 
 	// ── CTA underline hover ───────────────────────────────────────
 	// Line starts fully visible (scaleX: 1).
-	// Both mouseenter and mouseleave trigger the same wipe:
-	//   1. Wipe out right→left  (scaleX 1→0, origin right, fast)
-	//   2. Wipe in  left→right  (scaleX 0→1, origin left, slightly slower)
+	// mouseenter triggers a wipe: right→left out, then left→right in.
 
 	if ( cta && line ) {
 		gsap.set( line, { scaleX: 1, transformOrigin: 'left center' } );

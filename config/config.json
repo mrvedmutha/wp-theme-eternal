@@ -1,6 +1,7 @@
 {
   "theme": {
-    "themeType": "classic"
+    "themeType": "classic",
+    "enableBlocks": true
   },
   "dev": {
     "browserSync": {

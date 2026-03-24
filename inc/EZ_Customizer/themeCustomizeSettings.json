@@ -7,12 +7,6 @@
       "title": "WP Rig Settings",
       "priority": 30
     },
-    {
-      "id": "homepage_hero",
-      "title": "Homepage Hero",
-      "description": "Controls the full-width hero section on the front page.",
-      "priority": 40
-    }
   ],
   "settings": [
     {
@@ -21,45 +15,5 @@
       "section": "global",
       "refresh": false
     },
-    {
-      "id": "hero_image",
-      "label": "Hero Background Image",
-      "section": "homepage_hero",
-      "type": "media",
-      "default": "",
-      "refresh": true
-    },
-    {
-      "id": "hero_heading",
-      "label": "Hero Headline",
-      "section": "homepage_hero",
-      "type": "text",
-      "default": "The Pinnacle of Longevity Supplements",
-      "refresh": false
-    },
-    {
-      "id": "hero_subtext",
-      "label": "Hero Subtext",
-      "section": "homepage_hero",
-      "type": "textarea",
-      "default": "Advanced nutraceutical formulations developed to support wellbeing from within.",
-      "refresh": false
-    },
-    {
-      "id": "hero_cta_label",
-      "label": "CTA Button Label",
-      "section": "homepage_hero",
-      "type": "text",
-      "default": "SHOP NOW",
-      "refresh": false
-    },
-    {
-      "id": "hero_cta_url",
-      "label": "CTA URL",
-      "section": "homepage_hero",
-      "type": "url",
-      "default": "/shop",
-      "refresh": false
-    }
   ]
 }
