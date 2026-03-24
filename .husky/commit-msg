@@ -1,0 +1,16 @@
+#!/bin/sh
+
+npx --no -- commitlint --edit "$1"
+EXIT=$?
+if [ $EXIT -ne 0 ]; then
+  echo ""
+  echo "❌ Commit message rejected. Use conventional format:"
+  echo "   feat(scope): description"
+  echo "   fix(scope): description"
+  echo "   chore(scope): description"
+  echo ""
+  echo "   Allowed types: feat | fix | chore | refactor | style | docs | test | build | revert"
+  echo "   Example: feat(typography): add hero fluid font size"
+  echo ""
+  exit 1
+fi

@@ -45,6 +45,9 @@ For 2026-ready AI agents, specialized "skills" in the `/.ai/skills/` directory p
 - [**Child Theme Development**](.ai/skills/child-theme-development/SKILL.md): Scaffolding and managing child themes.
 - [**WP-CLI Commands**](.ai/skills/wp-cli/SKILL.md): Custom commands for environment setup and management.
 
+### Version Control
+- [**Version Control**](.ai/skills/version-control/SKILL.md): Branching strategy, conventional commits, release process, and automated gates. *(Model: Haiku)*
+
 ### Quality Assurance
 - [**E2E Testing (Playwright)**](.ai/skills/e2e-testing/SKILL.md): Running Playwright tests, accessibility audits, and regression screenshots.
 - [**Code Quality Standards**](.ai/skills/code-quality-standards/SKILL.md): Adhering to PHPStan, PHPCS, Rector, and Prettier.

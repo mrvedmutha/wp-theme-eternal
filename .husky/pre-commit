@@ -1,0 +1,22 @@
+#!/bin/sh
+
+echo "🔍 Running pre-commit checks..."
+
+# 1. Run lint-staged (stylelint on CSS, phpcs on PHP)
+npx lint-staged
+LINT_EXIT=$?
+if [ $LINT_EXIT -ne 0 ]; then
+  echo "❌ Lint failed. Fix the errors above before committing."
+  exit 1
+fi
+
+# 2. Run full CSS + JS build
+echo "🏗️  Running build check..."
+npm run build
+BUILD_EXIT=$?
+if [ $BUILD_EXIT -ne 0 ]; then
+  echo "❌ Build failed. Fix the errors above before committing."
+  exit 1
+fi
+
+echo "✅ All checks passed."

@@ -66,6 +66,16 @@
 !.travis.yml
 !.browserslistrc
 
+# Version control tooling
+!.husky/
+!.husky/*
+!commitlint.config.cjs
+
+# AI agent skills and plans
+!.ai/
+!.ai/**
+!CLAUDE.md
+
 *.DS_Store
 
 # Playwright
