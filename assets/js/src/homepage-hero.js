@@ -24,15 +24,15 @@ if ( hero ) {
 	const tl = gsap.timeline( { defaults: { ease: 'power2.out' } } );
 
 	if ( heading ) {
-		tl.from( heading, { opacity: 0, y: -20, duration: 0.8 }, 0.2 );
+		tl.fromTo( heading, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.8 }, 0.2 );
 	}
 
 	if ( subtext ) {
-		tl.from( subtext, { opacity: 0, y: -20, duration: 0.7 }, 0.5 );
+		tl.fromTo( subtext, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.7 }, 0.5 );
 	}
 
 	if ( cta ) {
-		tl.from( cta, { opacity: 0, y: -20, duration: 0.6 }, 0.8 );
+		tl.fromTo( cta, { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.6 }, 0.8 );
 	}
 
 	// ── CTA underline hover ───────────────────────────────────────
@@ -44,17 +44,13 @@ if ( hero ) {
 	if ( cta && line ) {
 		gsap.set( line, { scaleX: 1, transformOrigin: 'left center' } );
 
-		const wipe = () => {
+		cta.addEventListener( 'mouseenter', () => {
 			gsap.killTweensOf( line );
-			// Set transformOrigin synchronously before GSAP captures the initial state
 			gsap.set( line, { transformOrigin: 'right center' } );
 			const wipeTl = gsap.timeline();
 			wipeTl.to( line, { scaleX: 0, duration: 0.35, ease: 'power2.in' } );
 			wipeTl.set( line, { transformOrigin: 'left center' } );
 			wipeTl.to( line, { scaleX: 1, duration: 0.45, ease: 'power2.out' } );
-		};
-
-		cta.addEventListener( 'mouseenter', wipe );
-		cta.addEventListener( 'mouseleave', wipe );
+		} );
 	}
 }
