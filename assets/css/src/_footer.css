@@ -1,13 +1,459 @@
 /*--------------------------------------------------------------
-# Footer
+# Footer — Eternal Labs
+#
+# Two sections:
+#   1. .footer-newsletter  — full-width bg image, email capture form
+#   2. .footer-main        — black bg, brand col + nav columns + bottom bar
+#
+# Typography tokens (Maison Neue, single variant):
+#   --footer-heading-size:  17px  (newsletter heading)
+#   --footer-eyebrow-size:  11px  (SIGN UP, column headings — 2px letter-spacing)
+#   --footer-base-size:     15px  (input placeholder)
+#   --footer-small-size:    13px  (nav links, bottom bar)
+#
+# Color tokens:
+#   --footer-white:         #ffffff
+#   --footer-muted:         #b6b6b6
+#   --footer-black:         #000000
 --------------------------------------------------------------*/
-.site-footer {
-	margin: 1em 0 0;
-	padding: 2em 0;
-	font-family: var(--highlight-font-family);
-	font-stretch: condensed;
+
+:root {
+	--footer-heading-size: 17px;
+	--footer-eyebrow-size: 11px;
+	--footer-base-size:    15px;
+	--footer-small-size:   13px;
+	--footer-white:        #fff;
+	--footer-muted:        #b6b6b6;
+	--footer-black:        #000;
+	--footer-lh-heading:   30px;
+	--footer-lh-eyebrow:   14px;
+	--footer-lh-base:      23px;
+	--footer-lh-small:     20px;
 }
 
-.site-info {
+/*--------------------------------------------------------------
+# Site footer wrapper reset
+--------------------------------------------------------------*/
+.site-footer {
+	margin: 0;
+	padding: 0;
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-stretch: normal;
+}
+
+/*--------------------------------------------------------------
+# Outer wrapper — atmospheric bg behind both sections
+--------------------------------------------------------------*/
+.footer-outer {
+	position: relative;
+	width: 100%;
+	background-color: #1a2a3a;
+	background-image: var(--footer-bg);
+	background-size: cover;
+	background-position: center;
+	overflow: hidden;
+}
+
+/*--------------------------------------------------------------
+# 1. Newsletter Banner
+--------------------------------------------------------------*/
+.footer-newsletter {
+	position: relative;
+	width: 100%;
+	min-height: 440px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* No own background — inherits outer wrapper's atmospheric bg */
+}
+
+.footer-newsletter__inner {
+	position: relative;
+	z-index: 1;
+	width: min(667px, 90vw);
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	align-items: center;
+}
+
+.footer-newsletter__text {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	align-items: center;
 	text-align: center;
+	color: var(--footer-white);
+}
+
+.footer-newsletter__heading {
+	font-size: var(--footer-heading-size);
+	line-height: var(--footer-lh-heading);
+	font-weight: 400;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+.footer-newsletter__sub {
+	font-size: var(--footer-eyebrow-size);
+	line-height: var(--footer-lh-eyebrow);
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	margin: 0;
+	max-width: 413px;
+}
+
+.footer-newsletter__form {
+	width: 100%;
+}
+
+.footer-newsletter__field-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 0.5px solid var(--footer-white);
+	height: 56px;
+	padding: 0 25px;
+}
+
+.footer-newsletter__input {
+	flex: 1;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-base-size);
+	line-height: var(--footer-lh-base);
+	letter-spacing: 0.15px;
+	color: var(--footer-white);
+	min-width: 0;
+}
+
+.footer-newsletter__input::placeholder {
+	color: var(--footer-white);
+	opacity: 1;
+}
+
+.footer-newsletter__submit {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	flex-shrink: 0;
+}
+
+.footer-newsletter__submit-text {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-eyebrow-size);
+	line-height: var(--footer-lh-eyebrow);
+	font-weight: 400;
+	letter-spacing: 2px;
+	color: var(--footer-white);
+	white-space: nowrap;
+}
+
+.footer-newsletter__submit-rule {
+	display: block;
+	width: 54px;
+	height: 0.308px;
+	background-color: var(--footer-white);
+}
+
+/* Message below field wrap */
+.footer-newsletter__message {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-eyebrow-size);
+	line-height: var(--footer-lh-eyebrow);
+	font-weight: 400;
+	letter-spacing: 2px;
+	color: var(--footer-white);
+	margin: 8px 0 0;
+	text-align: left;
+}
+
+.footer-newsletter__message[hidden] {
+	display: none;
+}
+
+/*--------------------------------------------------------------
+# 2. Main Footer
+# Left-inset ~80px (matching Figma: 83px at 1444px container),
+# extends flush to the right edge. Atmospheric bg visible in left gap.
+--------------------------------------------------------------*/
+.footer-main {
+	background-color: var(--footer-black);
+	padding: 40px;
+	margin-left: 80px;
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+/*── Top row ──*/
+.footer-main__top {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding-bottom: 40px;
+}
+
+/*── Brand column ──*/
+.footer-brand {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	flex-shrink: 0;
+	width: 227px;
+}
+
+.footer-brand__logo-link {
+	display: block;
+	width: 183px;
+}
+
+.footer-brand__logo-img {
+	display: block;
+	width: 100%;
+	height: auto;
+	/* Convert dark brand logo to white for the black footer background */
+	filter: brightness(0) invert(1);
+}
+
+.footer-brand__tagline {
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	margin: 0;
+}
+
+/*── Nav columns ──*/
+.footer-nav {
+	display: flex;
+	gap: 30px;
+	align-items: flex-start;
+	justify-content: flex-end;
+	flex: 1;
+}
+
+.footer-nav__column {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	width: 150px;
+	flex-shrink: 0;
+}
+
+.footer-nav__heading {
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	margin: 0;
+	font-weight: 400;
+}
+
+/* wp_nav_menu output */
+.footer-nav__list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.footer-nav__list li {
+	margin: 0;
+	padding: 0;
+}
+
+.footer-nav__list a {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+}
+
+/* Legal menu — lower specificity, must come before nav list :not(:hover) */
+.footer-bar__legal-list a::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background-color: var(--footer-muted);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.3s ease;
+}
+
+/* Underline animation — same pattern as header */
+.footer-nav__list a::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background-color: var(--footer-muted);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.3s ease;
+}
+
+.footer-nav__list a:not(:hover)::after {
+	transform-origin: right;
+}
+
+.footer-nav__list a:hover::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+.footer-bar__legal-list a:not(:hover)::after {
+	transform-origin: right;
+}
+
+.footer-bar__legal-list a:hover::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+/*── Bottom bar ──*/
+.footer-bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding-top: 24px;
+	border-top: 0.5px solid rgba(255, 255, 255, 0.12);
+}
+
+.footer-bar__left,
+.footer-bar__right {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.footer-bar__copyright {
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	white-space: nowrap;
+}
+
+/* Legal menu */
+.footer-bar__legal-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.footer-bar__legal-list li {
+	margin: 0;
+	padding: 0;
+}
+
+.footer-bar__legal-list a {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+	white-space: nowrap;
+	position: relative;
+	display: inline-block;
+}
+
+
+/* Currency display */
+.footer-bar__currency {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 0 10px;
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: 16px;
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	white-space: nowrap;
+}
+
+.footer-bar__globe {
+	color: var(--footer-white);
+	flex-shrink: 0;
+}
+
+/* Payment icons */
+.footer-bar__payment {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+
+.footer-bar__payment-icon {
+	display: block;
+	width: 38px;
+	height: 20px;
+	object-fit: contain;
+	flex-shrink: 0;
+}
+
+/* WINGS credit */
+.footer-bar__wings-credit {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+	white-space: nowrap;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.footer-bar__wings-link {
+	position: relative;
+	display: inline-block;
+}
+
+/* Underline animation on "WINGS" — same pattern as header */
+.footer-bar__wings-link::after {
+	content: '';
+	position: absolute;
+	bottom: -1px;
+	left: 0;
+	right: 0;
+	height: 1px;
+	background-color: var(--footer-muted);
+	transform: scaleX(0);
+	transform-origin: left;
+	transition: transform 0.3s ease;
+}
+
+.footer-bar__wings-credit:not(:hover) .footer-bar__wings-link::after {
+	transform-origin: right;
+}
+
+.footer-bar__wings-credit:hover .footer-bar__wings-link::after {
+	transform: scaleX(1);
+	transform-origin: left;
 }

@@ -160,6 +160,7 @@ class Theme {
 			new Options\Component(),
 			new Blocks\Component(),
 			new Homepage_Hero\Component(),
+			new Newsletter\Component(),
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {

@@ -7,6 +7,11 @@
       "title": "WP Rig Settings",
       "priority": 30
     },
+    {
+      "id": "footer",
+      "title": "Footer",
+      "priority": 31
+    }
   ],
   "settings": [
     {
@@ -15,5 +20,76 @@
       "section": "global",
       "refresh": false
     },
+    {
+      "id": "newsletter_bg_image",
+      "label": "Newsletter Background Image",
+      "section": "footer",
+      "type": "media",
+      "refresh": true
+    },
+    {
+      "id": "newsletter_subtext",
+      "label": "Newsletter Subtext",
+      "section": "footer",
+      "type": "text",
+      "default": "Subscribe and embark on a timeless beauty journey and enjoy 15% off your first purchase* above CHF 350.",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_1",
+      "label": "Payment Icon 1",
+      "section": "footer",
+      "type": "media",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_1_alt",
+      "label": "Payment Icon 1 Alt Text",
+      "section": "footer",
+      "type": "text",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_2",
+      "label": "Payment Icon 2",
+      "section": "footer",
+      "type": "media",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_2_alt",
+      "label": "Payment Icon 2 Alt Text",
+      "section": "footer",
+      "type": "text",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_3",
+      "label": "Payment Icon 3",
+      "section": "footer",
+      "type": "media",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_3_alt",
+      "label": "Payment Icon 3 Alt Text",
+      "section": "footer",
+      "type": "text",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_4",
+      "label": "Payment Icon 4",
+      "section": "footer",
+      "type": "media",
+      "refresh": true
+    },
+    {
+      "id": "payment_icon_4_alt",
+      "label": "Payment Icon 4 Alt Text",
+      "section": "footer",
+      "type": "text",
+      "refresh": true
+    }
   ]
 }
