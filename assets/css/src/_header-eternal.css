@@ -33,13 +33,14 @@
 .site-header {
 	position: sticky;
 	top: 0;
+	left: 0;
+	right: 0;
 	z-index: 1000;
-	width: 100%;
+	width: 100vw;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	padding: var(--space-5) var(--space-10);
-	height: var(--nav-height);
 	background-color: var(--header-bg);
 	transition: var(--header-transition);
 	will-change: transform;
@@ -54,8 +55,10 @@
 # 2. Primary nav list (base styles)
 --------------------------------------------------------------*/
 .header-nav--primary {
+	flex: 1;
 	display: flex;
 	align-items: center;
+	justify-content: flex-start;
 }
 
 .header-nav__list {
@@ -158,11 +161,9 @@
 # 3. Branding / logo (centre)
 --------------------------------------------------------------*/
 .site-header .site-branding {
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
 	flex: none;
-	max-height: none;
+	display: flex;
+	align-items: center;
 	justify-content: center;
 	text-align: center;
 }
@@ -170,17 +171,18 @@
 .site-header .site-branding img,
 .site-header .site-branding svg {
 	display: block;
-	height: calc(var(--nav-height) - 20px);
-	width: auto;
-	max-height: 59px;
+	width: 104px;
+	height: auto;
 }
 
 /*--------------------------------------------------------------
 # 4. Utility nav (right, base styles)
 --------------------------------------------------------------*/
 .header-utility {
+	flex: 1;
 	display: flex;
 	align-items: center;
+	justify-content: flex-end;
 	gap: 0;
 }
 
@@ -236,6 +238,9 @@
 .has-transparent-header .site-header.is-scrolled {
 	background-color: var(--header-bg);
 	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100vw;
 	--nav-underline-color: var(--header-nav-color);
 }
 
@@ -252,6 +257,9 @@
 --------------------------------------------------------------*/
 .has-transparent-header .site-header {
 	position: fixed;
+	left: 0;
+	right: 0;
+	width: 100vw;
 	background-color: var(--header-bg-transparent);
 }
 
