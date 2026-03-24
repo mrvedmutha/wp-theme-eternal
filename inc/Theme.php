@@ -158,6 +158,7 @@ class Theme {
 			new Scripts\Component(),
 			new Excerpts\Component(),
 			new Options\Component(),
+			new Homepage_Hero\Component(),
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {
