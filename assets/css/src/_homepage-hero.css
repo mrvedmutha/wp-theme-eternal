@@ -34,14 +34,24 @@
 /* ── Section wrapper ──────────────────────────────────────── */
 
 .homepage-hero {
-	position:            relative;
-	width:               100%;
-	min-height:          150vh;  /* extra height gives sticky room to travel */
-	background-color:    var(--hero-bg);
-	background-size:     cover;
-	background-position: center center;
-	background-repeat:   no-repeat;
+	position:         relative;
+	width:            100%;
+	height:           100vh;   /* explicit height so abs-positioned img resolves 100% */
+	background-color: var(--hero-bg);
 	/* no overflow:hidden — breaks position:sticky on children */
+}
+
+/* ── Background image — real <img> for proper responsiveness ─ */
+
+.homepage-hero__bg {
+	position:        absolute;
+	inset:           0;
+	width:           100%;
+	height:          100%; /* resolves correctly against explicit height on parent */
+	max-width:       none; /* override global img { max-width: 100% } */
+	object-fit:      cover;
+	object-position: center center;
+	z-index:         0;
 }
 
 /* ── Content block — sticky, stays in view while hero scrolls ─ */
@@ -50,12 +60,13 @@
 	position:       sticky;
 	top:            calc(var(--nav-height, 80px) + 120px);
 	margin-left:    52px;
-	padding-bottom: 48px; /* floor gap — content stops 48px above hero bottom */
+	padding-bottom: 120px;
 	display:        flex;
 	flex-direction: column;
 	gap:            48px;
 	align-items:    flex-start;
 	width:          fit-content;
+	z-index:        1;
 }
 
 /* ── Text group ───────────────────────────────────────────── */
