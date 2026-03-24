@@ -5,13 +5,13 @@
 @media (--sidebar-query) {
 
 	.site {
-		margin: 0 1em;
+		margin: 0;
 		display: grid;
 		grid-template-columns: 1fr;
 	}
 
 	.site-main {
-		margin: 2rem 1rem 0;
+		margin: 2rem 0 0;
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(20em, 1fr));
 		grid-auto-flow: dense;

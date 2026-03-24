@@ -1,0 +1,118 @@
+/*--------------------------------------------------------------
+# Homepage Hero Section
+#
+# Figma reference: node 694:1442
+# Full-viewport hero with layered product imagery, lower-left
+# content block, and GSAP-animated entrance + CTA hover.
+--------------------------------------------------------------*/
+
+:root {
+	--hero-bg:          #fbc3b6;
+	--hero-text:        #fff;
+	--hero-pad-left:    41px;
+	--hero-pad-bottom:  60px;
+
+	/* Typography — matched exactly to Figma */
+	--hero-heading-family:  'Cormorant Garamond', serif;
+	--hero-heading-weight:  300;
+	--hero-heading-size:    52px;
+	--hero-heading-lh:      58px;
+	--hero-heading-ls:      -1px;
+
+	--hero-body-family:     'Maison Neue', 'DM Sans', sans-serif;
+	--hero-body-weight:     400;
+	--hero-body-size:       13px;
+	--hero-body-lh:         20px;
+	--hero-body-ls:         0.13px;
+
+	--hero-cta-family:      'DM Sans', sans-serif;
+	--hero-cta-weight:      500;
+	--hero-cta-size:        11px;
+	--hero-cta-ls:          1.98px;
+}
+
+/* ── Section wrapper ──────────────────────────────────────── */
+
+.homepage-hero {
+	position:            relative;
+	width:               100%;
+	min-height:          100vh;
+	background-color:    var(--hero-bg);
+	background-size:     cover;
+	background-position: center center;
+	background-repeat:   no-repeat;
+	overflow:            hidden;
+}
+
+/* ── Content block — top-left, below nav ──────────────────── */
+
+.homepage-hero__content {
+	position:   absolute;
+	top:        calc(var(--nav-height, 80px) + 120px);
+	left:       52px;
+	display:    flex;
+	flex-direction: column;
+	gap:        48px;
+	align-items: flex-start;
+}
+
+/* ── Text group ───────────────────────────────────────────── */
+
+.homepage-hero__text {
+	display:        flex;
+	flex-direction: column;
+	gap:            24px;
+	color:          var(--hero-text);
+}
+
+.hero-heading {
+	font-family:    var(--hero-heading-family);
+	font-weight:    var(--hero-heading-weight);
+	font-size:      var(--hero-heading-size);
+	line-height:    var(--hero-heading-lh);
+	letter-spacing: var(--hero-heading-ls);
+	color:          var(--hero-text);
+	margin:         0;
+	max-width:      480px;
+}
+
+.hero-subtext {
+	font-family:    var(--hero-body-family);
+	font-weight:    var(--hero-body-weight);
+	font-size:      var(--hero-body-size);
+	line-height:    var(--hero-body-lh);
+	letter-spacing: var(--hero-body-ls);
+	color:          var(--hero-text);
+	margin:         0;
+	max-width:      302px;
+}
+
+/* ── CTA — label + underline rule ─────────────────────────── */
+
+.hero-cta {
+	display:         inline-flex;
+	flex-direction:  column;
+	gap:             6px;
+	text-decoration: none;
+	cursor:          pointer;
+}
+
+.hero-cta__label {
+	font-family:    var(--hero-cta-family);
+	font-weight:    var(--hero-cta-weight);
+	font-size:      var(--hero-cta-size);
+	letter-spacing: var(--hero-cta-ls);
+	color:          var(--hero-text);
+	text-transform: uppercase;
+	line-height:    normal;
+}
+
+.hero-cta__line {
+	display:          block;
+	height:           1px;
+	width:            100%;
+	background-color: var(--hero-text);
+	transform:        scaleX(1);
+	transform-origin: left center;
+	/* JS (GSAP) controls the hover animation — no CSS transition needed */
+}
