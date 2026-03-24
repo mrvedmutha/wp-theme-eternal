@@ -36,24 +36,26 @@
 .homepage-hero {
 	position:            relative;
 	width:               100%;
-	min-height:          100vh;
+	min-height:          150vh;  /* extra height gives sticky room to travel */
 	background-color:    var(--hero-bg);
 	background-size:     cover;
 	background-position: center center;
 	background-repeat:   no-repeat;
-	overflow:            hidden;
+	/* no overflow:hidden — breaks position:sticky on children */
 }
 
-/* ── Content block — top-left, below nav ──────────────────── */
+/* ── Content block — sticky, stays in view while hero scrolls ─ */
 
 .homepage-hero__content {
-	position:   absolute;
-	top:        calc(var(--nav-height, 80px) + 120px);
-	left:       52px;
-	display:    flex;
+	position:       sticky;
+	top:            calc(var(--nav-height, 80px) + 120px);
+	margin-left:    52px;
+	padding-bottom: 48px; /* floor gap — content stops 48px above hero bottom */
+	display:        flex;
 	flex-direction: column;
-	gap:        48px;
-	align-items: flex-start;
+	gap:            48px;
+	align-items:    flex-start;
+	width:          fit-content;
 }
 
 /* ── Text group ───────────────────────────────────────────── */
