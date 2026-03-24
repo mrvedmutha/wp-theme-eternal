@@ -138,6 +138,7 @@ class Theme {
 	 */
 	protected function get_default_components(): array {
 		$components = array(
+			new Header\Component(),
 			new Localization\Component(),
 			new Base_Support\Component(),
 			new Editor\Component(),
