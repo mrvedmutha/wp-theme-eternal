@@ -226,8 +226,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		}
 
 		$google_fonts = array(
-			'Roboto Condensed' => array( '400', '400i', '700', '700i' ),
-			'Montserrat'       => array( '100', '100i', '300', '500', '500i', '700', '700i' ),
+			'Cormorant Garamond' => array( '300', '300i', '400', '400i', '500', '500i', '600', '600i', '700', '700i' ),
 		);
 
 		/**
@@ -317,7 +316,7 @@ class Component implements Component_Interface, Templating_Component_Interface {
 	 * font files, updates the CSS to use local URLs, and saves both the font files
 	 * and the modified CSS file into the active theme's directory.
 	 *
-	 * @param array $fonts An array where keys are font family names and values
+	 * @param array  $fonts An array where keys are font family names and values
 	 *                          are arrays of font variants to be downloaded. If no
 	 *                          valid fonts are provided, an error is returned.
 	 * @param string $font_dir The relative directory path within the theme where

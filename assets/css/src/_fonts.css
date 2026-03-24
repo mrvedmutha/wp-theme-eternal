@@ -1,0 +1,27 @@
+/**
+ * Local Fonts
+ *
+ * Maison Neue — self-hosted from assets/fonts/MaisonNeue/
+ * Book  = weight 300–400
+ * Medium = weight 500–600 (synthesized from same file until separate variant files are supplied)
+ **/
+
+@font-face {
+	font-family: 'Maison Neue';
+	src:
+		url(../../fonts/MaisonNeue/MaisonNeue.woff2) format('woff2'),
+		url(../../fonts/MaisonNeue/MaisonNeue.woff) format('woff');
+	font-weight: 300 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'Maison Neue';
+	src:
+		url(../../fonts/MaisonNeue/MaisonNeue.woff2) format('woff2'),
+		url(../../fonts/MaisonNeue/MaisonNeue.woff) format('woff');
+	font-weight: 500 700;
+	font-style: normal;
+	font-display: swap;
+}

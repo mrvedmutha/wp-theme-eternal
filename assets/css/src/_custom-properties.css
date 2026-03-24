@@ -1,68 +1,49 @@
 /**
  * Custom Properties
- * aka CSS variables.
+ * aka CSS variables — Eternal Labs Brand System
  *
  * @link: https://developer.mozilla.org/en-US/docs/Web/CSS/--*
  **/
 
 :root {
-	--content-width: 45rem;
+
+	/* ─── Fonts ─────────────────────────────────────────── */
+	--font-display: 'Cormorant Garamond', georgia, serif;
+	--font-body:    'Maison Neue', 'Helvetica Neue', arial, sans-serif;
+
+	/* ─── Colors ─────────────────────────────────────────── */
+	--color-primary: #021f1d;   /* deep forest green */
+	--color-white:   #fff;
+	--color-grey:    #f5f5f5;   /* section backgrounds */
+	--color-muted:   #868686;   /* secondary / meta text */
+	--color-black:   #000;
+	--color-rule:    #dcd7cd;   /* dividers, warm cream */
+
+	/* Semantic aliases */
+	--color-text:       var(--color-primary);
+	--color-bg:         var(--color-white);
+	--color-bg-subtle:  var(--color-grey);
+	--color-border:     var(--color-rule);
 	--dropdown-symbol-width: 0.7em;
 
-	/* Typography */
-	--global-font-family: "Crimson Text", serif;
-	--highlight-font-family: "Roboto Condensed", "Helvetica Neue", "Arial Narrow", sans-serif;
-	--global-font-size: 20;
-	--global-font-line-height: 1.4;
+	/* ─── Spacing — 4pt grid ─────────────────────────────── */
+	--space-1:  4px;
+	--space-2:  8px;
+	--space-3:  12px;
+	--space-4:  16px;
+	--space-5:  20px;
+	--space-6:  24px;
+	--space-8:  32px;
+	--space-10: 40px;
+	--space-12: 48px;
+	--space-16: 64px;
+	--space-20: 80px;
 
-	/* Custom editor font sizes */
-	--font-size-small: calc(16 / var(--global-font-size) * 1rem);
-	--font-size-regular: calc(var(--global-font-size) / 16 * 1rem);
-	--font-size-large: calc(36 / var(--global-font-size) * 1rem);
-	--font-size-larger: calc(48 / var(--global-font-size) * 1rem);
-
-	/* Colors */
-	--global-font-color: #333;
-	--background-color: #fff; /* Page background color */
-	--content-background-color: #fff; /* Content-specific background */
-	--sub-content-background-color: #f6f6f6; /* Content-specific background */
-	--header-background-color: #f6f6f6;
-	--footer-background-color: #fbfbfb;
-	--border-color-dark: #333;
-	--border-color-light: #ccc;
-	--color-link: #0073aa;
-	--color-link-visited: #333;
-	--color-link-active: #00a0d2;
-	--color-quote-border: #000;
-	--color-quote-citation: #6c7781;
-
-	/* Custom editor colors */
-	--color-theme-primary: #e36d60;
-	--color-theme-secondary: #41848f;
-	--color-theme-red: #c0392b;
-	--color-theme-green: #27ae60;
-	--color-theme-blue: #2980b9;
-	--color-theme-yellow: #f1c40f;
-	--color-theme-black: #1c2833;
-	--color-theme-grey: #95a5a6;
-	--color-theme-white: #ecf0f1;
-	--color-custom-daylight: #97c0b7;
-	--color-custom-sun: #eee9d1;
-
-	@media (prefers-color-scheme: dark) {
-		/* Global color adjustments for dark mode */
-		--global-font-color: #fff; /* Default text color */
-		--background-color: #121212; /* Page background color */
-		--content-background-color: #181818; /* Content-specific background */
-		--sub-content-background-color: #333;
-		--header-background-color: #1a1a1a;
-		--footer-background-color: #1a1a1a;
-		--color-link: #4e9efd; /* Link color */
-		--color-link-active: #bbdfff; /* Link hover/focus color */
-		--color-link-visited: #bbdfff; /* Link hover/focus color */
-
-		/* reverse dark/light colors */
-		--border-color-dark: #ccc;
-		--border-color-light: #333;
-	}
+	/* ─── Layout ─────────────────────────────────────────── */
+	--page-width:    1440px;
+	--content-width: 760px;
+	--page-padding:  80px;
+	--section-gap:   80px;
+	--body-gap:      24px;
+	--nav-height:    80px;
 }
