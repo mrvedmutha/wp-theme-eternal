@@ -7,7 +7,7 @@
 --------------------------------------------------------------*/
 
 :root {
-	--hero-bg:          #fbc3b6;
+	--hero-bg:          #fff;
 	--hero-text:        #fff;
 	--hero-pad-left:    41px;
 	--hero-pad-bottom:  60px;
@@ -74,6 +74,7 @@
 	color:          var(--hero-text);
 	margin:         0;
 	max-width:      480px;
+	opacity:        0; /* GSAP animates in */
 }
 
 .hero-subtext {
@@ -85,6 +86,7 @@
 	color:          var(--hero-text);
 	margin:         0;
 	max-width:      302px;
+	opacity:        0; /* GSAP animates in */
 }
 
 /* ── CTA — label + underline rule ─────────────────────────── */
@@ -95,6 +97,7 @@
 	gap:             6px;
 	text-decoration: none;
 	cursor:          pointer;
+	opacity:         0; /* GSAP animates in */
 }
 
 .hero-cta__label {
