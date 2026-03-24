@@ -1,0 +1,400 @@
+/*--------------------------------------------------------------
+# Header — Eternal Labs
+#
+# Three states:
+#   1. TRANSPARENT  — .has-transparent-header (overlays hero, white text)
+#   2. STICKY       — .is-scrolled (JS-toggled, always black menu)
+#   3. SOLID        — default (black menu, content below header)
+#
+# CSS custom properties used:
+#   --nav-height       (defined in _custom-properties.css, default 80px)
+#   --color-white      #fff
+#   --color-primary    #021f1d
+#   --font-body        'Maison Neue', ...
+#   --space-10         40px  (horizontal padding)
+#   --space-5          20px  (vertical padding)
+--------------------------------------------------------------*/
+
+/* ── Eternal Labs nav type scale token ───────────────────── */
+:root {
+	--header-nav-size:       13px;
+	--header-nav-lh:         16px;
+	--header-nav-ls:         0.13px;
+	--header-nav-color:      #394342;
+	--header-nav-color-inv:  var(--color-white);
+	--header-bg:             var(--color-white);
+	--header-bg-transparent: transparent;
+	--header-transition:     background-color 0.3s ease, color 0.3s ease;
+}
+
+/*--------------------------------------------------------------
+# 1. Base layout (all states share this)
+--------------------------------------------------------------*/
+.site-header {
+	position: sticky;
+	top: 0;
+	z-index: 1000;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--space-5) var(--space-10);
+	height: var(--nav-height);
+	background-color: var(--header-bg);
+	transition: var(--header-transition);
+	will-change: transform;
+
+	/* Reset any WP Rig defaults that conflict */
+	> .menu-toggle {
+		display: none;
+	}
+}
+
+/*--------------------------------------------------------------
+# 2. Primary nav list (base styles)
+--------------------------------------------------------------*/
+.header-nav--primary {
+	display: flex;
+	align-items: center;
+}
+
+.header-nav__list {
+	display: flex;
+	align-items: center;
+	gap: 0;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.header-nav__list li {
+	position: relative;
+	margin: 0;
+	padding: 0;
+}
+
+/* Nav links */
+.header-nav__list a {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px;
+	font-family: var(--font-body);
+	font-size: var(--header-nav-size);
+	font-weight: 400;
+	line-height: var(--header-nav-lh);
+	letter-spacing: var(--header-nav-ls);
+	color: var(--header-nav-color);
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	position: relative;
+	transition: color 0.3s ease;
+}
+
+/* Underline animation via ::after */
+.header-nav__list a::after {
+	content: '';
+	position: absolute;
+	bottom: 4px;
+	left: 10px;
+	right: 10px;
+	height: 1px;
+	background-color: var(--nav-underline-color, var(--header-nav-color));
+	transform: scaleX(0);
+	transform-origin: left;
+	transition:
+		transform 0.3s ease,
+		transform-origin 0s;
+}
+
+/* Exit: slide out to right */
+.header-nav__list a:not(:hover)::after {
+	transform-origin: right;
+}
+
+.header-nav__list .sub-menu a::after {
+	display: none;
+}
+
+.header-nav__list a:hover::after,
+.header-nav__list li.current-menu-item > a::after {
+	transform: scaleX(1);
+	transform-origin: left;
+}
+
+/* Sub-menu dropdown */
+.header-nav__list .sub-menu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	min-width: 200px;
+	background-color: var(--header-bg);
+	border-top: 1px solid var(--color-border, #dcd7cd);
+	list-style: none;
+	margin: 0;
+	padding: 8px 0;
+	opacity: 0;
+	pointer-events: none;
+	transform: translateY(-4px);
+	transition: opacity 0.2s ease, transform 0.2s ease;
+	z-index: 100;
+}
+
+.header-nav__list li:hover > .sub-menu,
+.header-nav__list li:focus-within > .sub-menu {
+	opacity: 1;
+	pointer-events: auto;
+	transform: translateY(0);
+}
+
+.header-nav__list .sub-menu a {
+	padding: 8px 16px;
+	font-size: var(--header-nav-size);
+	color: var(--header-nav-color);
+}
+
+/*--------------------------------------------------------------
+# 3. Branding / logo (centre)
+--------------------------------------------------------------*/
+.site-header .site-branding {
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	flex: none;
+	max-height: none;
+	justify-content: center;
+	text-align: center;
+}
+
+.site-header .site-branding img,
+.site-header .site-branding svg {
+	display: block;
+	height: calc(var(--nav-height) - 20px);
+	width: auto;
+	max-height: 59px;
+}
+
+/*--------------------------------------------------------------
+# 4. Utility nav (right, base styles)
+--------------------------------------------------------------*/
+.header-utility {
+	display: flex;
+	align-items: center;
+	gap: 0;
+}
+
+.header-utility__btn {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px;
+	font-family: var(--font-body);
+	font-size: var(--header-nav-size);
+	font-weight: 400;
+	line-height: var(--header-nav-lh);
+	letter-spacing: var(--header-nav-ls);
+	color: var(--header-nav-color);
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.header-utility__link {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 10px;
+	font-family: var(--font-body);
+	font-size: var(--header-nav-size);
+	font-weight: 400;
+	line-height: var(--header-nav-lh);
+	letter-spacing: var(--header-nav-ls);
+	color: var(--header-nav-color);
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: color 0.3s ease;
+}
+
+.header-utility__icon {
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+}
+
+/*--------------------------------------------------------------
+# 5. Scrolled / sticky state (JS adds .is-scrolled)
+--------------------------------------------------------------*/
+.has-transparent-header .site-header.is-scrolled {
+	background-color: var(--header-bg);
+	position: fixed;
+	--nav-underline-color: var(--header-nav-color);
+}
+
+.has-transparent-header .site-header.is-scrolled .header-nav__link,
+.has-transparent-header .site-header.is-scrolled .header-nav__link-text,
+.has-transparent-header .site-header.is-scrolled .header-utility__btn,
+.has-transparent-header .site-header.is-scrolled .header-utility__label,
+.has-transparent-header .site-header.is-scrolled .header-utility__link {
+	color: var(--header-nav-color);
+}
+
+/*--------------------------------------------------------------
+# 6. Transparent state (hero pages — before scroll)
+--------------------------------------------------------------*/
+.has-transparent-header .site-header {
+	position: fixed;
+	background-color: var(--header-bg-transparent);
+}
+
+/* Underline color in transparent state */
+.has-transparent-header .site-header:not(.is-scrolled) {
+	--nav-underline-color: var(--header-nav-color-inv);
+}
+
+/* All text white in transparent state */
+.has-transparent-header .site-header:not(.is-scrolled) .header-nav__link,
+.has-transparent-header .site-header:not(.is-scrolled) .header-nav__link-text,
+.has-transparent-header .site-header:not(.is-scrolled) .header-utility__btn,
+.has-transparent-header .site-header:not(.is-scrolled) .header-utility__label,
+.has-transparent-header .site-header:not(.is-scrolled) .header-utility__link,
+.has-transparent-header .site-header:not(.is-scrolled) svg {
+	color: var(--header-nav-color-inv);
+	stroke: currentcolor;
+}
+
+/* Logo colour inversion in transparent state */
+.has-transparent-header .site-header:not(.is-scrolled):not(:hover) .custom-logo {
+	filter: brightness(0) invert(1);
+}
+
+/* Hover: transparent → white background, dark text */
+.has-transparent-header .site-header:not(.is-scrolled):hover {
+	background-color: var(--header-bg);
+	--nav-underline-color: var(--header-nav-color);
+}
+
+.has-transparent-header .site-header:not(.is-scrolled):hover .header-nav__link,
+.has-transparent-header .site-header:not(.is-scrolled):hover .header-nav__link-text,
+.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__btn,
+.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__label,
+.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__link,
+.has-transparent-header .site-header:not(.is-scrolled):hover svg {
+	color: var(--header-nav-color);
+}
+
+/* Push page content down to avoid overlap on transparent-header pages */
+.has-transparent-header #page > *:not(.site-header) {
+	position: relative;
+	z-index: 1;
+}
+
+/*--------------------------------------------------------------
+# 7. Currency switcher — globe ↔ chevron icon swap
+--------------------------------------------------------------*/
+.header-currency {
+	position: relative;
+}
+
+.header-currency__icons {
+	position: relative;
+	display: inline-flex;
+	width: 20px;
+	height: 20px;
+	flex-shrink: 0;
+}
+
+.header-currency__icon {
+	position: absolute;
+	inset: 0;
+	width: 20px;
+	height: 20px;
+	transition: opacity 0.25s ease;
+}
+
+.header-currency__icon--globe {
+	opacity: 1;
+}
+
+.header-currency__icon--chevron {
+	opacity: 0;
+}
+
+.header-currency__trigger:hover .header-currency__icon--globe,
+.header-currency[data-open="true"] .header-currency__icon--globe {
+	opacity: 0;
+}
+
+.header-currency__trigger:hover .header-currency__icon--chevron,
+.header-currency[data-open="true"] .header-currency__icon--chevron {
+	opacity: 1;
+}
+
+/* Currency dropdown panel */
+.header-currency__dropdown {
+	position: absolute;
+	top: calc(100% + 4px);
+	right: 0;
+	min-width: 120px;
+	background-color: var(--header-bg);
+	border: 1px solid var(--color-border, #dcd7cd);
+	padding: 8px;
+	z-index: 200;
+}
+
+.header-currency__dropdown .cmc-currency-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.header-currency__dropdown .cmc-currency-button {
+	display: block;
+	padding: 6px 10px;
+	font-family: var(--font-body);
+	font-size: var(--header-nav-size);
+	letter-spacing: var(--header-nav-ls);
+	text-transform: uppercase;
+	color: var(--header-nav-color);
+	text-decoration: none;
+	transition: background-color 0.15s ease;
+}
+
+.header-currency__dropdown .cmc-currency-button:hover,
+.header-currency__dropdown .cmc-currency-button.active {
+	background-color: var(--color-grey, #f5f5f5);
+}
+
+/*--------------------------------------------------------------
+# 8. Cart count
+--------------------------------------------------------------*/
+.header-cart__count {
+	display: inline;
+}
+
+/*--------------------------------------------------------------
+# 9. Solid-header page offset
+# Push body content below fixed header on transparent pages.
+--------------------------------------------------------------*/
+.has-transparent-header #page {
+	padding-top: 0;
+}
+
+/*--------------------------------------------------------------
+# 10. Accessibility: reduce motion
+--------------------------------------------------------------*/
+@media (prefers-reduced-motion: reduce) {
+	.site-header,
+	.header-nav__list a::after,
+	.header-currency__icon {
+		transition: none;
+	}
+}
