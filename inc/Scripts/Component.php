@@ -182,6 +182,12 @@ class Component implements Component_Interface, Templating_Component_Interface {
 				'file'   => 'global.min.js',
 				'global' => true,
 			),
+			'wp-rig-footer' => array(
+				'file'    => 'footer.min.js',
+				'global'  => true,
+				'footer'  => true,
+				'loading' => 'defer',
+			),
 		);
 
 		$js_files[] = array(

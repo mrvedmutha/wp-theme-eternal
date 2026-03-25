@@ -108,7 +108,7 @@ $newsletter_nonce    = wp_create_nonce( 'wp_rest' );
 		</div>
 
 		<form
-			class="footer-newsletter__form"
+			class="footer-newsletter__form js-newsletter-form"
 			id="footer-newsletter-form"
 			novalidate
 			data-endpoint="<?php echo esc_url( $newsletter_endpoint ); ?>"
@@ -134,7 +134,7 @@ $newsletter_nonce    = wp_create_nonce( 'wp_rest' );
 					<span class="footer-newsletter__submit-rule" aria-hidden="true"></span>
 				</button>
 			</div>
-			<p class="footer-newsletter__message" aria-live="polite" hidden></p>
+			<p class="footer-newsletter__message js-newsletter-msg" aria-live="polite" hidden></p>
 		</form>
 	</div>
 </section>
@@ -277,3 +277,136 @@ $newsletter_nonce    = wp_create_nonce( 'wp_rest' );
 
 </div><!-- .footer-main -->
 </div><!-- .footer-outer -->
+
+
+<?php
+/*
+ * ════════════════════════════════════════════════════════════════════
+ * MOBILE / TABLET FOOTER  (shown ≤1024px, hidden on desktop)
+ * ════════════════════════════════════════════════════════════════════
+ */
+?>
+<div class="footer-mobile">
+
+	<?php /* ── Newsletter ── */ ?>
+	<div class="footer-mobile__newsletter">
+		<p class="footer-mobile__newsletter-heading"><?php esc_html_e( 'JOIN OUR NEWSLETTER', 'wp-rig' ); ?></p>
+		<p class="footer-mobile__newsletter-sub"><?php esc_html_e( 'Be the first to receive the latest news from the House of Eternal Laboratories', 'wp-rig' ); ?></p>
+		<form
+			class="footer-mobile__form js-newsletter-form"
+			id="footer-mobile-newsletter-form"
+			novalidate
+			data-endpoint="<?php echo esc_url( $newsletter_endpoint ); ?>"
+			data-nonce="<?php echo esc_attr( $newsletter_nonce ); ?>"
+		>
+			<div class="footer-mobile__field-wrap">
+				<input
+					class="footer-mobile__input"
+					type="email"
+					name="email"
+					placeholder="<?php esc_attr_e( 'Email address', 'wp-rig' ); ?>"
+					autocomplete="email"
+					required
+					aria-label="<?php esc_attr_e( 'Email address', 'wp-rig' ); ?>"
+				/>
+				<button
+					class="footer-mobile__submit"
+					type="submit"
+					aria-label="<?php esc_attr_e( 'Sign up for newsletter', 'wp-rig' ); ?>"
+				>
+					<span class="footer-mobile__submit-text"><?php esc_html_e( 'SIGN UP', 'wp-rig' ); ?></span>
+					<span class="footer-mobile__submit-rule" aria-hidden="true"></span>
+				</button>
+			</div>
+			<p class="footer-mobile__msg js-newsletter-msg" aria-live="polite" hidden></p>
+		</form>
+	</div>
+
+	<?php /* ── Accordion nav ── */ ?>
+	<nav class="footer-mobile__nav" aria-label="<?php esc_attr_e( 'Footer navigation', 'wp-rig' ); ?>">
+		<?php
+		foreach ( $footer_menus as $location => $default_label ) :
+			if ( ! has_nav_menu( $location ) ) {
+				continue;
+			}
+			$menu_locations_mobile = get_nav_menu_locations();
+			$menu_obj_mobile       = isset( $menu_locations_mobile[ $location ] )
+				? wp_get_nav_menu_object( $menu_locations_mobile[ $location ] )
+				: null;
+			$col_heading_mobile    = ( $menu_obj_mobile && ! empty( $menu_obj_mobile->name ) )
+				? $menu_obj_mobile->name
+				: $default_label;
+			?>
+			<div class="footer-mobile__acc-item">
+				<button
+					class="footer-mobile__acc-trigger"
+					type="button"
+					aria-expanded="false"
+				>
+					<span><?php echo esc_html( $col_heading_mobile ); ?></span>
+					<svg class="footer-mobile__acc-chevron" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
+						<path d="M4 6L8 10L12 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+					</svg>
+				</button>
+				<div class="footer-mobile__acc-body">
+					<?php
+					wp_nav_menu(
+						array(
+							'theme_location' => $location,
+							'container'      => false,
+							'menu_class'     => 'footer-mobile__menu-list',
+							'depth'          => 1,
+							'fallback_cb'    => false,
+						)
+					);
+					?>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	</nav>
+
+	<?php /* ── Bottom ── */ ?>
+	<div class="footer-mobile__bottom">
+
+		<?php if ( $logo_html ) : ?>
+		<div class="footer-mobile__logo">
+			<?php echo $logo_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+		</div>
+		<?php endif; ?>
+
+		<?php if ( has_nav_menu( 'footer_legal' ) ) : ?>
+		<nav class="footer-mobile__legal-nav" aria-label="<?php esc_attr_e( 'Legal links', 'wp-rig' ); ?>">
+			<?php
+			wp_nav_menu(
+				array(
+					'theme_location' => 'footer_legal',
+					'container'      => false,
+					'menu_class'     => 'footer-mobile__legal-list',
+					'depth'          => 1,
+					'fallback_cb'    => false,
+				)
+			);
+			?>
+		</nav>
+		<?php endif; ?>
+
+		<p class="footer-mobile__copyright">
+			<?php
+			printf(
+				/* translators: %s: current year */
+				esc_html__( '© %s Eternallabs', 'wp-rig' ),
+				esc_html( gmdate( 'Y' ) )
+			);
+			?>
+		</p>
+
+		<a
+			href="https://wings.design"
+			class="footer-mobile__wings"
+			target="_blank"
+			rel="noopener noreferrer"
+		><?php esc_html_e( 'Design by', 'wp-rig' ); ?> <span class="footer-mobile__wings-name"><?php esc_html_e( 'WINGS', 'wp-rig' ); ?></span></a>
+
+	</div>
+
+</div><!-- .footer-mobile -->
