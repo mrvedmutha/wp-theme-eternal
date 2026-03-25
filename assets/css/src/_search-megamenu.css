@@ -20,36 +20,36 @@
 /* ── Component tokens ──────────────────────────────────────── */
 
 :root {
-	--search-megamenu-z:          1500;
-	--search-megamenu-top:        var(--header-height, var(--nav-height, 80px));
-	--search-megamenu-bg:         var(--header-bg, #fff);
-	--search-megamenu-ph-color:   #a1a8a9;
-	--search-megamenu-dur:        0.35s;
-	--search-megamenu-pad-h:      var(--space-10, 40px);
-	--search-megamenu-card-w:     115px;
+	--search-megamenu-z: 1500;
+	--search-megamenu-top: var(--header-height, var(--nav-height, 80px));
+	--search-megamenu-bg: var(--header-bg, #fff);
+	--search-megamenu-ph-color: #a1a8a9;
+	--search-megamenu-dur: 0.35s;
+	--search-megamenu-pad-h: var(--space-10, 40px);
+	--search-megamenu-card-w: 115px;
 }
 
 /* ── Root element: closed state ─────────────────────────────── */
 
 .search-megamenu {
-	position:         fixed;
-	top:              var(--search-megamenu-top);
-	left:             0;
-	right:            0;
-	z-index:          var(--search-megamenu-z);
+	position: fixed;
+	top: var(--search-megamenu-top);
+	left: 0;
+	right: 0;
+	z-index: var(--search-megamenu-z);
 	background-color: var(--search-megamenu-bg);
 
 	/* Closed: collapsed + invisible */
-	max-height:    0;
-	overflow:      hidden;
-	opacity:       0;
-	visibility:    hidden;
+	max-height: 0;
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
 	pointer-events: none;
 
 	transition:
-		max-height  var(--search-megamenu-dur) cubic-bezier(0.4, 0, 0.2, 1),
-		opacity     var(--search-megamenu-dur) ease,
-		visibility  0s linear var(--search-megamenu-dur);
+		max-height var(--search-megamenu-dur) cubic-bezier(0.4, 0, 0.2, 1),
+		opacity var(--search-megamenu-dur) ease,
+		visibility 0s linear var(--search-megamenu-dur);
 
 	will-change: max-height, opacity;
 }
@@ -57,16 +57,16 @@
 /* ── Open state — JS adds .is-open ────────────────────────── */
 
 .search-megamenu.is-open {
-	max-height:     80vh;
-	overflow-y:     auto;
-	opacity:        1;
-	visibility:     visible;
+	max-height: 80vh;
+	overflow-y: auto;
+	opacity: 1;
+	visibility: visible;
 	pointer-events: auto;
 
 	transition:
-		max-height  var(--search-megamenu-dur) cubic-bezier(0.4, 0, 0.2, 1),
-		opacity     var(--search-megamenu-dur) ease,
-		visibility  0s linear 0s;
+		max-height var(--search-megamenu-dur) cubic-bezier(0.4, 0, 0.2, 1),
+		opacity var(--search-megamenu-dur) ease,
+		visibility 0s linear 0s;
 }
 
 /*--------------------------------------------------------------
@@ -86,10 +86,16 @@ body.search-megamenu-open.has-transparent-header #masthead {
 
 /* Force dark text on transparent-header pages when search is open */
 body.search-megamenu-open.has-transparent-header #masthead .header-nav__link,
-body.search-megamenu-open.has-transparent-header #masthead .header-nav__link-text,
+body.search-megamenu-open.has-transparent-header
+	#masthead
+	.header-nav__link-text,
 body.search-megamenu-open.has-transparent-header #masthead .header-utility__btn,
-body.search-megamenu-open.has-transparent-header #masthead .header-utility__label,
-body.search-megamenu-open.has-transparent-header #masthead .header-utility__link,
+body.search-megamenu-open.has-transparent-header
+	#masthead
+	.header-utility__label,
+body.search-megamenu-open.has-transparent-header
+	#masthead
+	.header-utility__link,
 body.search-megamenu-open.has-transparent-header #masthead svg {
 	color: var(--header-nav-color, #394342) !important;
 }
@@ -103,35 +109,35 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 
 .search-megamenu__inner {
 	max-width: var(--page-width, 1440px);
-	margin:    0 auto;
-	padding:   var(--space-6, 24px) var(--search-megamenu-pad-h) 56px;
+	margin: 0 auto;
+	padding: var(--space-6, 24px) var(--search-megamenu-pad-h) 56px;
 }
 
 /* ── Input row ──────────────────────────────────────────────── */
 
 .search-megamenu__input-row {
-	display:       flex;
-	align-items:   center;
-	gap:           var(--space-4, 16px);
+	display: flex;
+	align-items: center;
+	gap: var(--space-4, 16px);
 	margin-bottom: var(--space-5, 20px);
 }
 
 .search-megamenu__input {
-	flex:        1;
-	border:      none;
-	outline:     none;
-	background:  transparent;
-	font-family: var(--font-display, 'Cormorant Garamond', georgia, serif);
-	font-size:   32px;
+	flex: 1;
+	border: none;
+	outline: none;
+	background: transparent;
+	font-family: var(--font-display, "Cormorant Garamond", georgia, serif);
+	font-size: 32px;
 	font-weight: 300;
-	font-style:  italic;
+	font-style: italic;
 	line-height: 1.3;
-	color:       var(--color-primary, #021f1d);
-	appearance:  none;
+	color: var(--color-primary, #021f1d);
+	appearance: none;
 }
 
 .search-megamenu__input::placeholder {
-	color:      var(--search-megamenu-ph-color);
+	color: var(--search-megamenu-ph-color);
 	font-style: italic;
 }
 
@@ -143,16 +149,16 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 /* ── Close button ───────────────────────────────────────────── */
 
 .search-megamenu__close {
-	flex-shrink:     0;
-	display:         flex;
-	align-items:     center;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
 	justify-content: center;
-	background:      none;
-	border:          none;
-	cursor:          pointer;
-	padding:         var(--space-2, 8px);
-	color:           var(--color-primary, #021f1d);
-	transition:      opacity 0.2s ease;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: var(--space-2, 8px);
+	color: var(--color-primary, #021f1d);
+	transition: opacity 0.2s ease;
 }
 
 .search-megamenu__close:hover,
@@ -163,52 +169,52 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 /* ── Divider ────────────────────────────────────────────────── */
 
 .search-megamenu__rule {
-	border:     none;
+	border: none;
 	border-top: 1px solid var(--color-rule, #dcd7cd);
-	margin:     0 0 var(--space-8, 32px);
+	margin: 0 0 var(--space-8, 32px);
 }
 
 /* ── Column labels ──────────────────────────────────────────── */
 
 .search-megamenu__label {
-	font-family:    var(--font-body, 'Maison Neue', sans-serif);
-	font-size:      var(--header-nav-size, 13px);
-	font-weight:    400;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: var(--header-nav-size, 13px);
+	font-weight: 400;
 	letter-spacing: 0.15px;
 	text-transform: uppercase;
-	color:          var(--color-primary, #021f1d);
-	margin:         0 0 var(--space-5, 20px);
+	color: var(--color-primary, #021f1d);
+	margin: 0 0 var(--space-5, 20px);
 }
 
 /* ── Default panel: two-column grid ─────────────────────────── */
 
 .search-megamenu__default {
-	display:               grid;
+	display: grid;
 	grid-template-columns: 1fr 2fr;
-	gap:                   var(--space-10, 40px);
+	gap: var(--space-10, 40px);
 }
 
 /* ── Recommended searches list ──────────────────────────────── */
 
 .search-megamenu__search-list {
-	list-style:     none;
-	margin:         0;
-	padding:        0;
-	display:        flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
 	flex-direction: column;
-	gap:            var(--space-4, 16px);
+	gap: var(--space-4, 16px);
 }
 
 .search-megamenu__search-link {
-	font-family:     var(--font-body, 'Maison Neue', sans-serif);
-	font-size:       var(--header-nav-size, 13px);
-	font-weight:     400;
-	letter-spacing:  0.13px;
-	text-transform:  uppercase;
-	color:           var(--color-primary, #021f1d);
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: var(--header-nav-size, 13px);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	text-transform: uppercase;
+	color: var(--color-primary, #021f1d);
 	text-decoration: none;
-	display:         block;
-	transition:      opacity 0.2s ease;
+	display: block;
+	transition: opacity 0.2s ease;
 }
 
 .search-megamenu__search-link:hover,
@@ -220,7 +226,7 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 
 .search-megamenu__products-grid {
 	display: grid;
-	gap:     var(--space-5, 20px);
+	gap: var(--space-5, 20px);
 }
 
 .search-megamenu__products-grid--default {
@@ -230,11 +236,11 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 /* ── Product card ───────────────────────────────────────────── */
 
 .search-megamenu__product-card {
-	display:         flex;
-	gap:             var(--space-4, 16px);
+	display: flex;
+	gap: var(--space-4, 16px);
 	text-decoration: none;
-	color:           var(--color-primary, #021f1d);
-	transition:      opacity 0.2s ease;
+	color: var(--color-primary, #021f1d);
+	transition: opacity 0.2s ease;
 }
 
 .search-megamenu__product-card:hover,
@@ -243,94 +249,94 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 }
 
 .search-megamenu__product-card-img {
-	flex-shrink:  0;
-	width:        var(--search-megamenu-card-w);
-	height:       var(--search-megamenu-card-w);
-	object-fit:   cover;
-	display:      block;
-	background:   var(--color-grey, #f5f5f5);
+	flex-shrink: 0;
+	width: var(--search-megamenu-card-w);
+	height: var(--search-megamenu-card-w);
+	object-fit: cover;
+	display: block;
+	background: var(--color-grey, #f5f5f5);
 }
 
 .search-megamenu__product-card-body {
-	flex:           1;
-	display:        flex;
+	flex: 1;
+	display: flex;
 	flex-direction: column;
-	gap:            var(--space-2, 8px);
+	gap: var(--space-2, 8px);
 }
 
 .search-megamenu__product-card-badge {
-	display:         inline-flex;
-	align-items:     center;
+	display: inline-flex;
+	align-items: center;
 	justify-content: center;
-	align-self:      flex-start;
-	height:          32px;
-	padding:         0 var(--space-3, 12px);
-	border:          0.5px solid var(--color-primary, #021f1d);
-	font-family:     var(--font-body, 'Maison Neue', sans-serif);
-	font-size:       13px;
-	font-weight:     400;
-	letter-spacing:  0.13px;
-	text-transform:  uppercase;
-	color:           var(--color-primary, #021f1d);
+	align-self: flex-start;
+	height: 32px;
+	padding: 0 var(--space-3, 12px);
+	border: 0.5px solid var(--color-primary, #021f1d);
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: 13px;
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	text-transform: uppercase;
+	color: var(--color-primary, #021f1d);
 }
 
 .search-megamenu__product-card-name {
-	font-family:    var(--font-body, 'Maison Neue', sans-serif);
-	font-size:      15px;
-	font-weight:    400;
-	line-height:    1.53;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: 15px;
+	font-weight: 400;
+	line-height: 1.53;
 	letter-spacing: 0.15px;
 	text-transform: uppercase;
-	margin:         0;
+	margin: 0;
 }
 
 .search-megamenu__product-card-name-fr {
-	font-family:    var(--font-body, 'Maison Neue', sans-serif);
-	font-size:      13px;
-	font-weight:    400;
-	line-height:    1.54;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.54;
 	letter-spacing: 0.13px;
-	color:          var(--color-muted, #868686);
-	margin:         0;
+	color: var(--color-muted, #868686);
+	margin: 0;
 }
 
 .search-megamenu__product-card-price {
-	font-family: var(--font-body, 'Maison Neue', sans-serif);
-	font-size:   17px;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: 17px;
 	font-weight: 400;
 	line-height: 1.76;
-	color:       var(--color-primary, #021f1d);
+	color: var(--color-primary, #021f1d);
 }
 
 .search-megamenu__product-card-desc {
-	font-family:        var(--font-body, 'Maison Neue', sans-serif);
-	font-size:          13px;
-	font-weight:        400;
-	line-height:        1.54;
-	letter-spacing:     0.13px;
-	color:              var(--color-muted, #868686);
-	margin:             0;
-	display:            -webkit-box;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 1.54;
+	letter-spacing: 0.13px;
+	color: var(--color-muted, #868686);
+	margin: 0;
+	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
-	overflow:           hidden;
+	overflow: hidden;
 }
 
 /* ── View More / Empty ──────────────────────────────────────── */
 
 .search-megamenu__view-more {
-	display:             block;
-	margin-top:          var(--space-6, 24px);
-	text-align:          center;
-	font-family:         var(--font-body, 'Maison Neue', sans-serif);
-	font-size:           var(--header-nav-size, 13px);
-	font-weight:         400;
-	letter-spacing:      0.13px;
-	text-transform:      uppercase;
-	color:               var(--color-primary, #021f1d);
-	text-decoration:     underline;
+	display: block;
+	margin-top: var(--space-6, 24px);
+	text-align: center;
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: var(--header-nav-size, 13px);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	text-transform: uppercase;
+	color: var(--color-primary, #021f1d);
+	text-decoration: underline;
 	text-underline-offset: 3px;
-	transition:          opacity 0.2s ease;
+	transition: opacity 0.2s ease;
 }
 
 .search-megamenu__view-more:hover,
@@ -339,59 +345,71 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 }
 
 .search-megamenu__empty-msg {
-	font-family:    var(--font-body, 'Maison Neue', sans-serif);
-	font-size:      var(--header-nav-size, 13px);
+	font-family: var(--font-body, "Maison Neue", sans-serif);
+	font-size: var(--header-nav-size, 13px);
 	letter-spacing: 0.13px;
-	color:          var(--color-muted, #868686);
-	margin:         var(--space-5, 20px) 0 0;
+	color: var(--color-muted, #868686);
+	margin: var(--space-5, 20px) 0 0;
 }
 
 /* ── Skeleton cards ─────────────────────────────────────────── */
 
 .search-megamenu__product-card--skeleton {
 	pointer-events: none;
-	cursor:         default;
+	cursor: default;
 }
 
 .search-megamenu__skeleton-img,
 .search-megamenu__skeleton-line {
-	background:      linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+	background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
 	background-size: 400% 100%;
-	animation:       search-skeleton-shimmer 1.4s ease infinite;
-	border-radius:   2px;
+	animation: search-skeleton-shimmer 1.4s ease infinite;
+	border-radius: 2px;
 }
 
 .search-megamenu__skeleton-img {
-	flex-shrink:   0;
-	width:         var(--search-megamenu-card-w);
-	height:        var(--search-megamenu-card-w);
+	flex-shrink: 0;
+	width: var(--search-megamenu-card-w);
+	height: var(--search-megamenu-card-w);
 	border-radius: 0;
 }
 
 .search-megamenu__skeleton-body {
-	flex:           1;
-	display:        flex;
+	flex: 1;
+	display: flex;
 	flex-direction: column;
-	gap:            var(--space-2, 8px);
-	padding-top:    4px;
+	gap: var(--space-2, 8px);
+	padding-top: 4px;
 }
 
 .search-megamenu__skeleton-line {
 	height: 12px;
-	width:  100%;
+	width: 100%;
 }
 
-.search-megamenu__skeleton-line--xs  { width: 30%; }
+.search-megamenu__skeleton-line--xs {
+	width: 30%;
+}
 
-.search-megamenu__skeleton-line--sm  { width: 45%; }
+.search-megamenu__skeleton-line--sm {
+	width: 45%;
+}
 
-.search-megamenu__skeleton-line--md  { width: 70%; }
+.search-megamenu__skeleton-line--md {
+	width: 70%;
+}
 
-.search-megamenu__skeleton-line--lg  { width: 90%; }
+.search-megamenu__skeleton-line--lg {
+	width: 90%;
+}
 
 @keyframes search-skeleton-shimmer {
-	0%   { background-position: 200% 0; }
-	100% { background-position: -200% 0; }
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
 }
 
 /* ── Ensure hidden attribute wins over display declarations ──── */
@@ -406,18 +424,21 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 --------------------------------------------------------------*/
 
 @media (max-width: 1024px) {
-
 	.search-megamenu {
-		max-height: calc(100dvh - var(--header-height, var(--nav-height, 80px)));
+		max-height: calc(
+			100dvh - var(--header-height, var(--nav-height, 80px))
+		);
 	}
 
 	.search-megamenu.is-open {
-		max-height: calc(100dvh - var(--header-height, var(--nav-height, 80px)));
+		max-height: calc(
+			100dvh - var(--header-height, var(--nav-height, 80px))
+		);
 		overflow-y: auto;
 	}
 
 	.search-megamenu__inner {
-		padding: var(--space-2, 8px) var(--space-5, 20px) 56px;
+		padding: 0 var(--space-5, 20px) 56px;
 	}
 
 	.search-megamenu__input {
@@ -427,7 +448,7 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 	/* Stack columns vertically */
 	.search-megamenu__default {
 		grid-template-columns: 1fr;
-		gap:                   var(--space-8, 32px);
+		gap: var(--space-8, 32px);
 	}
 
 	/* Single-column product grid on mobile */
@@ -441,9 +462,10 @@ body.search-megamenu-open.has-transparent-header #masthead .custom-logo {
 --------------------------------------------------------------*/
 
 @media (prefers-reduced-motion: reduce) {
-
 	.search-megamenu {
-		transition: opacity 0.2s ease, visibility 0s;
+		transition:
+			opacity 0.2s ease,
+			visibility 0s;
 	}
 
 	.search-megamenu__skeleton-img,
