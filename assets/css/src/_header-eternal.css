@@ -52,13 +52,55 @@
 }
 
 /*--------------------------------------------------------------
-# 2. Primary nav list (base styles)
+# 2. Desktop — primary nav (left) / Mobile — hamburger+search (left)
+# Breakpoint: ≤ 1024px = mobile/tablet, > 1024px = desktop
 --------------------------------------------------------------*/
+
+/* ── Desktop: show primary nav, hide mobile left zone ── */
 .header-nav--primary {
 	flex: 1;
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
+}
+
+.header-left {
+	display: none;
+}
+
+.header-search--mobile {
+	display: none;
+}
+
+/* ── Mobile ≤ 1024px: swap to hamburger layout ── */
+@media (max-width: 1024px) {
+	.header-nav--primary {
+		display: none;
+	}
+
+	.header-left {
+		flex: 1;
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		gap: 4px;
+	}
+}
+
+.header-hamburger {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+	color: var(--header-nav-color);
+	transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.header-hamburger:hover {
+	opacity: 0.7;
 }
 
 .header-nav__list {
@@ -300,7 +342,7 @@
 }
 
 /* Push page content down to avoid overlap on transparent-header pages */
-.has-transparent-header #page > *:not(.site-header) {
+.has-transparent-header #page > *:not(.site-header):not(.site-sidebar):not(.site-sidebar__overlay):not(#search-megamenu) {
 	position: relative;
 	z-index: 1;
 }
@@ -358,13 +400,13 @@
 	z-index: 200;
 }
 
-.header-currency__dropdown .cmc-currency-buttons {
+.header-currency__list {
 	display: flex;
 	flex-direction: column;
 	gap: 2px;
 }
 
-.header-currency__dropdown .cmc-currency-button {
+.header-currency__option {
 	display: block;
 	padding: 6px 10px;
 	font-family: var(--font-body);
@@ -373,19 +415,134 @@
 	text-transform: uppercase;
 	color: var(--header-nav-color);
 	text-decoration: none;
-	transition: background-color 0.15s ease;
+	text-align: center;
+	transition: opacity 0.15s ease;
 }
 
-.header-currency__dropdown .cmc-currency-button:hover,
-.header-currency__dropdown .cmc-currency-button.active {
-	background-color: var(--color-grey, #f5f5f5);
+.header-currency__option:hover {
+	opacity: 0.6;
+}
+
+.header-currency__option.is-active {
+	font-weight: 500;
 }
 
 /*--------------------------------------------------------------
-# 8. Cart count
+# 8. Cart icon + badge
 --------------------------------------------------------------*/
-.header-cart__count {
-	display: inline;
+.header-cart__icon-wrap {
+	position: relative;
+	display: inline-flex;
+}
+
+.header-cart__badge {
+	position: absolute;
+	top: -4px;
+	right: -6px;
+	min-width: 16px;
+	height: 16px;
+	padding: 0 3px;
+	border-radius: 8px;
+	background-color: var(--header-nav-color);
+	color: var(--color-white, #fff);
+	font-family: var(--font-body);
+	font-size: 9px;
+	font-weight: 500;
+	line-height: 16px;
+	text-align: center;
+}
+
+/*--------------------------------------------------------------
+# 11. Full-screen sidebar
+--------------------------------------------------------------*/
+.site-sidebar__overlay {
+	position: fixed;
+	inset: 0;
+	background-color: rgba(2, 31, 29, 0.5);
+	z-index: 1999;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.35s ease;
+}
+
+.site-sidebar__overlay.is-open {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.site-sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: var(--header-bg, #fff);
+	z-index: 2000;
+	display: flex;
+	flex-direction: column;
+	transform: translateX(-100%);
+	transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow-y: auto;
+}
+
+.site-sidebar.is-open {
+	transform: translateX(0);
+}
+
+/* Sidebar header row: "Menu" + X */
+.site-sidebar__header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: var(--space-5, 20px) var(--space-10, 40px);
+	border-bottom: 1px solid var(--color-border, #dcd7cd);
+	flex-shrink: 0;
+}
+
+.site-sidebar__title {
+	font-family: var(--font-body);
+	font-size: var(--header-nav-size, 13px);
+	font-weight: 400;
+	line-height: var(--header-nav-lh, 16px);
+	letter-spacing: var(--header-nav-ls, 0.13px);
+	text-transform: uppercase;
+	color: var(--header-nav-color);
+}
+
+.site-sidebar__close {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: none;
+	border: none;
+	cursor: pointer;
+	padding: 8px;
+	color: var(--header-nav-color);
+	transition: opacity 0.2s ease;
+}
+
+.site-sidebar__close:hover {
+	opacity: 0.7;
+}
+
+/* Sidebar nav menu items */
+.site-sidebar__nav {
+	flex: 1;
+}
+
+.site-sidebar__menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.site-sidebar__menu > li {
+	border-bottom: 1px solid var(--color-border, #dcd7cd);
+}
+
+/* Prevent body scroll when sidebar is open */
+body.sidebar-open {
+	overflow: hidden;
 }
 
 /*--------------------------------------------------------------
@@ -404,5 +561,89 @@
 	.header-nav__list a::after,
 	.header-currency__icon {
 		transition: none;
+	}
+}
+
+/*--------------------------------------------------------------
+# 12. Responsive utility show/hide
+# Placed at end so these rules come after all base display values.
+--------------------------------------------------------------*/
+
+/* ── Mobile ≤ 1024px ── */
+@media (max-width: 1024px) {
+	/* Mobile left zone: show hamburger + search icon */
+	.header-search--mobile {
+		display: flex;
+	}
+
+	/* Hide desktop-only utility items (currency, text labels, desktop search) */
+	.header-search--desktop,
+	.header-currency,
+	.header-utility__label--desktop {
+		display: none;
+	}
+
+	/* Show mobile icons (user + cart) */
+	.header-utility__icon--mobile {
+		display: inline-flex;
+	}
+
+	/* Centre logo absolutely so left/right widths never push it.
+	   Only set position:relative on solid-header pages — transparent-header
+	   pages keep position:fixed (from section 6) so the hero is overlaid. */
+	body:not(.has-transparent-header) .site-header {
+		position: relative;
+	}
+
+	.site-header .site-branding {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		flex: none;
+		display: flex;
+		align-items: center;
+		pointer-events: none;
+	}
+
+	/* WP Rig base adds margin: 0 auto 1em to .custom-logo-link which inflates
+	   the branding's computed height and pushes the logo above the header box. */
+	.site-header .custom-logo-link {
+		margin: 0;
+		display: flex;
+		align-items: center;
+	}
+
+	.site-header .site-branding a {
+		pointer-events: auto;
+		display: flex;
+		align-items: center;
+	}
+
+	.site-header .header-left {
+		flex: 0 0 auto;
+	}
+
+	.site-header .header-utility {
+		flex: 0 0 auto;
+		margin-left: auto;
+	}
+}
+
+/* ── Desktop > 1024px ── */
+@media (min-width: 1025px) {
+	/* Desktop utility: show search text+icon, hide mobile icons */
+	.header-search--desktop {
+		display: flex;
+	}
+
+	/* Show text labels (ACCOUNT/LOGIN, BAG) */
+	.header-utility__label--desktop {
+		display: inline;
+	}
+
+	/* Hide mobile-only icons */
+	.header-utility .header-utility__icon--mobile {
+		display: none;
 	}
 }

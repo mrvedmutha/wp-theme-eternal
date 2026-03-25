@@ -43,15 +43,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	const THRESHOLD = 5; // px/s velocity threshold
 	let hidden = false;
 
-	// Give the page a top-padding equal to header height on solid pages
-	// so content never jumps when the header becomes sticky.
-	if ( ! isTransparentPage ) {
-		const headerH = header.getBoundingClientRect().height;
-		document.documentElement.style.setProperty(
-			'--header-height',
-			`${ headerH }px`
-		);
-	}
+	// Always measure and expose header height so the search megamenu can
+	// position itself flush with the bottom of the header on all page types.
+	const headerH = header.getBoundingClientRect().height;
+	document.documentElement.style.setProperty( '--header-height', `${ headerH }px` );
 
 	ScrollTrigger.create( {
 		start: 'top top',
@@ -80,7 +75,45 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		},
 	} );
 
-	// ── 3. Currency dropdown toggle ───────────────────────────────────────────
+	// ── 3. Sidebar toggle ────────────────────────────────────────────────────
+	const hamburger = document.getElementById( 'header-hamburger' );
+	const sidebar = document.getElementById( 'site-sidebar' );
+	const sidebarOverlay = document.getElementById( 'site-sidebar-overlay' );
+	const sidebarClose = document.getElementById( 'site-sidebar-close' );
+
+	if ( hamburger && sidebar && sidebarOverlay ) {
+		function openSidebar() {
+			sidebar.classList.add( 'is-open' );
+			sidebarOverlay.classList.add( 'is-open' );
+			sidebar.setAttribute( 'aria-hidden', 'false' );
+			sidebarOverlay.setAttribute( 'aria-hidden', 'false' );
+			hamburger.setAttribute( 'aria-expanded', 'true' );
+			document.body.classList.add( 'sidebar-open' );
+			sidebarClose && sidebarClose.focus();
+		}
+
+		function closeSidebar() {
+			sidebar.classList.remove( 'is-open' );
+			sidebarOverlay.classList.remove( 'is-open' );
+			sidebar.setAttribute( 'aria-hidden', 'true' );
+			sidebarOverlay.setAttribute( 'aria-hidden', 'true' );
+			hamburger.setAttribute( 'aria-expanded', 'false' );
+			document.body.classList.remove( 'sidebar-open' );
+			hamburger.focus();
+		}
+
+		hamburger.addEventListener( 'click', openSidebar );
+		sidebarClose && sidebarClose.addEventListener( 'click', closeSidebar );
+		sidebarOverlay.addEventListener( 'click', closeSidebar );
+
+		document.addEventListener( 'keydown', ( e ) => {
+			if ( e.key === 'Escape' && sidebar.classList.contains( 'is-open' ) ) {
+				closeSidebar();
+			}
+		} );
+	}
+
+	// ── 4. Currency dropdown toggle ──────────────────────────────────────────
 	const currencyTrigger = header.querySelector( '.header-currency__trigger' );
 	const currencyDropdown = header.querySelector( '.header-currency__dropdown' );
 
