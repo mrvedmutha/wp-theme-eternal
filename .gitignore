@@ -5,6 +5,7 @@
 /assets/*
 !/assets/blocks/
 !/assets/blocks/**
+/assets/blocks/*/build/
 !/assets/css/
 /assets/css/*
 !/assets/css/src/
