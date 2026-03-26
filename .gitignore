@@ -3,6 +3,8 @@
 !/.github/
 !/assets/
 /assets/*
+!/assets/blocks/
+!/assets/blocks/**
 !/assets/css/
 /assets/css/*
 !/assets/css/src/
