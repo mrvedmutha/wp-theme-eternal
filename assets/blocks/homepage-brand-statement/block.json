@@ -1,0 +1,24 @@
+{
+  "name": "wp-rig/homepage-brand-statement",
+  "apiVersion": 2,
+  "title": "Homepage Brand Statement",
+  "category": "widgets",
+  "icon": "align-left",
+  "description": "Sticky brand statement section with scroll-linked word-by-word reveal animation.",
+  "textdomain": "wp-rig",
+  "render": "file:./render.php",
+  "editorScript": "file:./build/index.js",
+  "viewScript": "file:./build/view.js",
+  "style": "file:./build/style.css",
+  "editorStyle": "file:./build/editor.css",
+  "supports": {
+    "html": false,
+    "align": [ "full" ]
+  },
+  "attributes": {
+    "statementText": {
+      "type": "string",
+      "default": "Manufactured in Switzerland and developed with globally sourced ingredients, Eternal Labs formulations are meticulously crafted to support vitality, cellular health, and visible skin wellbeing."
+    }
+  }
+}
