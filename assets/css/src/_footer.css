@@ -457,3 +457,285 @@
 	transform: scaleX(1);
 	transform-origin: left;
 }
+
+/*--------------------------------------------------------------
+# Desktop / Mobile footer toggle
+# .footer-outer  — desktop only  (hidden ≤1024px)
+# .footer-mobile — mobile/tablet (hidden >1024px)
+--------------------------------------------------------------*/
+.footer-mobile {
+	display: none;
+}
+
+@media (--bp-tablet) {
+	.footer-outer {
+		display: none;
+	}
+
+	.footer-mobile {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		padding: 40px 20px;
+		background-color: #000c0b;
+		font-family: var(--font-body, 'Maison Neue', sans-serif);
+		color: var(--footer-white);
+	}
+}
+
+/*--------------------------------------------------------------
+# Mobile Footer — Newsletter
+--------------------------------------------------------------*/
+.footer-mobile__newsletter {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	width: 100%;
+}
+
+.footer-mobile__newsletter-heading {
+	font-size: 17px;
+	line-height: 30px;
+	font-weight: 400;
+	color: var(--footer-white);
+	margin: 0;
+}
+
+.footer-mobile__newsletter-sub {
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	margin: 0;
+}
+
+.footer-mobile__form {
+	margin-top: 17px; /* 15px gap + 17px = 32px total separation from heading */
+}
+
+.footer-mobile__field-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 0.5px solid var(--footer-white);
+	height: 56px;
+	padding: 0 25px;
+}
+
+.footer-mobile__input {
+	flex: 1;
+	background: transparent;
+	border: none;
+	outline: none;
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	min-width: 0;
+}
+
+.footer-mobile__input::placeholder {
+	color: #858484;
+	opacity: 1;
+}
+
+.footer-mobile__submit {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 6px;
+	flex-shrink: 0;
+}
+
+.footer-mobile__submit-text {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-eyebrow-size);
+	line-height: var(--footer-lh-eyebrow);
+	font-weight: 500;
+	letter-spacing: 2px;
+	color: var(--footer-white);
+	white-space: nowrap;
+}
+
+.footer-mobile__submit-rule {
+	display: block;
+	width: 54px;
+	height: 0.308px;
+	background-color: var(--footer-white);
+}
+
+.footer-mobile__msg {
+	font-size: var(--footer-eyebrow-size);
+	line-height: var(--footer-lh-eyebrow);
+	letter-spacing: 2px;
+	color: var(--footer-white);
+	margin: 8px 0 0;
+}
+
+.footer-mobile__msg[hidden] {
+	display: none;
+}
+
+/*--------------------------------------------------------------
+# Mobile Footer — Accordion Nav
+--------------------------------------------------------------*/
+.footer-mobile__nav {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.footer-mobile__acc-item {
+	display: flex;
+	flex-direction: column;
+	border-top: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-mobile__acc-item:last-child {
+	border-bottom: 0.5px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-mobile__acc-trigger {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 20px 0;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	text-align: left;
+}
+
+.footer-mobile__acc-chevron {
+	flex-shrink: 0;
+	color: var(--footer-white);
+	transition: transform 0.3s ease;
+}
+
+.footer-mobile__acc-item.is-open .footer-mobile__acc-chevron {
+	transform: rotate(180deg);
+}
+
+.footer-mobile__acc-body {
+	overflow: hidden;
+	max-height: 0;
+	transition: max-height 0.3s ease;
+}
+
+.footer-mobile__menu-list {
+	list-style: none;
+	margin: 0;
+	padding: 0 0 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.footer-mobile__menu-list li {
+	margin: 0;
+	padding: 0;
+}
+
+.footer-mobile__menu-list a {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+}
+
+/*--------------------------------------------------------------
+# Mobile Footer — Bottom (logo + legal + copyright)
+--------------------------------------------------------------*/
+.footer-mobile__bottom {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	width: 100%;
+	padding-top: 24px;
+}
+
+.footer-mobile__logo {
+	margin-bottom: 24px; /* 16px gap + 24px = 40px total gap from logo to legal block */
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.footer-mobile__logo a {
+	width: auto;
+}
+
+.footer-mobile__logo img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 150px;
+	filter: brightness(0) invert(1);
+}
+
+.footer-mobile__legal-nav {
+	width: 100%;
+}
+
+.footer-mobile__legal-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.footer-mobile__legal-list li {
+	margin: 0;
+	padding: 0;
+}
+
+.footer-mobile__legal-list a {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.footer-mobile__copyright {
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-white);
+	margin: 0;
+}
+
+.footer-mobile__wings {
+	font-family: var(--font-body, 'Maison Neue', sans-serif);
+	font-size: var(--footer-small-size);
+	line-height: var(--footer-lh-small);
+	font-weight: 400;
+	letter-spacing: 0.13px;
+	color: var(--footer-muted);
+	text-decoration: none;
+}

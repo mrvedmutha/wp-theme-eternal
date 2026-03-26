@@ -176,6 +176,50 @@ git branch -d fix/<slug>
 
 ---
 
+## Wrong Branch Recovery
+
+### Case 1: Changes not yet committed
+```bash
+# Stash your changes
+git stash
+
+# Switch to the correct branch
+git checkout home/hero
+
+# Apply your stashed changes
+git stash pop
+```
+
+### Case 2: One commit on the wrong branch
+```bash
+# Note the commit hash
+git log --oneline -3
+
+# Switch to correct branch and bring the commit over
+git checkout home/hero
+git cherry-pick <commit-hash>
+
+# Remove it from the wrong branch
+git checkout wrong-branch
+git reset --hard HEAD~1
+```
+
+### Case 3: Multiple commits on the wrong branch
+```bash
+# Note the range (oldest to newest)
+git log --oneline
+
+# Switch to correct branch and cherry-pick the range
+git checkout home/hero
+git cherry-pick <oldest-hash>^..<newest-hash>
+
+# Remove them from the wrong branch
+git checkout wrong-branch
+git reset --hard HEAD~<number-of-commits>
+```
+
+---
+
 ## Quick Reference
 
 ```bash
