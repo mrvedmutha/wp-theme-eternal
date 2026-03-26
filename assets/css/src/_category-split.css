@@ -1,0 +1,262 @@
+/**
+ * Category Split Block
+ *
+ * Layout:
+ *   Desktop  (>1024px): two equal columns, text sticky to viewport top
+ *   Tablet   (≤1024px): two equal columns, text static (no sticky)
+ *   Mobile   (≤768px):  single column stacked, text below image in dark colour
+ */
+
+/* ── Base / Desktop ──────────────────────────────────────────────── */
+
+.category-split {
+	display: flex;
+	/*
+	 * Explicit height (not min-height) so flex children can inherit
+	 * a resolved value via height: 100%, enabling the absolute image
+	 * to fill the panel correctly.
+	 */
+	height: 100svh;
+	margin: 0;
+	padding: 0;
+}
+
+.category-split__panel {
+	flex: 1 0 0;
+	height: 100%;
+	position: relative;
+	/*
+	 * overflow: clip (NOT overflow: hidden) — clips the image visually
+	 * without creating a scroll container. overflow: hidden would break
+	 * position: sticky on child elements.
+	 */
+	overflow: clip;
+}
+
+.category-split__image {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+/* Full-height track gives the sticky content room to travel */
+.category-split__content-track {
+	position: relative;
+	height: 100%;
+	pointer-events: none;
+}
+
+.category-split__content {
+	position: sticky;
+	top: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: var(--space-16) var(--space-10);
+	color: var(--color-white);
+	pointer-events: auto;
+}
+
+/* ── Meta (left side) ────────────────────────────────────────────── */
+
+.category-split__meta {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.category-split__name {
+	font-family: var(--font-display);
+	font-style: italic;
+	font-weight: 300;
+	font-size: 32px;
+	line-height: 42px;
+	letter-spacing: 0;
+	margin: 0;
+}
+
+.category-split__subtitle {
+	font-family: var(--font-body);
+	font-weight: 400;
+	font-size: 13px;
+	line-height: 20px;
+	letter-spacing: 0.13px;
+	margin: 0;
+}
+
+/* ── Discover link (right side) ──────────────────────────────────── */
+
+.category-split__discover {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	align-items: flex-start;
+	text-decoration: none;
+	color: inherit;
+	flex-shrink: 0;
+}
+
+.category-split__discover-label {
+	font-family: var(--font-body);
+	font-weight: 500;
+	font-size: 11px;
+	line-height: 14px;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+/*
+ * The rule matches the label text width exactly (width: 100% of the
+ * flex-column container, which is sized by the widest child — the label).
+ *
+ * Always visible at rest. On hover, a clip-path keyframe animation
+ * wipes the line out to the right, then immediately re-enters from the left.
+ *
+ * clip-path inset(top right bottom left):
+ *   inset(0 0% 0 0%)    → fully visible
+ *   inset(0 0% 0 100%)  → clipped from left: line exits to the right
+ *   inset(0 100% 0 0%)  → clipped from right: ready to enter from left
+ *   inset(0 0% 0 0%)    → fully visible again
+ */
+@keyframes category-split-line {
+	0% {
+		clip-path: inset(0 0% 0 0%);
+	}
+	40% {
+		clip-path: inset(0 0% 0 100%);
+	}
+	60% {
+		clip-path: inset(0 100% 0 0%);
+	}
+	100% {
+		clip-path: inset(0 0% 0 0%);
+	}
+}
+
+.category-split__discover-rule {
+	display: block;
+	width: 100%;
+	height: 1px;
+	background-color: currentcolor;
+}
+
+.category-split__discover:hover .category-split__discover-rule,
+.category-split__discover:focus-visible .category-split__discover-rule {
+	animation: category-split-line 0.6s ease forwards;
+}
+
+/* ── Large screens: scale up typography ──────────────────────────── */
+
+@media (--bp-xl) {
+	.category-split__content {
+		padding: var(--space-20) var(--space-16);
+	}
+
+	.category-split__name {
+		font-size: 42px;
+		line-height: 54px;
+	}
+
+	.category-split__subtitle {
+		font-size: 15px;
+		line-height: 23px;
+	}
+
+	.category-split__discover-label {
+		font-size: 12px;
+	}
+}
+
+@media (--bp-4k) {
+	.category-split__content {
+		padding: var(--space-20) calc(var(--space-20) * 2);
+	}
+
+	.category-split__name {
+		font-size: 56px;
+		line-height: 70px;
+	}
+
+	.category-split__subtitle {
+		font-size: 18px;
+		line-height: 28px;
+	}
+
+	.category-split__discover-label {
+		font-size: 14px;
+		letter-spacing: 2.5px;
+	}
+}
+
+/* ── Tablet: two columns, no sticky ─────────────────────────────── */
+
+@media (--bp-tablet) {
+	.category-split__content {
+		position: static;
+	}
+}
+
+/* ── Mobile: stacked single column ──────────────────────────────── */
+
+@media (--bp-mobile-md) {
+	/* No padding — panels butt up to section edges, no white gaps */
+	.category-split {
+		flex-direction: column;
+		gap: var(--space-16);
+		height: auto;
+		padding: 0;
+		margin-bottom: var(--space-16) !important;
+	}
+
+	.category-split__panel {
+		height: auto;
+		overflow: visible;
+	}
+
+	/*
+	 * Image back in normal flow so it occupies its own space.
+	 * Text in .category-split__content sits below it, not on top.
+	 * aspect-ratio replaces fixed height so it scales with viewport width.
+	 */
+	.category-split__image {
+		position: static;
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 4 / 5;
+		object-fit: cover;
+	}
+
+	.category-split__content-track {
+		height: auto;
+	}
+
+	/* Text below image — dark colour on light background */
+	.category-split__content {
+		position: static;
+		padding: var(--space-6) var(--space-5);
+		color: var(--color-text);
+	}
+
+	.category-split__name {
+		font-weight: 400;
+		font-size: 24px;
+		line-height: 31px;
+	}
+}
+
+/* ── Accessibility: reduced motion ───────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+	.category-split__content {
+		position: static;
+	}
+
+	.category-split__discover:hover .category-split__discover-rule,
+	.category-split__discover:focus-visible .category-split__discover-rule {
+		animation: none;
+	}
+}

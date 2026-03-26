@@ -1,0 +1,51 @@
+{
+  "name": "wp-rig/homepage-hero",
+  "apiVersion": 2,
+  "title": "Homepage Hero",
+  "category": "widgets",
+  "icon": "cover-image",
+  "description": "Full-viewport hero section with image, headline, subtext and animated CTA.",
+  "textdomain": "wp-rig",
+  "render": "file:./render.php",
+  "editorScript": "file:./build/index.js",
+  "style": "file:./build/style.css",
+  "editorStyle": "file:./build/editor.css",
+  "supports": {
+    "html": false,
+    "align": [ "full" ]
+  },
+  "attributes": {
+    "heroHeading": {
+      "type": "string",
+      "default": "The Pinnacle of Longevity Supplements"
+    },
+    "heroSubtext": {
+      "type": "string",
+      "default": "Advanced nutraceutical formulations developed to support wellbeing from within."
+    },
+    "heroCtaLabel": {
+      "type": "string",
+      "default": "SHOP NOW"
+    },
+    "heroCtaUrl": {
+      "type": "string",
+      "default": "/shop"
+    },
+    "heroImageId": {
+      "type": "integer",
+      "default": 0
+    },
+    "heroImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "heroMobileImageId": {
+      "type": "integer",
+      "default": 0
+    },
+    "heroMobileImageUrl": {
+      "type": "string",
+      "default": ""
+    }
+  }
+}
