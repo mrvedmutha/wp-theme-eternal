@@ -1,0 +1,57 @@
+{
+  "name": "wp-rig/category-split",
+  "apiVersion": 2,
+  "title": "Category Split",
+  "category": "widgets",
+  "icon": "columns",
+  "description": "Two-panel product category showcase with full-bleed images and sticky text overlay.",
+  "textdomain": "wp-rig",
+  "editorScript": "file:./build/index.js",
+  "render": "file:./render.php",
+  "supports": {
+    "html": false,
+    "align": [ "full" ]
+  },
+  "attributes": {
+    "panel1ImageId": {
+      "type": "integer",
+      "default": 0
+    },
+    "panel1ImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "panel1Name": {
+      "type": "string",
+      "default": ""
+    },
+    "panel1Subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "panel1DiscoverUrl": {
+      "type": "string",
+      "default": "/"
+    },
+    "panel2ImageId": {
+      "type": "integer",
+      "default": 0
+    },
+    "panel2ImageUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "panel2Name": {
+      "type": "string",
+      "default": ""
+    },
+    "panel2Subtitle": {
+      "type": "string",
+      "default": ""
+    },
+    "panel2DiscoverUrl": {
+      "type": "string",
+      "default": "/"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/**
+ * Category Split — Editor Styles
+ *
+ * Constrain the ServerSideRender preview so it doesn't overflow
+ * the editor canvas at full viewport height.
+ */
+
+.wp-block-wp-rig-category-split {
+	min-height: 300px;
+	overflow: hidden;
+}
