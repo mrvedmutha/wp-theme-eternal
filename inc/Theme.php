@@ -160,6 +160,7 @@ class Theme {
 			new Options\Component(),
 			new Blocks\Component(),
 			new Homepage_Hero\Component(),
+			new Homepage_Brand_Statement\Component(),
 			new Newsletter\Component(),
 			new Search\Component(),
 		);

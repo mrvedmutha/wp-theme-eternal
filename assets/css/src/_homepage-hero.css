@@ -132,3 +132,47 @@
 	transform-origin: left center;
 	/* JS (GSAP) controls the hover animation — no CSS transition needed */
 }
+
+/* ── Mobile / Tablet  (≤ 1024px) ──────────────────────────── */
+
+@media (--bp-tablet) {
+
+	/* Section: portrait image drives the height */
+	.homepage-hero {
+		height: auto;
+	}
+
+	/* Image: flow at full width with natural portrait height */
+	.homepage-hero__bg {
+		position: relative;
+		inset:    auto;
+		width:    100%;
+		height:   auto;
+	}
+
+	/* Content: absolute overlay at top, 40px below header, 20px side padding */
+	.homepage-hero__content {
+		position:       absolute;
+		top:            calc(var(--nav-height, 80px) + 40px);
+		left:           20px;
+		right:          20px;
+		bottom:         auto;
+		margin-left:    0;
+		padding-bottom: 0;
+		width:          auto;
+		gap:            32px;
+	}
+
+	/* Hide subtext — heading + CTA only */
+	.hero-subtext {
+		display: none;
+	}
+
+	/* Heading: clamped to sit as ~2 lines at 390px, scales up to tablet */
+	.hero-heading {
+		font-size:      clamp(36px, 9.74vw, 44px);
+		line-height:    1.2;
+		letter-spacing: -1.5px;
+		max-width:      none;
+	}
+}
