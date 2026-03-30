@@ -163,6 +163,7 @@ class Theme {
 			new Homepage_Brand_Statement\Component(),
 			new Newsletter\Component(),
 			new Search\Component(),
+			new Product_Detail\Component(),
 		);
 
 		if ( defined( 'JETPACK__VERSION' ) ) {

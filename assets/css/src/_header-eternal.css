@@ -589,8 +589,8 @@ body.sidebar-open {
 	}
 
 	/* Centre logo absolutely so left/right widths never push it.
-	   Only set position:relative on solid-header pages — transparent-header
-	   pages keep position:fixed (from section 6) so the hero is overlaid. */
+		Only set position:relative on solid-header pages — transparent-header
+		pages keep position:fixed (from section 6) so the hero is overlaid. */
 	body:not(.has-transparent-header) .site-header {
 		position: relative;
 	}
@@ -607,7 +607,7 @@ body.sidebar-open {
 	}
 
 	/* WP Rig base adds margin: 0 auto 1em to .custom-logo-link which inflates
-	   the branding's computed height and pushes the logo above the header box. */
+		the branding's computed height and pushes the logo above the header box. */
 	.site-header .custom-logo-link {
 		margin: 0;
 		display: flex;

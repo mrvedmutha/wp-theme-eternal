@@ -55,8 +55,8 @@
 
 /* ── Brand statement text ─────────────────────────────────── */
 /* Starts grey — GSAP animates each word span to dark #021f1d.
-   No opacity on the paragraph itself — opacity lives on the spans only
-   so the parent doesn't compound and mute the final revealed colour. */
+	No opacity on the paragraph itself — opacity lives on the spans only
+	so the parent doesn't compound and mute the final revealed colour. */
 
 .homepage-brand-statement__text {
 	font-family:    'Cormorant Garamond', serif;

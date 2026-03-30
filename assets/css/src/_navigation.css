@@ -369,6 +369,7 @@ body.mobile-menu-open {
 	font-family: var(--highlight-font-family);
 	font-stretch: condensed;
 
+	/* stylelint-disable-next-line no-descending-specificity -- Scoped to .main-navigation context */
 	a, button {
 		display: block;
 		width: 100%;
