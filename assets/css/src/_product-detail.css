@@ -256,21 +256,17 @@ body.single-product .site-main {
 	filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
-.pdp-gallery__hero-img {
-	width: 100%;
+.pdp-gallery__hero .pdp-gallery__hero-img {
+	width: auto;
 	height: 100%;
-	object-fit: contain;
+	max-width: 100%;
+	object-fit: cover;
 	filter: drop-shadow(0 4px 24px rgba(2, 31, 29, 0.12));
 	display: block;
-	transition: opacity 0.2s ease;
-}
-
-/* Zoom effect on hover */
-.pdp-gallery__hero:hover .pdp-gallery__hero-img {
-	transform: scale(1.05);
 	transition:
-		transform 0.3s ease,
+		transform 0.12s ease-out,
 		opacity 0.2s ease;
+	will-change: transform;
 }
 
 /* ─── Buy Box ────────────────────────────────────────────────────────────── */
@@ -486,11 +482,15 @@ body.pdp-modal-open .pdp-buybox__select-wrap {
 	transition: opacity 0.15s ease;
 }
 
-.pdp-buybox__plan-radio:checked ~ .pdp-buybox__plan-header .pdp-buybox__radio-dot {
+.pdp-buybox__plan-radio:checked
+	~ .pdp-buybox__plan-header
+	.pdp-buybox__radio-dot {
 	border-color: var(--color-primary);
 }
 
-.pdp-buybox__plan-radio:checked ~ .pdp-buybox__plan-header .pdp-buybox__radio-dot::after {
+.pdp-buybox__plan-radio:checked
+	~ .pdp-buybox__plan-header
+	.pdp-buybox__radio-dot::after {
 	opacity: 1;
 }
 

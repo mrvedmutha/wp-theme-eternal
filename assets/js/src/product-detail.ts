@@ -33,6 +33,7 @@ declare const EternalPDP: {
 
 document.addEventListener("DOMContentLoaded", () => {
 	initGallery();
+	initGalleryZoom();
 	initLightbox();
 	initAccordion();
 	initQtyStepper();
@@ -122,7 +123,45 @@ function initGallery(): void {
 	}
 }
 
-// ─── 1b. Lightbox Modal ──────────────────────────────────────────────────────
+// ─── 1b. Gallery zoom + pan on hover ────────────────────────────────────────
+
+function initGalleryZoom(): void {
+	const heroContainer = document.querySelector<HTMLElement>(
+		".pdp-gallery__hero",
+	);
+	const heroImg = document.querySelector<HTMLImageElement>(
+		".pdp-gallery__hero-img",
+	);
+	if (!heroContainer || !heroImg) return;
+
+	const SCALE = 1.3;
+
+	const applyTransform = (tx: number, ty: number): void => {
+		// translate is applied pre-scale, so divide by SCALE to get correct visual offset
+		heroImg.style.transform = `scale(${SCALE}) translate(${tx / SCALE}px, ${ty / SCALE}px)`;
+	};
+
+	heroContainer.addEventListener("mouseenter", () => {
+		applyTransform(0, 0);
+	});
+
+	heroContainer.addEventListener("mousemove", (e: MouseEvent) => {
+		const rect = heroContainer.getBoundingClientRect();
+		// Normalize mouse to -1…1 from center
+		const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+		const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+		// Max translate keeps the scaled image edges flush with the container
+		const maxTx = (rect.width * (SCALE - 1)) / 2;
+		const maxTy = (rect.height * (SCALE - 1)) / 2;
+		applyTransform(nx * maxTx, ny * maxTy);
+	});
+
+	heroContainer.addEventListener("mouseleave", () => {
+		heroImg.style.transform = "";
+	});
+}
+
+// ─── 1c. Lightbox Modal ──────────────────────────────────────────────────────
 
 class PDPLightbox {
 	private modal: HTMLElement | null = null;
