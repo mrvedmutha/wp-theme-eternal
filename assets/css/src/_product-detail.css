@@ -25,11 +25,17 @@
 
 /* ─── Breadcrumb ─────────────────────────────────────────────────────────── */
 
+.pdp-article {
+	max-width: 1440px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .pdp-breadcrumb {
 	display: flex;
 	align-items: center;
 	gap: 6px;
-	padding: 16px var(--page-padding);
+	padding: 16px 40px;
 	font-family: var(--font-body);
 	font-size: 11px;
 	font-weight: 500;
@@ -64,9 +70,8 @@
 
 .pdp-layout {
 	display: flex;
-	justify-content: space-between;
 	gap: 60px;
-	padding: 0 var(--page-padding) var(--section-gap);
+	padding: 0 40px var(--section-gap);
 	align-items: flex-start;
 }
 
