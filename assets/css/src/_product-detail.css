@@ -8,19 +8,19 @@
  */
 
 :root {
-	--pdp-gallery-thumb-w:    80px;
-	--pdp-gallery-thumb-h:    100px;
-	--pdp-gallery-hero-w:     555px;
-	--pdp-gallery-hero-h:     700px;
-	--pdp-right-w:            555px;
-	--pdp-feature-image-h:    800px;
-	--pdp-ingredient-card-w:  460px;
-	--pdp-ingredient-img-h:   550px;
-	--pdp-plan-card-w:        437px;
-	--pdp-border-fine:        0.5px solid #777;
-	--pdp-border-dark:        0.5px solid #202727;
-	--pdp-border-rule:        0.5px solid var(--color-rule);
-	--pdp-radius:             5px;
+	--pdp-gallery-thumb-w: 80px;
+	--pdp-gallery-thumb-h: 100px;
+	--pdp-gallery-hero-w: 555px;
+	--pdp-gallery-hero-h: 700px;
+	--pdp-right-w: 555px;
+	--pdp-feature-image-h: 800px;
+	--pdp-ingredient-card-w: 460px;
+	--pdp-ingredient-img-h: 550px;
+	--pdp-plan-card-w: 437px;
+	--pdp-border-fine: 0.5px solid #777;
+	--pdp-border-dark: 0.5px solid #202727;
+	--pdp-border-rule: 0.5px solid var(--color-rule);
+	--pdp-radius: 5px;
 }
 
 /* ─── PDP page-shell resets ──────────────────────────────────────────────── */
@@ -54,6 +54,7 @@ body.single-product .site-main {
 	margin-left: auto;
 	margin-right: auto;
 	padding: var(--space-4) var(--space-10);
+	padding-left: calc(var(--space-10) + var(--pdp-gallery-thumb-w) + 12px);
 	font-family: var(--font-body);
 	font-size: 11px;
 	font-weight: 500;
@@ -101,7 +102,7 @@ body.single-product .site-main {
 	}
 
 	.pdp-breadcrumb {
-		padding-left: 0;
+		padding-left: calc(var(--pdp-gallery-thumb-w) + 12px);
 		padding-right: 0;
 	}
 }
@@ -125,6 +126,7 @@ body.single-product .site-main {
 	position: sticky;
 	top: var(--nav-height);
 	align-self: flex-start;
+	align-items: flex-end;
 }
 
 .pdp-gallery__thumbs {
@@ -307,8 +309,7 @@ body.single-product .site-main {
 }
 
 .pdp-buybox__select:focus {
-	outline: 2px solid var(--color-primary);
-	outline-offset: 2px;
+	outline: none;
 }
 
 .pdp-buybox__select-chevron {
@@ -481,8 +482,7 @@ body.single-product .site-main {
 }
 
 .pdp-qty__select:focus-visible {
-	outline: 2px solid var(--color-primary);
-	outline-offset: -2px;
+	outline: none;
 }
 
 .pdp-qty__chevron {
@@ -511,6 +511,7 @@ body.single-product .site-main {
 	letter-spacing: 1.6px;
 	text-transform: uppercase;
 	border: none;
+	border-radius: 0;
 	cursor: pointer;
 	transition: opacity 0.15s ease;
 }
@@ -520,8 +521,7 @@ body.single-product .site-main {
 }
 
 .pdp-cta:focus-visible {
-	outline: 2px solid var(--color-primary);
-	outline-offset: 3px;
+	outline: none;
 }
 
 /* ─── Divider ────────────────────────────────────────────────────────────── */
