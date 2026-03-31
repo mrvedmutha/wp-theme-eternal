@@ -50,7 +50,10 @@ $first_price = $first_plan['final_price'];
 			value="one-time"
 			class="pdp-buybox__plan-radio"
 		>
-		<span class="pdp-buybox__plan-label"><?php esc_html_e( 'One Time Purchase', 'wp-rig' ); ?></span>
+		<div class="pdp-buybox__plan-header">
+			<span class="pdp-buybox__radio-dot" aria-hidden="true"></span>
+			<span class="pdp-buybox__plan-label"><?php esc_html_e( 'One Time Purchase', 'wp-rig' ); ?></span>
+		</div>
 		<span class="pdp-buybox__plan-price" data-one-time-price>
 			<?php echo esc_html( $symbol . number_format( $price, 0, '.', ',' ) ); ?>
 		</span>
@@ -65,39 +68,45 @@ $first_price = $first_plan['final_price'];
 			class="pdp-buybox__plan-radio"
 			checked
 		>
-		<span class="pdp-buybox__plan-label"><?php esc_html_e( 'Subscription', 'wp-rig' ); ?></span>
-		<span class="pdp-buybox__plan-price" data-subscription-price>
-			<?php echo esc_html( $symbol . number_format( $first_price, 0, '.', ',' ) ); ?>
-		</span>
+		<div class="pdp-buybox__plan-header">
+			<span class="pdp-buybox__radio-dot" aria-hidden="true"></span>
+			<span class="pdp-buybox__plan-label"><?php esc_html_e( 'Subscription', 'wp-rig' ); ?></span>
+		</div>
 
-		<!-- Plan tier dropdown — visible when subscription is selected -->
-		<div class="pdp-buybox__plan-dropdown" data-plan-dropdown>
-			<div class="pdp-buybox__select-wrap">
-				<select class="pdp-buybox__select pdp-buybox__plan-select" name="eternal_supply_months_select" data-plan-select>
-					<?php foreach ( $plans as $plan ) : ?>
-						<option
-							value="<?php echo esc_attr( $plan['months'] ); ?>"
-							data-price="<?php echo esc_attr( $plan['final_price'] ); ?>"
-							data-mrp="<?php echo esc_attr( $plan['mrp'] ); ?>"
-							data-symbol="<?php echo esc_attr( $plan['symbol'] ); ?>"
-						>
-							<?php echo esc_html( $plan['label'] ); ?>
-						</option>
-					<?php endforeach; ?>
-				</select>
-				<span class="pdp-buybox__select-chevron" aria-hidden="true">
-					<svg width="10" height="6" viewBox="0 0 10 6" fill="none">
-						<path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-					</svg>
-				</span>
-			</div>
+		<!-- Plan body: [select+note | price] row — visible when subscription is selected -->
+		<div class="pdp-buybox__plan-body" data-plan-dropdown>
+			<div class="pdp-buybox__plan-dropdown-col">
+				<div class="pdp-buybox__select-wrap">
+					<select class="pdp-buybox__select pdp-buybox__plan-select" name="eternal_supply_months_select" data-plan-select>
+						<?php foreach ( $plans as $plan ) : ?>
+							<option
+								value="<?php echo esc_attr( $plan['months'] ); ?>"
+								data-price="<?php echo esc_attr( $plan['final_price'] ); ?>"
+								data-mrp="<?php echo esc_attr( $plan['mrp'] ); ?>"
+								data-symbol="<?php echo esc_attr( $plan['symbol'] ); ?>"
+							>
+								<?php echo esc_html( $plan['label'] ); ?>
+							</option>
+						<?php endforeach; ?>
+					</select>
+					<span class="pdp-buybox__select-chevron" aria-hidden="true">
+						<svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+							<path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+						</svg>
+					</span>
+				</div>
 
-			<?php if ( ! empty( $first_plan['contents_note'] ) ) : ?>
-				<p class="pdp-buybox__plan-note" data-plan-note>
-					<?php echo esc_html( $first_plan['contents_note'] ); ?>
-				</p>
-			<?php endif; ?>
-		</div><!-- .pdp-buybox__plan-dropdown -->
+				<?php if ( ! empty( $first_plan['contents_note'] ) ) : ?>
+					<p class="pdp-buybox__plan-note" data-plan-note>
+						<?php echo esc_html( $first_plan['contents_note'] ); ?>
+					</p>
+				<?php endif; ?>
+			</div><!-- .pdp-buybox__plan-dropdown-col -->
+
+			<span class="pdp-buybox__plan-price" data-subscription-price>
+				<?php echo esc_html( $symbol . number_format( $first_price, 0, '.', ',' ) ); ?>
+			</span>
+		</div><!-- .pdp-buybox__plan-body -->
 	</label><!-- subscription card -->
 
 </div><!-- .pdp-buybox__plans -->

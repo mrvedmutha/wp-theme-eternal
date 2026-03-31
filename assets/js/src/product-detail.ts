@@ -683,7 +683,16 @@ function initSubscriptionToggle(): void {
 		const tier = EternalPDP.plans.find((p) => p.months === months);
 		if (!tier || !priceDisplay) return;
 
-		priceDisplay.textContent = formatPrice(tier.symbol, tier.finalPrice);
+		const formatted = formatPrice(tier.symbol, tier.finalPrice);
+		priceDisplay.textContent = formatted;
+
+		// Also update the inline price inside the subscription card.
+		const cardPriceEl = document.querySelector<HTMLElement>(
+			"[data-subscription-price]",
+		);
+		if (cardPriceEl) {
+			cardPriceEl.textContent = formatted;
+		}
 
 		if (supplyMonths) supplyMonths.value = String(tier.months);
 
@@ -705,9 +714,9 @@ function initSubscriptionToggle(): void {
 			isSubscription,
 		);
 
-		// Show / hide plan dropdown.
+		// Show / hide plan body.
 		if (planDropdown) {
-			planDropdown.style.display = isSubscription ? "block" : "none";
+			planDropdown.style.display = isSubscription ? "flex" : "none";
 		}
 
 		if (isSubscription) {
