@@ -93,20 +93,23 @@ $price_html = $product->get_price_html();
 	<p class="pdp-buybox__price-tax"><?php esc_html_e( '(Incl. of all taxes)', 'wp-rig' ); ?></p>
 </div><!-- .pdp-buybox__price -->
 
-<hr class="pdp-divider">
-
 <!-- Add to bag form -->
 <form class="pdp-form cart" method="post" enctype="multipart/form-data" data-product-id="<?php echo esc_attr( $product->get_id() ); ?>">
 
 	<div class="pdp-buybox__actions">
 
-		<div class="pdp-qty" data-qty>
-			<button type="button" class="pdp-qty__btn pdp-qty__btn--minus" aria-label="<?php esc_attr_e( 'Decrease quantity', 'wp-rig' ); ?>">−</button>
-			<span class="pdp-qty__display" aria-live="polite">1</span>
-			<button type="button" class="pdp-qty__btn pdp-qty__btn--plus" aria-label="<?php esc_attr_e( 'Increase quantity', 'wp-rig' ); ?>">+</button>
+		<div class="pdp-qty">
+			<select class="pdp-qty__select" name="quantity" aria-label="<?php esc_attr_e( 'Quantity', 'wp-rig' ); ?>">
+				<?php for ( $q = 1; $q <= 10; $q++ ) : ?>
+					<option value="<?php echo esc_attr( $q ); ?>"><?php echo esc_html( $q ); ?></option>
+				<?php endfor; ?>
+			</select>
+			<span class="pdp-qty__chevron" aria-hidden="true">
+				<svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+					<path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
+			</span>
 		</div>
-
-		<input type="hidden" name="quantity" value="1" class="pdp-qty__input">
 		<input type="hidden" name="add-to-cart" value="<?php echo esc_attr( $product->get_id() ); ?>">
 		<input type="hidden" name="variation_id" value="" class="pdp-variation-id">
 

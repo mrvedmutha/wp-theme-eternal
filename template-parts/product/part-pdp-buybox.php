@@ -62,15 +62,22 @@ $is_on_sale    = $regular_price > $price && $price > 0;
 		echo esc_attr( sprintf( __( 'Rated %s out of 5', 'wp-rig' ), $avg_rating ) );
 		?>
 	">
-		<?php
-		for ( $i = 1; $i <= 5; $i++ ) :
-			$filled = $i <= round( $avg_rating );
+		<span class="pdp-buybox__stars-group" aria-hidden="true">
+			<?php
+			for ( $i = 1; $i <= 5; $i++ ) :
+				$filled = $i <= round( $avg_rating );
+				?>
+				<svg class="pdp-star<?php echo $filled ? ' pdp-star--filled' : ''; ?>" width="13" height="13" viewBox="0 0 12 12" fill="none">
+					<path d="M6 1l1.35 2.74L10.5 4.27l-2.25 2.19.53 3.09L6 8l-2.78 1.55.53-3.09L1.5 4.27l3.15-.53L6 1z" fill="<?php echo $filled ? 'currentColor' : 'none'; ?>" stroke="currentColor" stroke-width="0.75"/>
+				</svg>
+			<?php endfor; ?>
+		</span>
+		<span class="pdp-buybox__review-count">
+			<?php
+			/* translators: 1: average rating, 2: review count */
+			echo esc_html( sprintf( __( '%1$s/5 - %2$s Reviews', 'wp-rig' ), $avg_rating, $review_count ) );
 			?>
-			<svg class="pdp-star<?php echo $filled ? ' pdp-star--filled' : ''; ?>" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
-				<path d="M6 1l1.35 2.74L10.5 4.27l-2.25 2.19.53 3.09L6 8l-2.78 1.55.53-3.09L1.5 4.27l3.15-.53L6 1z" fill="<?php echo $filled ? 'currentColor' : 'none'; ?>" stroke="currentColor" stroke-width="0.75"/>
-			</svg>
-		<?php endfor; ?>
-		<span class="pdp-buybox__review-count">(<?php echo esc_html( $review_count ); ?>)</span>
+		</span>
 	</div>
 
 	<?php
@@ -111,6 +118,9 @@ $is_on_sale    = $regular_price > $price && $price > 0;
 			)
 		);
 	}
+
+	// Divider between buy box top and accordion.
+	echo '<hr class="pdp-divider pdp-divider--section">';
 
 	// Accordion — always shown.
 	get_template_part(
