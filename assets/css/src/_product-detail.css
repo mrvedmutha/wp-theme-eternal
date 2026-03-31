@@ -909,6 +909,7 @@ body.pdp-modal-open .site-header,
 body.pdp-modal-open .site-sidebar,
 body.pdp-modal-open .site-sidebar__overlay,
 body.pdp-modal-open .pdp-buybox__select-wrap,
+body.pdp-modal-open .pdp-buybox__plans,
 body.pdp-modal-open .pdp-qty,
 body.pdp-modal-open select {
 	visibility: hidden !important;
