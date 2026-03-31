@@ -55,7 +55,7 @@ $first_price = $first_plan['final_price'];
 			<span class="pdp-buybox__plan-label"><?php esc_html_e( 'One Time Purchase', 'wp-rig' ); ?></span>
 		</div>
 		<span class="pdp-buybox__plan-price" data-one-time-price>
-			<?php echo esc_html( $symbol . number_format( $price, 0, '.', ',' ) ); ?>
+			<?php echo esc_html( $symbol . number_format( $price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 		</span>
 	</label>
 
@@ -104,7 +104,7 @@ $first_price = $first_plan['final_price'];
 			</div><!-- .pdp-buybox__plan-dropdown-col -->
 
 			<span class="pdp-buybox__plan-price" data-subscription-price>
-				<?php echo esc_html( $symbol . number_format( $first_price, 0, '.', ',' ) ); ?>
+				<?php echo esc_html( $symbol . number_format( $first_price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 			</span>
 		</div><!-- .pdp-buybox__plan-body -->
 	</label><!-- subscription card -->
@@ -117,12 +117,12 @@ $first_price = $first_plan['final_price'];
 
 	<?php if ( $is_on_sale ) : ?>
 		<s class="pdp-buybox__price-regular" data-mrp-display>
-			<?php echo esc_html( $symbol . number_format( $regular_price, 0, '.', ',' ) ); ?>
+			<?php echo esc_html( $symbol . number_format( $regular_price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 		</s>
 	<?php endif; ?>
 
 	<span class="pdp-buybox__price-amount" data-price-display>
-		<?php echo esc_html( $symbol . number_format( $first_price, 0, '.', ',' ) ); ?>
+		<?php echo esc_html( $symbol . number_format( $first_price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 	</span>
 
 	<?php if ( ! empty( $meta['buy_box_amount'] ) && ! empty( $meta['buy_box_unit'] ) ) : ?>

@@ -41,12 +41,12 @@ $symbol   = get_woocommerce_currency_symbol( $currency );
 
 	<?php if ( $is_on_sale ) : ?>
 		<s class="pdp-buybox__price-regular">
-			<?php echo esc_html( $symbol . number_format( $regular_price, 0, '.', ',' ) ); ?>
+			<?php echo esc_html( $symbol . number_format( $regular_price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 		</s>
 	<?php endif; ?>
 
 	<span class="pdp-buybox__price-amount">
-		<?php echo esc_html( $symbol . number_format( $price, 0, '.', ',' ) ); ?>
+		<?php echo esc_html( $symbol . number_format( $price, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() ) ); ?>
 	</span>
 
 	<?php if ( ! empty( $meta['buy_box_amount'] ) && ! empty( $meta['buy_box_unit'] ) ) : ?>

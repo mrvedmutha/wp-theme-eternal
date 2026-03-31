@@ -109,11 +109,12 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		$product    = wc_get_product( $product_id );
 
 		$data = array(
-			'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-			'nonce'      => wp_create_nonce( 'wc_get_variation' ),
-			'productId'  => $product_id,
-			'variations' => array(),
-			'plans'      => array(),
+			'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+			'nonce'         => wp_create_nonce( 'wc_get_variation' ),
+			'productId'     => $product_id,
+			'priceDecimals' => wc_get_price_decimals(),
+			'variations'    => array(),
+			'plans'         => array(),
 		);
 
 		if ( $product && $product->is_type( 'variable' ) ) {
@@ -271,6 +272,6 @@ class Component implements Component_Interface, Templating_Component_Interface {
 			$currency = get_woocommerce_currency();
 		}
 		$symbol = get_woocommerce_currency_symbol( $currency );
-		return $symbol . number_format( $amount, 0, '.', ',' );
+		return $symbol . number_format( $amount, wc_get_price_decimals(), wc_get_price_decimal_separator(), wc_get_price_thousand_separator() );
 	}
 }

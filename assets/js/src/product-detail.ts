@@ -14,6 +14,7 @@ declare const EternalPDP: {
 	ajaxUrl: string;
 	nonce: string;
 	productId: number;
+	priceDecimals: number;
 	variations: Array<{
 		variation_id: number;
 		attributes: Record<string, string>;
@@ -720,8 +721,14 @@ function initSubscriptionToggle(): void {
 		: 0;
 	const baseUnitText = unitDisplay?.dataset.unitText ?? "";
 
+	const decimals =
+		typeof EternalPDP !== "undefined" ? EternalPDP.priceDecimals : 2;
 	const formatPrice = (symbol: string, amount: number): string =>
-		symbol + new Intl.NumberFormat("en-IN").format(amount);
+		symbol +
+		new Intl.NumberFormat("en-IN", {
+			minimumFractionDigits: decimals,
+			maximumFractionDigits: decimals,
+		}).format(amount);
 
 	const applyPlanTier = (months: number): void => {
 		const tier = EternalPDP.plans.find((p) => p.months === months);
