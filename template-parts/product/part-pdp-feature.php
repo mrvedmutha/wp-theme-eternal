@@ -8,6 +8,10 @@
  * @package wp_rig
  */
 
+namespace WP_Rig\WP_Rig;
+
+use function WP_Rig\WP_Rig\wp_rig;
+
 defined( 'ABSPATH' ) || exit;
 
 $feature = isset( $args['feature'] ) ? $args['feature'] : array();
@@ -39,17 +43,8 @@ if ( $image_id > 0 ) {
 	$img_tag = '';
 }
 
-// Convert body text to paragraphs.
-$body_html = '';
-if ( $body ) {
-	$paragraphs = preg_split( '/\r?\n\r?\n/', trim( $body ) );
-	foreach ( $paragraphs as $para ) {
-		$para = trim( $para );
-		if ( $para ) {
-			$body_html .= '<p>' . nl2br( esc_html( $para ) ) . '</p>';
-		}
-	}
-}
+// Convert body text: **bold** → <strong>, double newlines → <p> blocks.
+$body_html = $body ? wp_kses_post( wp_rig()->parse_markdown_light( $body ) ) : '';
 ?>
 
 <div class="pdp-feature">
@@ -61,7 +56,7 @@ if ( $body ) {
 
 		<?php if ( $body_html ) : ?>
 			<div class="pdp-feature__body">
-				<?php echo wp_kses_post( $body_html ); ?>
+				<?php echo $body_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- sanitized via wp_kses_post above ?>
 			</div>
 		<?php endif; ?>
 	</div><!-- .pdp-feature__text -->

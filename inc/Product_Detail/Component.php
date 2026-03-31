@@ -180,14 +180,14 @@ class Component implements Component_Interface, Templating_Component_Interface {
 		// Normalise encoding artifacts in feature body text.
 		foreach ( $features as &$feature ) {
 			if ( isset( $feature['body'] ) ) {
-				$feature['body'] = str_replace(
-					array( 'rn', 'u2014', 'u2019', 'u2013' ),
-					array( "\n", '—', '\u2019', '–' ),
-					$feature['body']
-				);
-				// Decode unicode escapes that survived JSON decoding as literals.
+				// Paragraph breaks first (rnrn), then single rn only when NOT flanked by letters
+				// so words like "Eternal" or "return" are not mangled.
+				$feature['body'] = str_replace( 'rnrn', "\n\n", $feature['body'] );
+				$feature['body'] = preg_replace( '/(?<![a-zA-Z])rn(?![a-zA-Z])/', "\n", $feature['body'] );
+
+				// Decode bare uXXXX unicode literals (backslash was stripped by the data source).
 				$feature['body'] = preg_replace_callback(
-					'/\\\\u([0-9a-fA-F]{4})/',
+					'/u([0-9a-fA-F]{4})/',
 					function ( array $m ): string {
 						return mb_convert_encoding( pack( 'H*', $m[1] ), 'UTF-8', 'UCS-2BE' );
 					},

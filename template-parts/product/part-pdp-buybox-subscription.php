@@ -126,9 +126,12 @@ $first_price = $first_plan['final_price'];
 	</span>
 
 	<?php if ( ! empty( $meta['buy_box_amount'] ) && ! empty( $meta['buy_box_unit'] ) ) : ?>
-		<span class="pdp-buybox__price-unit">
-			/ <?php echo esc_html( $meta['buy_box_amount'] . $meta['buy_box_unit'] ); ?>
-		</span>
+		<span
+			class="pdp-buybox__price-unit"
+			data-unit-display
+			data-unit-amount="<?php echo esc_attr( $meta['buy_box_amount'] ); ?>"
+			data-unit-text="<?php echo esc_attr( $meta['buy_box_unit'] ); ?>"
+		>/ <?php echo esc_html( $meta['buy_box_amount'] . ' ' . $meta['buy_box_unit'] ); ?></span>
 	<?php endif; ?>
 
 	<p class="pdp-buybox__price-tax"><?php esc_html_e( '(Incl. of all taxes)', 'wp-rig' ); ?></p>

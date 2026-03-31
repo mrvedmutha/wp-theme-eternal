@@ -714,6 +714,11 @@ function initSubscriptionToggle(): void {
 	const supplyMonths =
 		document.querySelector<HTMLInputElement>(".pdp-supply-months");
 	const planNote = modeGroup.querySelector<HTMLElement>("[data-plan-note]");
+	const unitDisplay = document.querySelector<HTMLElement>("[data-unit-display]");
+	const baseUnitAmount = unitDisplay
+		? parseInt(unitDisplay.dataset.unitAmount ?? "0", 10)
+		: 0;
+	const baseUnitText = unitDisplay?.dataset.unitText ?? "";
 
 	const formatPrice = (symbol: string, amount: number): string =>
 		symbol + new Intl.NumberFormat("en-IN").format(amount);
@@ -737,6 +742,11 @@ function initSubscriptionToggle(): void {
 
 		if (planNote) {
 			planNote.textContent = tier.contentsNote || "";
+		}
+
+		// Update unit quantity: base amount × months.
+		if (unitDisplay && baseUnitAmount) {
+			unitDisplay.textContent = `/ ${baseUnitAmount * months} ${baseUnitText}`;
 		}
 	};
 
@@ -774,6 +784,11 @@ function initSubscriptionToggle(): void {
 				priceDisplay.textContent = oneTimeEl.textContent ?? "";
 			}
 			if (supplyMonths) supplyMonths.value = "0";
+
+			// Reset unit to base amount.
+			if (unitDisplay && baseUnitAmount) {
+				unitDisplay.textContent = `/ ${baseUnitAmount} ${baseUnitText}`;
+			}
 		}
 	};
 
