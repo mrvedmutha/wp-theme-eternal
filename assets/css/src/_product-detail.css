@@ -837,16 +837,23 @@ body.pdp-modal-open .pdp-qty__select {
 
 /* ─── Editorial Feature Panels ───────────────────────────────────────────── */
 
+.pdp-features {
+	max-width: 1440px;
+	width: 100%;
+	margin: 0 auto;
+}
+
 .pdp-feature {
 	display: flex;
 	align-items: flex-start;
 	width: 100%;
-	margin-top: var(--section-gap);
+	padding: 0 0 40px 40px;
 }
 
 .pdp-feature__text {
 	flex: 0 0 40%;
-	padding: 40px 40px 40px 0;
+	padding-top: 40px;
+	padding-right: 40px;
 	position: sticky;
 	top: var(--nav-height);
 	align-self: flex-start;
@@ -882,7 +889,7 @@ body.pdp-modal-open .pdp-qty__select {
 }
 
 .pdp-feature__img {
-	width: 100%;
+	width: auto;
 	height: 100%;
 	object-fit: cover;
 	display: block;
@@ -891,13 +898,11 @@ body.pdp-modal-open .pdp-qty__select {
 /* ─── Key Ingredients ────────────────────────────────────────────────────── */
 
 .pdp-ingredients {
-	padding: 0 0 var(--space-20);
 	margin-top: var(--section-gap);
 }
 
 .pdp-ingredients--tinted {
 	background: var(--color-grey);
-	padding-top: var(--space-16);
 }
 
 .pdp-ingredients__title {
@@ -908,7 +913,8 @@ body.pdp-modal-open .pdp-qty__select {
 	letter-spacing: -2px;
 	color: var(--color-primary);
 	text-align: center;
-	margin: 0 0 var(--space-10);
+	margin: 0;
+	padding: var(--space-20) 0;
 }
 
 .pdp-ingredients__grid {
@@ -916,7 +922,7 @@ body.pdp-modal-open .pdp-qty__select {
 	flex-direction: row;
 	justify-content: center;
 	gap: 10px;
-	padding: 0 20px;
+	padding: 0 20px var(--space-20);
 }
 
 .pdp-ingredients__card {
