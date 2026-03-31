@@ -21,6 +21,7 @@
 	--pdp-border-dark: 0.5px solid #202727;
 	--pdp-border-rule: 0.5px solid var(--color-rule);
 	--pdp-radius: 5px;
+	--color-primary-alpha-30: rgba(2, 31, 29, 0.15);
 }
 
 /* ─── PDP page-shell resets ──────────────────────────────────────────────── */
@@ -170,6 +171,89 @@ body.single-product .site-main {
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	position: relative;
+	cursor: pointer;
+}
+
+/* Gradient overlays */
+.pdp-gallery__gradient {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 120px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.pdp-gallery__gradient--left {
+	left: 0;
+	background: linear-gradient(
+		to right,
+		var(--color-primary-alpha-30),
+		transparent
+	);
+}
+
+.pdp-gallery__gradient--right {
+	right: 0;
+	background: linear-gradient(
+		to left,
+		var(--color-primary-alpha-30),
+		transparent
+	);
+}
+
+.pdp-gallery__hero:hover .pdp-gallery__gradient {
+	opacity: 1;
+}
+
+/* Navigation controls */
+.pdp-gallery__nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: transparent;
+	border: none;
+	color: #fff;
+	width: 48px;
+	height: 48px;
+	cursor: pointer;
+	opacity: 0.8;
+	transition:
+		opacity 0.3s ease,
+		transform 0.2s ease;
+	z-index: 2;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pdp-gallery__nav:hover {
+	opacity: 1;
+	transform: translateY(-50%) scale(1.1);
+}
+
+.pdp-gallery__nav:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.pdp-gallery__nav--prev {
+	left: 20px;
+}
+
+.pdp-gallery__nav--next {
+	right: 20px;
+}
+
+.pdp-gallery__nav svg {
+	width: 24px;
+	height: 24px;
+	display: block;
+	filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
 }
 
 .pdp-gallery__hero-img {
@@ -179,6 +263,14 @@ body.single-product .site-main {
 	filter: drop-shadow(0 4px 24px rgba(2, 31, 29, 0.12));
 	display: block;
 	transition: opacity 0.2s ease;
+}
+
+/* Zoom effect on hover */
+.pdp-gallery__hero:hover .pdp-gallery__hero-img {
+	transform: scale(1.05);
+	transition:
+		transform 0.3s ease,
+		opacity 0.2s ease;
 }
 
 /* ─── Buy Box ────────────────────────────────────────────────────────────── */
@@ -310,6 +402,11 @@ body.single-product .site-main {
 
 .pdp-buybox__select:focus {
 	outline: none;
+}
+
+/* Reduce z-index when modal is open */
+body.pdp-modal-open .pdp-buybox__select-wrap {
+	z-index: 1;
 }
 
 .pdp-buybox__select-chevron {
@@ -483,6 +580,11 @@ body.single-product .site-main {
 
 .pdp-qty__select:focus-visible {
 	outline: none;
+}
+
+/* Reduce z-index when modal is open */
+body.pdp-modal-open .pdp-qty__select {
+	z-index: 1;
 }
 
 .pdp-qty__chevron {
@@ -798,4 +900,267 @@ body.single-product .site-main {
 	letter-spacing: 0.15px;
 	color: var(--color-muted);
 	margin: 0;
+}
+
+/* ─── Lightbox Modal ─────────────────────────────────────────────────────── */
+
+/* When modal is open, hide header, sidebar, and select dropdowns completely */
+body.pdp-modal-open .site-header,
+body.pdp-modal-open .site-sidebar,
+body.pdp-modal-open .site-sidebar__overlay,
+body.pdp-modal-open .pdp-buybox__select-wrap,
+body.pdp-modal-open .pdp-qty,
+body.pdp-modal-open select {
+	visibility: hidden !important;
+	opacity: 0 !important;
+}
+
+/* Ensure modal creates new stacking context */
+.pdp-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 999999;
+	isolation: isolate;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s ease;
+}
+
+.pdp-modal:not([hidden]) {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.pdp-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.9);
+	cursor: pointer;
+}
+
+.pdp-modal__container {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+}
+
+.pdp-modal__close {
+	position: fixed;
+	top: 30px;
+	right: 30px;
+	background: transparent;
+	border: none;
+	color: #fff;
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	opacity: 0.8;
+	transition:
+		opacity 0.3s ease,
+		transform 0.2s ease;
+	z-index: 10;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pdp-modal__close:hover {
+	opacity: 1;
+	transform: scale(1.1);
+}
+
+.pdp-modal__close:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 4px;
+}
+
+.pdp-modal__close svg {
+	width: 20px;
+	height: 20px;
+	display: block;
+	filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7));
+}
+
+.pdp-modal__content {
+	position: relative;
+	max-width: 95vw;
+	max-height: 90vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: visible;
+}
+
+/* Modal gradients */
+.pdp-modal__gradient {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	width: 150px;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.pdp-modal__gradient--left {
+	left: 0;
+	background: linear-gradient(
+		to right,
+		var(--color-primary-alpha-30),
+		transparent
+	);
+}
+
+.pdp-modal__gradient--right {
+	right: 0;
+	background: linear-gradient(
+		to left,
+		var(--color-primary-alpha-30),
+		transparent
+	);
+}
+
+/* Show gradients when class is added (via JS timer) */
+.pdp-modal--gradient-visible .pdp-modal__gradient {
+	opacity: 1;
+}
+
+/* Modal navigation */
+.pdp-modal__nav {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: transparent;
+	border: none;
+	color: #fff;
+	width: 56px;
+	height: 56px;
+	cursor: pointer;
+	opacity: 0.8;
+	transition:
+		opacity 0.3s ease,
+		transform 0.2s ease;
+	z-index: 2;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.pdp-modal__nav:hover {
+	opacity: 1;
+	transform: translateY(-50%) scale(1.15);
+}
+
+.pdp-modal__nav:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 4px;
+}
+
+.pdp-modal__nav--prev {
+	left: 30px;
+}
+
+.pdp-modal__nav--next {
+	right: 30px;
+}
+
+.pdp-modal__nav svg {
+	width: 32px;
+	height: 32px;
+	display: block;
+	filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.7));
+}
+
+/* Modal image */
+.pdp-modal__img {
+	max-width: 95vw;
+	max-height: 90vh;
+	width: auto;
+	height: auto;
+	object-fit: contain;
+	display: block;
+	transition: opacity 0.15s ease;
+}
+
+/* Thumbnail strip in modal - Hidden per requirements */
+.pdp-modal__thumbs {
+	display: none;
+}
+
+.pdp-modal__thumb {
+	display: none;
+}
+
+/* Mobile/Touch optimizations */
+@media (max-width: 768px) {
+	.pdp-modal__container {
+		max-width: 95vw;
+		max-height: 95vh;
+	}
+
+	.pdp-modal__content {
+		max-width: 95vw;
+		max-height: 95vh;
+	}
+
+	.pdp-modal__close {
+		top: -45px;
+		right: 10px;
+		width: 36px;
+		height: 36px;
+	}
+
+	.pdp-modal__nav {
+		width: 48px;
+		height: 48px;
+		mix-blend-mode: difference; /* Ensure visibility on all backgrounds */
+	}
+
+	.pdp-modal__nav--prev {
+		left: 15px;
+	}
+
+	.pdp-modal__nav--next {
+		right: 15px;
+	}
+
+	.pdp-modal__nav svg {
+		width: 28px;
+		height: 28px;
+	}
+
+	/* Gallery hero responsive */
+	.pdp-gallery__nav {
+		width: 40px;
+		height: 40px;
+		mix-blend-mode: difference;
+	}
+
+	.pdp-gallery__nav--prev {
+		left: 10px;
+	}
+
+	.pdp-gallery__nav--next {
+		right: 10px;
+	}
+
+	.pdp-gallery__nav svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.pdp-gallery__gradient {
+		width: 80px;
+	}
 }

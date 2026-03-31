@@ -17,14 +17,14 @@
 
 /* ── Eternal Labs nav type scale token ───────────────────── */
 :root {
-	--header-nav-size:       13px;
-	--header-nav-lh:         16px;
-	--header-nav-ls:         0.13px;
-	--header-nav-color:      #394342;
-	--header-nav-color-inv:  var(--color-white);
-	--header-bg:             var(--color-white);
+	--header-nav-size: 13px;
+	--header-nav-lh: 16px;
+	--header-nav-ls: 0.13px;
+	--header-nav-color: #394342;
+	--header-nav-color-inv: var(--color-white);
+	--header-bg: var(--color-white);
 	--header-bg-transparent: transparent;
-	--header-transition:     background-color 0.3s ease, color 0.3s ease;
+	--header-transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /*--------------------------------------------------------------
@@ -35,7 +35,7 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	z-index: 1000;
+	z-index: 100;
 	width: 100vw;
 	display: flex;
 	align-items: center;
@@ -96,7 +96,9 @@
 	cursor: pointer;
 	padding: 8px;
 	color: var(--header-nav-color);
-	transition: color 0.3s ease, opacity 0.3s ease;
+	transition:
+		color 0.3s ease,
+		opacity 0.3s ease;
 }
 
 .header-hamburger:hover {
@@ -139,7 +141,7 @@
 
 /* Underline animation via ::after */
 .header-nav__list a::after {
-	content: '';
+	content: "";
 	position: absolute;
 	bottom: 4px;
 	left: 10px;
@@ -182,7 +184,9 @@
 	opacity: 0;
 	pointer-events: none;
 	transform: translateY(-4px);
-	transition: opacity 0.2s ease, transform 0.2s ease;
+	transition:
+		opacity 0.2s ease,
+		transform 0.2s ease;
 	z-index: 100;
 }
 
@@ -322,7 +326,9 @@
 }
 
 /* Logo colour inversion in transparent state */
-.has-transparent-header .site-header:not(.is-scrolled):not(:hover) .custom-logo {
+.has-transparent-header
+	.site-header:not(.is-scrolled):not(:hover)
+	.custom-logo {
 	filter: brightness(0) invert(1);
 }
 
@@ -333,16 +339,28 @@
 }
 
 .has-transparent-header .site-header:not(.is-scrolled):hover .header-nav__link,
-.has-transparent-header .site-header:not(.is-scrolled):hover .header-nav__link-text,
-.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__btn,
-.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__label,
-.has-transparent-header .site-header:not(.is-scrolled):hover .header-utility__link,
+.has-transparent-header
+	.site-header:not(.is-scrolled):hover
+	.header-nav__link-text,
+.has-transparent-header
+	.site-header:not(.is-scrolled):hover
+	.header-utility__btn,
+.has-transparent-header
+	.site-header:not(.is-scrolled):hover
+	.header-utility__label,
+.has-transparent-header
+	.site-header:not(.is-scrolled):hover
+	.header-utility__link,
 .has-transparent-header .site-header:not(.is-scrolled):hover svg {
 	color: var(--header-nav-color);
 }
 
 /* Push page content down to avoid overlap on transparent-header pages */
-.has-transparent-header #page > *:not(.site-header):not(.site-sidebar):not(.site-sidebar__overlay):not(#search-megamenu) {
+.has-transparent-header
+	#page
+	> *:not(.site-header):not(.site-sidebar):not(.site-sidebar__overlay):not(
+		#search-megamenu
+	) {
 	position: relative;
 	z-index: 1;
 }
@@ -477,7 +495,7 @@
 	width: 100%;
 	height: 100%;
 	background-color: var(--header-bg, #fff);
-	z-index: 2000;
+	z-index: 200;
 	display: flex;
 	flex-direction: column;
 	transform: translateX(-100%);
